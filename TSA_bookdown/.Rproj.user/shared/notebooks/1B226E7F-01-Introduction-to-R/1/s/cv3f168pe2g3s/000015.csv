@@ -1,6 +1,0 @@
-"0","#Note that xaxt = ""n"" tells R to not give any labels on the "
-"0","#  x-axis (yaxt = ""n"" works for y-axis)"
-"0","plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA, xlab = ""HS GPA"", "
-"0","     ylab = ""College GPA"", main = ""College GPA vs. HS GPA"", "
-"0","     xaxt = ""n"", xlim = c(0, 4.5), ylim = c(0, 4.5), col = "
-"0","     ""red"", pch = 1)"

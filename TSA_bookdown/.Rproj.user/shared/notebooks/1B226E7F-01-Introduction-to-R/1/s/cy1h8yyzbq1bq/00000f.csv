@@ -1,2 +1,0 @@
-"0","gpatxt <- read.table(""gpa.txt"", header=TRUE, sep="""")"
-"0","gpacsv <- read.csv(""gpa.csv"")"

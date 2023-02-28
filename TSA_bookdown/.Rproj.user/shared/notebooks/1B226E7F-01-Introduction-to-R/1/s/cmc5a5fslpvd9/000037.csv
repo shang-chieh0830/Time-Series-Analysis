@@ -1,5 +1,0 @@
-"0","    "
-"0","# Puts the line y = a + bx on the plot"
-"0","abline(a = mod.fit$coefficients[1], b = "
-"0","    mod.fit$coefficients[2], lty = ""solid"", col = "
-"0","    ""blue"", lwd = 2)"

@@ -1,6 +1,0 @@
-"0","library(tidyverse)"
-"0","save.fit <- data.frame(gpacsv, C.GPA.hat = "
-"0","    round(mod.fit$fitted.values,2), residuals = "
-"0","    round(mod.fit$residuals,2))"
-"0",""
-"0","save.fit %>% head()"

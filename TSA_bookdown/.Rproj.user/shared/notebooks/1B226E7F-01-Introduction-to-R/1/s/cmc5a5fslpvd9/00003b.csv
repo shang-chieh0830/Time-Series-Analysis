@@ -1,7 +1,0 @@
-"0",""
-"0",""
-"0","# Add line"
-"0","curve(expr = mod.fit$coefficients[1] + "
-"0","    mod.fit$coefficients[2]*x, "
-"0","    xlim = c(min(gpacsv$HSGPA),max(gpacsv$HSGPA)), "
-"0","    col= ""blue"", add = TRUE, lwd = 2)"

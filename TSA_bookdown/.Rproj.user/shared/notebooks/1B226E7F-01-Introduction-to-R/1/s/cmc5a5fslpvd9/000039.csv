@@ -1,8 +1,0 @@
-"0","    "
-"0",""
-"0","# Same scatter plot as before"
-"0","plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA, xlab = ""HS "
-"0","    GPA"", ylab = ""College GPA"", main = ""College GPA vs. "
-"0","    HS GPA"", xlim = c(0,4.5), ylim = c(0,4.5), col = "
-"0","    ""red"", pch = 1, cex = 1.0, panel.first = grid(col = "
-"0","    ""gray"", lty = ""dotted""))"
