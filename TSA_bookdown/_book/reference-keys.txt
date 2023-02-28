@@ -1,0 +1,7 @@
+about
+introduction-to-r
+basic-operation
+vectors
+files
+regression
+object-oriented-language

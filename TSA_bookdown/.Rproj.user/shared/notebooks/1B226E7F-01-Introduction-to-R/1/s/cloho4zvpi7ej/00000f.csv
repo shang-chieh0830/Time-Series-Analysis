@@ -1,0 +1,23 @@
+"0","mod.fit <- lm(formula= CollegeGPA~ HSGPA, data=gpacsv)"
+"0","mod.fit"
+"1","
+Call:
+"
+"1",""
+"1","lm(formula = CollegeGPA ~ HSGPA, data = gpacsv)"
+"1",""
+"1","
+
+"
+"1","Coefficients:
+"
+"1","(Intercept)  "
+"1","      HSGPA  "
+"1","
+"
+"1","     1.0869  "
+"1","     0.6125  "
+"1","
+"
+"1","
+"

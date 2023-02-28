@@ -1,0 +1,6 @@
+"0","plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA, xlab = ""HS "
+"0","    GPA"", ylab = ""College GPA"", main = ""College GPA vs. HS "
+"0","    GPA"", xlim = c(0,4.5), ylim = c(0,4.5), col = ""red"", "
+"0","    pch = 1, cex = 1.0, panel.first = grid(col = ""gray"", lty "
+"0","    = ""dotted""))"
+"0",""
