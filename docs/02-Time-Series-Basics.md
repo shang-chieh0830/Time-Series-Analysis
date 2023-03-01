@@ -90,7 +90,7 @@ ggplot(df, aes(x = t, y = Enrollment)) +
   theme(panel.grid.major = element_line(colour = "gray", linetype = "dotted"))  # Add gray dotted lines to the plot
 ```
 
-![](02-Time-Series-Basics_files/figure-epub3/unnamed-chunk-7-1.png)<!-- -->
+<img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-7-1.png" width="672" />
 
 When only x is specified in the `plot()` function, R puts this on the y-axis and uses the observation number on the x-axis.
 
@@ -119,7 +119,7 @@ lines(y = summer$Enrollment, x = summer$t, col =
 legend(x="center", legend= c("Fall","Spring","Summer"), pch=c(1,2,3), lty=c(1,1,1), col=c("blue","red","darkgreen"), bty="n")
 ```
 
-![](02-Time-Series-Basics_files/figure-epub3/unnamed-chunk-8-1.png)<!-- -->
+<img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 
 ```r
@@ -143,7 +143,7 @@ points(y = osu.enroll$Enrollment,
     "lightgray")
 ```
 
-![](02-Time-Series-Basics_files/figure-epub3/unnamed-chunk-9-1.png)<!-- -->
+<img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 ## S&P500 Index
 
@@ -218,7 +218,7 @@ abline(h = seq(from = 0, to = 5000, by = 1000), lty =
     "dotted", col = "lightgray")
 ```
 
-![](02-Time-Series-Basics_files/figure-epub3/unnamed-chunk-15-1.png)<!-- -->
+<img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 
 ```r
@@ -242,7 +242,7 @@ abline(h = seq(from = 0, to = 5000, by = 1000), lty =
     "dotted", col = "lightgray")
 ```
 
-![](02-Time-Series-Basics_files/figure-epub3/unnamed-chunk-16-1.png)<!-- -->
+<img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-16-1.png" width="672" />
 
 ## Sunspots
 
@@ -319,7 +319,7 @@ points(y = sunspots$Mean.total, x = sunspots$Mid.year,
     pch = 20, col = "blue")
 ```
 
-![](02-Time-Series-Basics_files/figure-epub3/unnamed-chunk-21-1.png)<!-- -->
+<img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 
 ```r
@@ -392,5 +392,5 @@ plot(x = x, ylab = expression(paste(x[t], " (Number of
    = "Sunspots per year from 1700 to 2020")
 ```
 
-![](02-Time-Series-Basics_files/figure-epub3/unnamed-chunk-24-1.png)<!-- -->
+<img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-24-1.png" width="672" />
 

@@ -221,7 +221,7 @@ plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA,
     = "dotted"))
 ```
 
-![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-27-1.png)<!-- -->
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-27-1.png" width="672" />
 The `plot()` function creates a two dimensional plot of data. 
 
 Here are descriptions of its arguments:
@@ -435,7 +435,7 @@ plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA, xlab = "HS GPA",
      "red", pch = 1)
 ```
 
-![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-37-1.png)<!-- -->
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-37-1.png" width="672" />
 
 
 ```r
@@ -448,7 +448,7 @@ plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA, xlab = "HS GPA",
 axis(side = 1, at = seq(from = 0, to = 4.5, by = 0.5)) 
 ```
 
-![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-38-1.png)<!-- -->
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-38-1.png" width="672" />
 
 
 ```r
@@ -465,7 +465,7 @@ axis(side = 1, at = seq(from = 0, to = 4.5, by = 0.1), tck
       = 0.01, labels = FALSE) 
 ```
 
-![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-39-1.png)<!-- -->
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-39-1.png" width="672" />
 
 ## Object-Oriented Language
 
@@ -484,7 +484,7 @@ There are many generic functions! For example, `plot()` is a generic function (t
 plot(mod.fit)
 ```
 
-![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-40-1.png)<!-- -->![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-40-2.png)<!-- -->![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-40-3.png)<!-- -->![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-40-4.png)<!-- -->
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-1.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-2.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-3.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-4.png" width="672" />
 
 The purpose of generic functions is to use a familiar language set with any object. So it is convenient to use the same language set no matter the application. This is why R is referred to as an object-oriented language.
 
