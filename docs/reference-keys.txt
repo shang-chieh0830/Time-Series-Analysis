@@ -10,3 +10,4 @@ example-data
 sp500-index
 sunspots
 plot.ts
+time-series-basics-basic-model

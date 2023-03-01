@@ -37,7 +37,7 @@ set in the _output.yml file.</p>" />
   
   
 <link rel="prev" href="introduction-to-r.html"/>
-
+<link rel="next" href="time-series-basics-basic-model.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -160,6 +160,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3.3.1" data-path="time-series-basics-plotting.html"><a href="time-series-basics-plotting.html#plot.ts"><i class="fa fa-check"></i><b>3.3.1</b> plot.ts()</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="4" data-path="time-series-basics-basic-model.html"><a href="time-series-basics-basic-model.html"><i class="fa fa-check"></i><b>4</b> Time Series Basics-Basic Model</a></li>
 </ul>
 
       </nav>
@@ -236,7 +237,7 @@ The aim of this chapter is to help you grasp some of the ideas about plotting.</
 <span id="cb49-11"><a href="time-series-basics-plotting.html#cb49-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;OSU Enrollment from Fall 1989 to Fall 2002&quot;</span>) <span class="sc">+</span>  <span class="co"># Set axis labels and title</span></span>
 <span id="cb49-12"><a href="time-series-basics-plotting.html#cb49-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span>  <span class="co"># Set the theme to a white background with black lines</span></span>
 <span id="cb49-13"><a href="time-series-basics-plotting.html#cb49-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>))  <span class="co"># Add gray dotted lines to the plot</span></span></code></pre></div>
-<p><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="02-Time-Series-Basics-Plotting_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>When only x is specified in the <code>plot()</code> function, R puts this on the y-axis and uses the observation number on the x-axis.</p>
 <p>Compare this to the next plot below where both x and y arguments are specified.</p>
 <div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="time-series-basics-plotting.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#More complicated plot</span></span>
@@ -258,7 +259,7 @@ The aim of this chapter is to help you grasp some of the ideas about plotting.</
 <span id="cb50-17"><a href="time-series-basics-plotting.html#cb50-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;darkgreen&quot;</span>, <span class="at">type =</span> <span class="st">&quot;o&quot;</span>, <span class="at">pch =</span> <span class="dv">3</span>)</span>
 <span id="cb50-18"><a href="time-series-basics-plotting.html#cb50-18" aria-hidden="true" tabindex="-1"></a>    </span>
 <span id="cb50-19"><a href="time-series-basics-plotting.html#cb50-19" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x=</span><span class="st">&quot;center&quot;</span>, <span class="at">legend=</span> <span class="fu">c</span>(<span class="st">&quot;Fall&quot;</span>,<span class="st">&quot;Spring&quot;</span>,<span class="st">&quot;Summer&quot;</span>), <span class="at">pch=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;darkgreen&quot;</span>), <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
-<p><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="02-Time-Series-Basics-Plotting_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="time-series-basics-plotting.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Another way to do plot with actual dates</span></span>
 <span id="cb51-2"><a href="time-series-basics-plotting.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">y =</span> osu.enroll<span class="sc">$</span>Enrollment, </span>
 <span id="cb51-3"><a href="time-series-basics-plotting.html#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">as.Date</span>(osu.enroll<span class="sc">$</span>date, <span class="at">format =</span> <span class="st">&quot;%m/%d/%Y&quot;</span>), </span>
@@ -277,7 +278,7 @@ The aim of this chapter is to help you grasp some of the ideas about plotting.</
 <span id="cb51-16"><a href="time-series-basics-plotting.html#cb51-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>, <span class="at">col =</span> <span class="st">&quot;lightgray&quot;</span>)</span>
 <span id="cb51-17"><a href="time-series-basics-plotting.html#cb51-17" aria-hidden="true" tabindex="-1"></a> <span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="dv">10000</span>, <span class="dv">15000</span>, <span class="dv">20000</span>), <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>, <span class="at">col =</span> </span>
 <span id="cb51-18"><a href="time-series-basics-plotting.html#cb51-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;lightgray&quot;</span>)</span></code></pre></div>
-<p><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="02-Time-Series-Basics-Plotting_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 </div>
 <div id="sp500-index" class="section level2 hasAnchor" number="3.2">
 <h2><span class="header-section-number">3.2</span> S&amp;P500 Index<a href="time-series-basics-plotting.html#sp500-index" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -327,7 +328,7 @@ The aim of this chapter is to help you grasp some of the ideas about plotting.</
 <span id="cb57-11"><a href="time-series-basics-plotting.html#cb57-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb57-12"><a href="time-series-basics-plotting.html#cb57-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">5000</span>, <span class="at">by =</span> <span class="dv">1000</span>), <span class="at">lty =</span> </span>
 <span id="cb57-13"><a href="time-series-basics-plotting.html#cb57-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;dotted&quot;</span>, <span class="at">col =</span> <span class="st">&quot;lightgray&quot;</span>)</span></code></pre></div>
-<p><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="02-Time-Series-Basics-Plotting_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="time-series-basics-plotting.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One more way with fine control of the dates</span></span>
 <span id="cb58-2"><a href="time-series-basics-plotting.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">y =</span> x, <span class="at">x =</span> <span class="fu">as.Date</span>(SP500<span class="sc">$</span>WeekStart, <span class="at">format =</span> </span>
 <span id="cb58-3"><a href="time-series-basics-plotting.html#cb58-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;%m/%d/%Y&quot;</span>), <span class="at">xlab =</span> <span class="st">&quot;Time&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
@@ -346,7 +347,7 @@ The aim of this chapter is to help you grasp some of the ideas about plotting.</
 <span id="cb58-16"><a href="time-series-basics-plotting.html#cb58-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;lightgray&quot;</span>)</span>
 <span id="cb58-17"><a href="time-series-basics-plotting.html#cb58-17" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">5000</span>, <span class="at">by =</span> <span class="dv">1000</span>), <span class="at">lty =</span> </span>
 <span id="cb58-18"><a href="time-series-basics-plotting.html#cb58-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;dotted&quot;</span>, <span class="at">col =</span> <span class="st">&quot;lightgray&quot;</span>)</span></code></pre></div>
-<p><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="02-Time-Series-Basics-Plotting_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 </div>
 <div id="sunspots" class="section level2 hasAnchor" number="3.3">
 <h2><span class="header-section-number">3.3</span> Sunspots<a href="time-series-basics-plotting.html#sunspots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -401,7 +402,7 @@ The aim of this chapter is to help you grasp some of the ideas about plotting.</
 <span id="cb63-6"><a href="time-series-basics-plotting.html#cb63-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb63-7"><a href="time-series-basics-plotting.html#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">y =</span> sunspots<span class="sc">$</span>Mean.total, <span class="at">x =</span> sunspots<span class="sc">$</span>Mid.year, </span>
 <span id="cb63-8"><a href="time-series-basics-plotting.html#cb63-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="02-Time-Series-Basics-Plotting_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="time-series-basics-plotting.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Convert to an object of class &quot;ts&quot;</span></span>
 <span id="cb64-2"><a href="time-series-basics-plotting.html#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb64-3"><a href="time-series-basics-plotting.html#cb64-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="at">data =</span> sunspots<span class="sc">$</span>Mean.total, <span class="at">start =</span> <span class="dv">1700</span>, frequency </span>
@@ -460,7 +461,7 @@ The aim of this chapter is to help you grasp some of the ideas about plotting.</
 <span id="cb66-2"><a href="time-series-basics-plotting.html#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(x[t], <span class="st">&quot; (Number of </span></span>
 <span id="cb66-3"><a href="time-series-basics-plotting.html#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="st">   sunspots)&quot;</span>)), <span class="at">xlab =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">type =</span> <span class="st">&quot;o&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, main </span>
 <span id="cb66-4"><a href="time-series-basics-plotting.html#cb66-4" aria-hidden="true" tabindex="-1"></a>   <span class="ot">=</span> <span class="st">&quot;Sunspots per year from 1700 to 2020&quot;</span>)</span></code></pre></div>
-<p><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<p><img src="02-Time-Series-Basics-Plotting_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -470,8 +471,8 @@ The aim of this chapter is to help you grasp some of the ideas about plotting.</
           </div>
         </div>
       </div>
-<a href="introduction-to-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="introduction-to-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="time-series-basics-basic-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
