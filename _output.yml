@@ -3,9 +3,11 @@ bookdown::gitbook:
     toc:
       before: |
         <li><a href="./">Time Series Analysis</a></li>
+    repo: https://github.com/shang-chieh0830/Time-Series-Analysis
   css: style.css
   split_by: "chapter"
   number_sections: true # 如果需要显示章节编号，添加此行
+ 
 bookdown::bs4_book:
   css: style.css
   theme:
