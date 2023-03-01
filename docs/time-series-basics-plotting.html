@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 3 Time Series Basics-Plotting | Time Series Analysis</title>
+<meta name="author" content="shang-chieh0830">
+<meta name="description" content="In this chapter, we will go over some Time Series examples. The aim of this chapter is to help you grasp some of the ideas about plotting.  3.1 Example Data Click OSU_enroll.csv to download data....">
+<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta property="og:title" content="Chapter 3 Time Series Basics-Plotting | Time Series Analysis">
+<meta property="og:type" content="book">
+<meta property="og:description" content="In this chapter, we will go over some Time Series examples. The aim of this chapter is to help you grasp some of the ideas about plotting.  3.1 Example Data Click OSU_enroll.csv to download data....">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 3 Time Series Basics-Plotting | Time Series Analysis">
+<meta name="twitter:description" content="In this chapter, we will go over some Time Series examples. The aim of this chapter is to help you grasp some of the ideas about plotting.  3.1 Example Data Click OSU_enroll.csv to download data....">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.1/transition.js"></script><script src="libs/bs3compat-0.4.1/tabs.js"></script><script src="libs/bs3compat-0.4.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
+</head>
+<body data-spy="scroll" data-target="#toc">
+
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
+
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Time Series Analysis</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
+    </div>
+
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> About</a></li>
+<li><a class="" href="introduction-to-r.html"><span class="header-section-number">2</span> Introduction to R</a></li>
+<li><a class="active" href="time-series-basics-plotting.html"><span class="header-section-number">3</span> Time Series Basics-Plotting</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/shang-chieh0830/Time-Series-Analysis">View book source <i class="fab fa-github"></i></a></p>
+        </div>
+      </nav>
+</div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="time-series-basics-plotting" class="section level1" number="3">
+<h1>
+<span class="header-section-number">3</span> Time Series Basics-Plotting<a class="anchor" aria-label="anchor" href="#time-series-basics-plotting"><i class="fas fa-link"></i></a>
+</h1>
+<p>In this chapter, we will go over some <em>Time Series</em> examples.
+The aim of this chapter is to help you grasp some of the ideas about plotting.</p>
+<div id="example-data" class="section level2" number="3.1">
+<h2>
+<span class="header-section-number">3.1</span> Example Data<a class="anchor" aria-label="anchor" href="#example-data"><i class="fas fa-link"></i></a>
+</h2>
+<p>Click <a href="http://www.chrisbilder.com/stat878/sections/2/OSU_enroll.csv">OSU_enroll.csv</a> to download data.</p>
+<div class="sourceCode" id="cb43"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">osu.enroll</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"OSU_enroll.csv"</span>, </span>
+<span>    stringsAsFactors <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">osu.enroll</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   t Semester Year Enrollment      date</span></span>
+<span><span class="co">#&gt; 1 1     Fall 1989      20110 8/31/1989</span></span>
+<span><span class="co">#&gt; 2 2   Spring 1990      19128  2/1/1990</span></span>
+<span><span class="co">#&gt; 3 3   Summer 1990       7553  6/1/1990</span></span>
+<span><span class="co">#&gt; 4 4     Fall 1990      19591 8/31/1990</span></span>
+<span><span class="co">#&gt; 5 5   Spring 1991      18361  2/1/1991</span></span>
+<span><span class="co">#&gt; 6 6   Summer 1991       6702  6/1/1991</span></span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">osu.enroll</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     t Semester Year Enrollment      date</span></span>
+<span><span class="co">#&gt; 35 35   Spring 2001      20004  2/1/2001</span></span>
+<span><span class="co">#&gt; 36 36   Summer 2001       7558  6/1/2001</span></span>
+<span><span class="co">#&gt; 37 37     Fall 2001      21872 8/31/2001</span></span>
+<span><span class="co">#&gt; 38 38   Spring 2002      20922  2/1/2002</span></span>
+<span><span class="co">#&gt; 39 39   Summer 2002       7868  6/1/2002</span></span>
+<span><span class="co">#&gt; 40 40     Fall 2002      22992 8/31/2002</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">osu.enroll</span><span class="op">$</span><span class="va">Enrollment</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#One way to do plot</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.new</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">6</span>, pointsize <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># we did not specify y-axis and R put our x in y-axis, time in  x-axis</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, ylab <span class="op">=</span> <span class="st">"OSU Enrollment"</span>, </span>
+<span>       xlab <span class="op">=</span> <span class="st">"t (time)"</span>, type<span class="op">=</span><span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"red"</span>, </span>
+<span>       main <span class="op">=</span> <span class="st">"OSU Enrollment from Fall 1989 to Fall 2002"</span>, </span>
+<span>       panel.first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray"</span>, lty <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.new</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">6</span>, pointsize <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co"># we did not specify y-axis and R put our x in y-axis, time in  x-axis</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, ylab <span class="op">=</span> <span class="st">"OSU Enrollment"</span>, </span>
+<span>       xlab <span class="op">=</span> <span class="st">"t (time)"</span>, type<span class="op">=</span><span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"red"</span>, </span>
+<span>       main <span class="op">=</span> <span class="st">"OSU Enrollment from Fall 1989 to Fall 2002"</span>, </span>
+<span>       panel.first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray"</span>, lty <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">osu.enroll</span><span class="op">$</span><span class="va">Enrollment</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></code></pre></div>
+<p>Altenatively, you can do the same thing using ggplot.</p>
+<div class="sourceCode" id="cb49"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://ggplot2.tidyverse.org">ggplot2</a></span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create a data frame</span></span>
+<span><span class="va">df</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">osu.enroll</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co"># Create the plot</span></span>
+<span><span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggplot.html">ggplot</a></span><span class="op">(</span><span class="va">df</span>, <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/aes.html">aes</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">t</span>, y <span class="op">=</span> <span class="va">Enrollment</span><span class="op">)</span><span class="op">)</span> <span class="op">+</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_path.html">geom_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"red"</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># Line plot</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/geom_point.html">geom_point</a></span><span class="op">(</span>shape <span class="op">=</span> <span class="fl">20</span>, colour <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># Add points</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/labs.html">labs</a></span><span class="op">(</span>x <span class="op">=</span> <span class="st">"t (time)"</span>, y <span class="op">=</span> <span class="st">"OSU Enrollment"</span>, </span>
+<span>       title <span class="op">=</span> <span class="st">"OSU Enrollment from Fall 1989 to Fall 2002"</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># Set axis labels and title</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/ggtheme.html">theme_bw</a></span><span class="op">(</span><span class="op">)</span> <span class="op">+</span>  <span class="co"># Set the theme to a white background with black lines</span></span>
+<span>  <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/theme.html">theme</a></span><span class="op">(</span>panel.grid.major <span class="op">=</span> <span class="fu"><a href="https://ggplot2.tidyverse.org/reference/element.html">element_line</a></span><span class="op">(</span>colour <span class="op">=</span> <span class="st">"gray"</span>, linetype <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span><span class="op">)</span>  <span class="co"># Add gray dotted lines to the plot</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-7-1.png" width="672"></div>
+<p>When only x is specified in the <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function, R puts this on the y-axis and uses the observation number on the x-axis.</p>
+<p>Compare this to the next plot below where both x and y arguments are specified.</p>
+<div class="sourceCode" id="cb50"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#More complicated plot</span></span>
+<span><span class="va">fall</span> <span class="op">&lt;-</span> <span class="va">osu.enroll</span><span class="op">[</span><span class="va">osu.enroll</span><span class="op">$</span><span class="va">Semester</span> <span class="op">==</span> <span class="st">"Fall"</span>,<span class="op">]</span></span>
+<span><span class="va">spring</span> <span class="op">&lt;-</span> <span class="va">osu.enroll</span><span class="op">[</span><span class="va">osu.enroll</span><span class="op">$</span><span class="va">Semester</span> <span class="op">==</span> <span class="st">"Spring"</span>,<span class="op">]</span></span>
+<span><span class="va">summer</span> <span class="op">&lt;-</span> <span class="va">osu.enroll</span><span class="op">[</span><span class="va">osu.enroll</span><span class="op">$</span><span class="va">Semester</span> <span class="op">==</span> <span class="st">"Summer"</span>,<span class="op">]</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">fall</span><span class="op">$</span><span class="va">Enrollment</span>, x <span class="op">=</span> <span class="va">fall</span><span class="op">$</span><span class="va">t</span>,</span>
+<span>    ylab <span class="op">=</span> <span class="st">"OSU Enrollment"</span>, xlab <span class="op">=</span> <span class="st">"t (time)"</span>, </span>
+<span>    col <span class="op">=</span> <span class="st">"blue"</span>, </span>
+<span>    main <span class="op">=</span> <span class="st">"OSU Enrollment from Fall 1989 to Fall 2002"</span>, </span>
+<span>    panel.first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray"</span>, lty <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span>, </span>
+<span>    pch <span class="op">=</span> <span class="fl">1</span>, type <span class="op">=</span> <span class="st">"o"</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">osu.enroll</span><span class="op">$</span><span class="va">Enrollment</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">spring</span><span class="op">$</span><span class="va">Enrollment</span>, x <span class="op">=</span> <span class="va">spring</span><span class="op">$</span><span class="va">t</span>, col <span class="op">=</span> <span class="st">"red"</span>, </span>
+<span>    type <span class="op">=</span> <span class="st">"o"</span>, pch <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/lines.html">lines</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">summer</span><span class="op">$</span><span class="va">Enrollment</span>, x <span class="op">=</span> <span class="va">summer</span><span class="op">$</span><span class="va">t</span>, col <span class="op">=</span> </span>
+<span>    <span class="st">"darkgreen"</span>, type <span class="op">=</span> <span class="st">"o"</span>, pch <span class="op">=</span> <span class="fl">3</span><span class="op">)</span></span>
+<span>    </span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/legend.html">legend</a></span><span class="op">(</span>x<span class="op">=</span><span class="st">"center"</span>, legend<span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Fall"</span>,<span class="st">"Spring"</span>,<span class="st">"Summer"</span><span class="op">)</span>, pch<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span><span class="op">)</span>, lty<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">1</span>,<span class="fl">1</span><span class="op">)</span>, col<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"blue"</span>,<span class="st">"red"</span>,<span class="st">"darkgreen"</span><span class="op">)</span>, bty<span class="op">=</span><span class="st">"n"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-8-1.png" width="672"></div>
+<div class="sourceCode" id="cb51"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Another way to do plot with actual dates</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">osu.enroll</span><span class="op">$</span><span class="va">Enrollment</span>, </span>
+<span>    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">osu.enroll</span><span class="op">$</span><span class="va">date</span>, format <span class="op">=</span> <span class="st">"%m/%d/%Y"</span><span class="op">)</span>, </span>
+<span>    xlab <span class="op">=</span> <span class="st">"Time"</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"red"</span>,  </span>
+<span>    main <span class="op">=</span> <span class="st">"OSU Enrollment from Fall 1989 to Fall 2002"</span>,</span>
+<span>    ylab <span class="op">=</span> <span class="st">"OSU Enrollment"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">osu.enroll</span><span class="op">$</span><span class="va">Enrollment</span>, </span>
+<span>    x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">osu.enroll</span><span class="op">$</span><span class="va">date</span>, format <span class="op">=</span> <span class="st">"%m/%d/%Y"</span><span class="op">)</span>, pch </span>
+<span>    <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Create own gridlines</span></span>
+<span><span class="co"># v specifies vertical line; h specifies horizontal line</span></span>
+<span> <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1990/1/1"</span>, <span class="st">"1992/1/1"</span>, <span class="st">"1994/1/1"</span>, </span>
+<span>    <span class="st">"1996/1/1"</span>, <span class="st">"1998/1/1"</span>, <span class="st">"2000/1/1"</span>, <span class="st">"2002/1/1"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    lty <span class="op">=</span> <span class="st">"dotted"</span>, col <span class="op">=</span> <span class="st">"lightgray"</span><span class="op">)</span></span>
+<span> <span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">10000</span>, <span class="fl">15000</span>, <span class="fl">20000</span><span class="op">)</span>, lty <span class="op">=</span> <span class="st">"dotted"</span>, col <span class="op">=</span> </span>
+<span>    <span class="st">"lightgray"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-9-1.png" width="672"></div>
+</div>
+<div id="sp500-index" class="section level2" number="3.2">
+<h2>
+<span class="header-section-number">3.2</span> S&amp;P500 Index<a class="anchor" aria-label="anchor" href="#sp500-index"><i class="fas fa-link"></i></a>
+</h2>
+<p>Click <a href="http://www.chrisbilder.com/stat878/sections/2/SP500weekly.csv">SP500weekly.csv</a> to download data.</p>
+<div class="sourceCode" id="cb52"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">SP500</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span>file<span class="op">=</span><span class="st">"SP500weekly.csv"</span>,stringsAsFactors <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">SP500</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   WeekStart   Open   High    Low  Close AdjClose     Volume</span></span>
+<span><span class="co">#&gt; 1  1/1/1995 459.21 462.49 457.20 460.68   460.68 1199080000</span></span>
+<span><span class="co">#&gt; 2  1/8/1995 460.67 466.43 458.65 465.97   465.97 1627330000</span></span>
+<span><span class="co">#&gt; 3 1/15/1995 465.97 470.43 463.99 464.78   464.78 1667400000</span></span>
+<span><span class="co">#&gt; 4 1/22/1995 464.78 471.36 461.14 470.39   470.39 1628110000</span></span>
+<span><span class="co">#&gt; 5 1/29/1995 470.39 479.91 467.49 478.65   478.65 1888560000</span></span>
+<span><span class="co">#&gt; 6  2/5/1995 478.64 482.60 478.36 481.46   481.46 1579920000</span></span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">SP500</span><span class="op">)</span></span>
+<span><span class="co">#&gt;       WeekStart    Open    High     Low   Close AdjClose</span></span>
+<span><span class="co">#&gt; 1395  9/19/2021 4402.95 4465.40 4305.91 4455.48  4455.48</span></span>
+<span><span class="co">#&gt; 1396  9/26/2021 4442.12 4457.30 4288.52 4357.04  4357.04</span></span>
+<span><span class="co">#&gt; 1397  10/3/2021 4348.84 4429.97 4278.94 4391.34  4391.34</span></span>
+<span><span class="co">#&gt; 1398 10/10/2021 4385.44 4475.82 4329.92 4471.37  4471.37</span></span>
+<span><span class="co">#&gt; 1399 10/17/2021 4463.72 4559.67 4447.47 4544.90  4544.90</span></span>
+<span><span class="co">#&gt; 1400 10/24/2021 4553.69 4608.08 4537.36 4605.38  4605.38</span></span>
+<span><span class="co">#&gt;           Volume</span></span>
+<span><span class="co">#&gt; 1395 15697030000</span></span>
+<span><span class="co">#&gt; 1396 15555390000</span></span>
+<span><span class="co">#&gt; 1397 14795520000</span></span>
+<span><span class="co">#&gt; 1398 13758090000</span></span>
+<span><span class="co">#&gt; 1399 13966070000</span></span>
+<span><span class="co">#&gt; 1400 16206040000</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="va">SP500</span><span class="op">$</span><span class="va">Close</span></span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#One way to do plot</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.new</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">6</span>, pointsize <span class="op">=</span> <span class="fl">10</span><span class="op">)</span> </span>
+<span><span class="co">#again, we do not specify y-axis here</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, ylab <span class="op">=</span> <span class="st">"S&amp;P 500 Index"</span>, xlab <span class="op">=</span> <span class="st">"t (time)"</span>, </span>
+<span>    type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"red"</span>, main <span class="op">=</span> <span class="st">"S&amp;P 500 Index from </span></span>
+<span><span class="st">    1/1/1995 to 10/25/2021 (weekly)"</span>, </span>
+<span>    panel.first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray"</span>, lty <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Another way to do plot with actual dates</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">x</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">SP500</span><span class="op">$</span><span class="va">WeekStart</span>, format <span class="op">=</span></span>
+<span>    <span class="st">"%m/%d/%Y"</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="st">"Time"</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"red"</span>, main </span>
+<span>    <span class="op">=</span> <span class="st">"S&amp;P 500 Index from 1/1/1995 to 10/25/2021 (weekly)"</span>,</span>
+<span>    ylab <span class="op">=</span> <span class="st">"S&amp;P 500 Index"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#Create own gridlines</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1995/1/1"</span>, <span class="st">"2000/1/1"</span>, <span class="st">"2005/1/1"</span>, </span>
+<span>    <span class="st">"2010/1/1"</span>, <span class="st">"2015/1/1"</span>, <span class="st">"2020/1/1"</span><span class="op">)</span><span class="op">)</span>, lty <span class="op">=</span> <span class="st">"dotted"</span>, </span>
+<span>    col <span class="op">=</span> <span class="st">"lightgray"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">0</span>, to <span class="op">=</span> <span class="fl">5000</span>, by <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>, lty <span class="op">=</span> </span>
+<span>    <span class="st">"dotted"</span>, col <span class="op">=</span> <span class="st">"lightgray"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-15-1.png" width="672"></div>
+<div class="sourceCode" id="cb58"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># One more way with fine control of the dates</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">x</span>, x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="va">SP500</span><span class="op">$</span><span class="va">WeekStart</span>, format <span class="op">=</span> </span>
+<span>    <span class="st">"%m/%d/%Y"</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="st">"Time"</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"red"</span>, </span>
+<span>    main <span class="op">=</span> <span class="st">"S&amp;P 500 Index from 1/1/1995 to 10/25/2021 </span></span>
+<span><span class="st">    (weekly)"</span>, ylab <span class="op">=</span> <span class="st">"S&amp;P 500 Index"</span>, xaxt <span class="op">=</span> <span class="st">"n"</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.POSIXct.html">axis.Date</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"1995/1/1"</span><span class="op">)</span>,</span>
+<span>    to <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2021/12/31"</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"years"</span><span class="op">)</span>, labels <span class="op">=</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/format.html">format</a></span><span class="op">(</span>x <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"1995/1/1"</span><span class="op">)</span>, to <span class="op">=</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="st">"2021/12/31"</span><span class="op">)</span>, by <span class="op">=</span> <span class="st">"years"</span><span class="op">)</span>, format <span class="op">=</span> <span class="st">"%b%y"</span><span class="op">)</span>, </span>
+<span>    las <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>  <span class="co">#las changes orientation of labels</span></span>
+<span></span>
+<span><span class="co">#Create own gridlines</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>v <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/as.Date.html">as.Date</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"1995/1/1"</span>, <span class="st">"2000/1/1"</span>, <span class="st">"2005/1/1"</span>, </span>
+<span>    <span class="st">"2010/1/1"</span>, <span class="st">"2015/1/1"</span>, <span class="st">"2020/1/1"</span><span class="op">)</span><span class="op">)</span>, lty <span class="op">=</span> <span class="st">"dotted"</span>, </span>
+<span>    col <span class="op">=</span> <span class="st">"lightgray"</span><span class="op">)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>h <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">0</span>, to <span class="op">=</span> <span class="fl">5000</span>, by <span class="op">=</span> <span class="fl">1000</span><span class="op">)</span>, lty <span class="op">=</span> </span>
+<span>    <span class="st">"dotted"</span>, col <span class="op">=</span> <span class="st">"lightgray"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-16-1.png" width="672"></div>
+</div>
+<div id="sunspots" class="section level2" number="3.3">
+<h2>
+<span class="header-section-number">3.3</span> Sunspots<a class="anchor" aria-label="anchor" href="#sunspots"><i class="fas fa-link"></i></a>
+</h2>
+<p>Click <a href="http://www.chrisbilder.com/stat878/sections/2/SN_y_tot_V2.0.csv">SN_y_tot_V2.0.csv</a> to download data.</p>
+<div class="sourceCode" id="cb59"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">sunspots</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span>file <span class="op">=</span> <span class="st">"SN_y_tot_V2.0.csv"</span>, sep <span class="op">=</span> </span>
+<span>    <span class="st">";"</span>, col.names <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="st">"Mid.year"</span>, <span class="st">"Mean.total"</span>, </span>
+<span>   <span class="st">"Mean.SD.total"</span>, <span class="st">"Numb.obs.used"</span>, <span class="st">"Definitive"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="va">sunspots</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   Mid.year Mean.total Mean.SD.total Numb.obs.used</span></span>
+<span><span class="co">#&gt; 1   1700.5        8.3            -1            -1</span></span>
+<span><span class="co">#&gt; 2   1701.5       18.3            -1            -1</span></span>
+<span><span class="co">#&gt; 3   1702.5       26.7            -1            -1</span></span>
+<span><span class="co">#&gt; 4   1703.5       38.3            -1            -1</span></span>
+<span><span class="co">#&gt; 5   1704.5       60.0            -1            -1</span></span>
+<span><span class="co">#&gt; 6   1705.5       96.7            -1            -1</span></span>
+<span><span class="co">#&gt;   Definitive</span></span>
+<span><span class="co">#&gt; 1          1</span></span>
+<span><span class="co">#&gt; 2          1</span></span>
+<span><span class="co">#&gt; 3          1</span></span>
+<span><span class="co">#&gt; 4          1</span></span>
+<span><span class="co">#&gt; 5          1</span></span>
+<span><span class="co">#&gt; 6          1</span></span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/head.html">tail</a></span><span class="op">(</span><span class="va">sunspots</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     Mid.year Mean.total Mean.SD.total Numb.obs.used</span></span>
+<span><span class="co">#&gt; 316   2015.5       69.8           6.4          8903</span></span>
+<span><span class="co">#&gt; 317   2016.5       39.8           3.9          9940</span></span>
+<span><span class="co">#&gt; 318   2017.5       21.7           2.5         11444</span></span>
+<span><span class="co">#&gt; 319   2018.5        7.0           1.1         12611</span></span>
+<span><span class="co">#&gt; 320   2019.5        3.6           0.5         12884</span></span>
+<span><span class="co">#&gt; 321   2020.5        8.8           4.1         14440</span></span>
+<span><span class="co">#&gt;     Definitive</span></span>
+<span><span class="co">#&gt; 316          1</span></span>
+<span><span class="co">#&gt; 317          1</span></span>
+<span><span class="co">#&gt; 318          1</span></span>
+<span><span class="co">#&gt; 319          1</span></span>
+<span><span class="co">#&gt; 320          1</span></span>
+<span><span class="co">#&gt; 321          1</span></span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.new</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">6</span>, pointsize <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span><span class="co">#again, we did not specify y-axis here</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sunspots</span><span class="op">$</span><span class="va">Mean.total</span>, ylab <span class="op">=</span> <span class="st">"Number of </span></span>
+<span><span class="st">    sunspots"</span>, xlab <span class="op">=</span> <span class="st">"t (time)"</span>, type <span class="op">=</span> <span class="st">"l"</span>, col <span class="op">=</span> <span class="st">"red"</span>, </span>
+<span>    main <span class="op">=</span> <span class="st">"Sunspots per year from 1700 to 2020"</span>,</span>
+<span>    panel.first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray"</span>, lty <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">sunspots</span><span class="op">$</span><span class="va">Mean.total</span>, pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Include dates</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">sunspots</span><span class="op">$</span><span class="va">Mean.total</span>, x <span class="op">=</span> <span class="va">sunspots</span><span class="op">$</span><span class="va">Mid.year</span>, ylab </span>
+<span>    <span class="op">=</span> <span class="st">"Number of sunspots"</span>, xlab <span class="op">=</span> <span class="st">"Year"</span>, type <span class="op">=</span> <span class="st">"l"</span>, col </span>
+<span>    <span class="op">=</span> <span class="st">"red"</span>, main <span class="op">=</span> <span class="st">"Sunspots per year from 1700 to 2020"</span>,</span>
+<span>    panel.first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray"</span>, lty <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/points.html">points</a></span><span class="op">(</span>y <span class="op">=</span> <span class="va">sunspots</span><span class="op">$</span><span class="va">Mean.total</span>, x <span class="op">=</span> <span class="va">sunspots</span><span class="op">$</span><span class="va">Mid.year</span>, </span>
+<span>    pch <span class="op">=</span> <span class="fl">20</span>, col <span class="op">=</span> <span class="st">"blue"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-21-1.png" width="672"></div>
+<div class="sourceCode" id="cb64"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Convert to an object of class "ts"</span></span>
+<span></span>
+<span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/ts.html">ts</a></span><span class="op">(</span>data <span class="op">=</span> <span class="va">sunspots</span><span class="op">$</span><span class="va">Mean.total</span>, start <span class="op">=</span> <span class="fl">1700</span>, frequency </span>
+<span>    <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">x</span></span>
+<span><span class="co">#&gt; Time Series:</span></span>
+<span><span class="co">#&gt; Start = 1700 </span></span>
+<span><span class="co">#&gt; End = 2020 </span></span>
+<span><span class="co">#&gt; Frequency = 1 </span></span>
+<span><span class="co">#&gt;   [1]   8.3  18.3  26.7  38.3  60.0  96.7  48.3  33.3  16.7</span></span>
+<span><span class="co">#&gt;  [10]  13.3   5.0   0.0   0.0   3.3  18.3  45.0  78.3 105.0</span></span>
+<span><span class="co">#&gt;  [19] 100.0  65.0  46.7  43.3  36.7  18.3  35.0  66.7 130.0</span></span>
+<span><span class="co">#&gt;  [28] 203.3 171.7 121.7  78.3  58.3  18.3   8.3  26.7  56.7</span></span>
+<span><span class="co">#&gt;  [37] 116.7 135.0 185.0 168.3 121.7  66.7  33.3  26.7   8.3</span></span>
+<span><span class="co">#&gt;  [46]  18.3  36.7  66.7 100.0 134.8 139.0  79.5  79.7  51.2</span></span>
+<span><span class="co">#&gt;  [55]  20.3  16.0  17.0  54.0  79.3  90.0 104.8 143.2 102.0</span></span>
+<span><span class="co">#&gt;  [64]  75.2  60.7  34.8  19.0  63.0 116.3 176.8 168.0 136.0</span></span>
+<span><span class="co">#&gt;  [73] 110.8  58.0  51.0  11.7  33.0 154.2 257.3 209.8 141.3</span></span>
+<span><span class="co">#&gt;  [82] 113.5  64.2  38.0  17.0  40.2 138.2 220.0 218.2 196.8</span></span>
+<span><span class="co">#&gt;  [91] 149.8 111.0 100.0  78.2  68.3  35.5  26.7  10.7   6.8</span></span>
+<span><span class="co">#&gt; [100]  11.3  24.2  56.7  75.0  71.8  79.2  70.3  46.8  16.8</span></span>
+<span><span class="co">#&gt; [109]  13.5   4.2   0.0   2.3   8.3  20.3  23.2  59.0  76.3</span></span>
+<span><span class="co">#&gt; [118]  68.3  52.9  38.5  24.2   9.2   6.3   2.2  11.4  28.2</span></span>
+<span><span class="co">#&gt; [127]  59.9  83.0 108.5 115.2 117.4  80.8  44.3  13.4  19.5</span></span>
+<span><span class="co">#&gt; [136]  85.8 192.7 227.3 168.7 143.0 105.5  63.3  40.3  18.1</span></span>
+<span><span class="co">#&gt; [145]  25.1  65.8 102.7 166.3 208.3 182.5 126.3 122.0 102.7</span></span>
+<span><span class="co">#&gt; [154]  74.1  39.0  12.7   8.2  43.4 104.4 178.3 182.2 146.6</span></span>
+<span><span class="co">#&gt; [163] 112.1  83.5  89.2  57.8  30.7  13.9  62.8 123.6 232.0</span></span>
+<span><span class="co">#&gt; [172] 185.3 169.2 110.1  74.5  28.3  18.9  20.7   5.7  10.0</span></span>
+<span><span class="co">#&gt; [181]  53.7  90.5  99.0 106.1 105.8  86.3  42.4  21.8  11.2</span></span>
+<span><span class="co">#&gt; [190]  10.4  11.8  59.5 121.7 142.0 130.0 106.6  69.4  43.8</span></span>
+<span><span class="co">#&gt; [199]  44.4  20.2  15.7   4.6   8.5  40.8  70.1 105.5  90.1</span></span>
+<span><span class="co">#&gt; [208] 102.8  80.9  73.2  30.9   9.5   6.0   2.4  16.1  79.0</span></span>
+<span><span class="co">#&gt; [217]  95.0 173.6 134.6 105.7  62.7  43.5  23.7   9.7  27.9</span></span>
+<span><span class="co">#&gt; [226]  74.0 106.5 114.7 129.7 108.2  59.4  35.1  18.6   9.2</span></span>
+<span><span class="co">#&gt; [235]  14.6  60.2 132.8 190.6 182.6 148.0 113.0  79.2  50.8</span></span>
+<span><span class="co">#&gt; [244]  27.1  16.1  55.3 154.3 214.7 193.0 190.7 118.9  98.3</span></span>
+<span><span class="co">#&gt; [253]  45.0  20.1   6.6  54.2 200.7 269.3 261.7 225.1 159.0</span></span>
+<span><span class="co">#&gt; [262]  76.4  53.4  39.9  15.0  22.0  66.8 132.9 150.0 149.4</span></span>
+<span><span class="co">#&gt; [271] 148.0  94.4  97.6  54.1  49.2  22.5  18.4  39.3 131.0</span></span>
+<span><span class="co">#&gt; [280] 220.1 218.9 198.9 162.4  91.0  60.5  20.6  14.8  33.9</span></span>
+<span><span class="co">#&gt; [289] 123.0 211.1 191.8 203.3 133.0  76.1  44.9  25.1  11.6</span></span>
+<span><span class="co">#&gt; [298]  28.9  88.3 136.3 173.9 170.4 163.6  99.3  65.3  45.8</span></span>
+<span><span class="co">#&gt; [307]  24.7  12.6   4.2   4.8  24.9  80.8  84.5  94.0 113.3</span></span>
+<span><span class="co">#&gt; [316]  69.8  39.8  21.7   7.0   3.6   8.8</span></span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "ts"</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/class.html">class</a></span><span class="op">(</span><span class="va">sunspots</span><span class="op">$</span><span class="va">Mean.total</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "numeric"</span></span></code></pre></div>
+<div id="plot.ts" class="section level3" number="3.3.1">
+<h3>
+<span class="header-section-number">3.3.1</span> plot.ts()<a class="anchor" aria-label="anchor" href="#plot.ts"><i class="fas fa-link"></i></a>
+</h3>
+<p>plot() is a generic function - uses the plot.ts() method function</p>
+<div class="sourceCode" id="cb66"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># we did not specify y-axis here, but x is now ts</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, ylab <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/expression.html">expression</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/paste.html">paste</a></span><span class="op">(</span><span class="va">x</span><span class="op">[</span><span class="va">t</span><span class="op">]</span>, <span class="st">" (Number of </span></span>
+<span><span class="st">   sunspots)"</span><span class="op">)</span><span class="op">)</span>, xlab <span class="op">=</span> <span class="st">"Year"</span>, type <span class="op">=</span> <span class="st">"o"</span>, col <span class="op">=</span> <span class="st">"red"</span>, main </span>
+<span>   <span class="op">=</span> <span class="st">"Sunspots per year from 1700 to 2020"</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-24-1.png" width="672"></div>
+
+</div>
+</div>
+</div>
+  <div class="chapter-nav">
+<div class="prev"><a href="introduction-to-r.html"><span class="header-section-number">2</span> Introduction to R</a></div>
+<div class="empty"></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#time-series-basics-plotting"><span class="header-section-number">3</span> Time Series Basics-Plotting</a></li>
+<li><a class="nav-link" href="#example-data"><span class="header-section-number">3.1</span> Example Data</a></li>
+<li><a class="nav-link" href="#sp500-index"><span class="header-section-number">3.2</span> S&amp;P500 Index</a></li>
+<li>
+<a class="nav-link" href="#sunspots"><span class="header-section-number">3.3</span> Sunspots</a><ul class="nav navbar-nav"><li><a class="nav-link" href="#plot.ts"><span class="header-section-number">3.3.1</span> plot.ts()</a></li></ul>
+</li>
+</ul>
+
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/shang-chieh0830/Time-Series-Analysis/blob/master/02-Time-Series-Basics.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/shang-chieh0830/Time-Series-Analysis/edit/master/02-Time-Series-Basics.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
+
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Time Series Analysis</strong>" was written by shang-chieh0830. It was last built on 2023-03-01.</p>
+  </div>
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
+</script>
+</body>
+</html>

@@ -5,3 +5,8 @@ vectors
 files
 regression
 object-oriented-language
+time-series-basics-plotting
+example-data
+sp500-index
+sunspots
+plot.ts

@@ -1,565 +1,483 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
+<html lang="en">
 <head>
-
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Chapter 2 Introduction to R | Time-Series-Analysis</title>
-  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::bs4_book,
-set in the _output.yml file.</p>" />
-  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
-
-  <meta property="og:title" content="Chapter 2 Introduction to R | Time-Series-Analysis" />
-  <meta property="og:type" content="book" />
-  
-  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::bs4_book,
-set in the _output.yml file.</p>" />
-  
-
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Chapter 2 Introduction to R | Time-Series-Analysis" />
-  
-  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
-The HTML output format for this example is bookdown::bs4_book,
-set in the _output.yml file.</p>" />
-  
-
-<meta name="author" content="shang-chieh0830" />
-
-
-<meta name="date" content="2023-02-28" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="index.html"/>
-
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-
-
-<style type="text/css">
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-
-<link rel="stylesheet" href="style.css" type="text/css" />
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<title>Chapter 2 Introduction to R | Time Series Analysis</title>
+<meta name="author" content="shang-chieh0830">
+<meta name="description" content="We will go over some of the basic R operations in this chapter. If you have questions, you should check Chris Bilder’s website for full information.  2.1 Basic Operation 2+2 #&gt; [1] 4 2^3 #&gt; [1] 8...">
+<meta name="generator" content="bookdown 0.32 with bs4_book()">
+<meta property="og:title" content="Chapter 2 Introduction to R | Time Series Analysis">
+<meta property="og:type" content="book">
+<meta property="og:description" content="We will go over some of the basic R operations in this chapter. If you have questions, you should check Chris Bilder’s website for full information.  2.1 Basic Operation 2+2 #&gt; [1] 4 2^3 #&gt; [1] 8...">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Chapter 2 Introduction to R | Time Series Analysis">
+<meta name="twitter:description" content="We will go over some of the basic R operations in this chapter. If you have questions, you should check Chris Bilder’s website for full information.  2.1 Basic Operation 2+2 #&gt; [1] 4 2^3 #&gt; [1] 8...">
+<!-- JS --><script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/2.0.6/clipboard.min.js" integrity="sha256-inc5kl9MA1hkeYUt+EC3BhlIgyp/2jDIyBLS6k3UxPI=" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fuse.js/6.4.6/fuse.js" integrity="sha512-zv6Ywkjyktsohkbp9bb45V6tEMoWhzFzXis+LrMehmJZZSys19Yxf1dopHx7WzIKxr5tK2dVcYmaCk2uqdjF4A==" crossorigin="anonymous"></script><script src="https://kit.fontawesome.com/6ecbd6c532.js" crossorigin="anonymous"></script><script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="libs/bootstrap-4.6.0/bootstrap.min.css" rel="stylesheet">
+<script src="libs/bootstrap-4.6.0/bootstrap.bundle.min.js"></script><script src="libs/bs3compat-0.4.1/transition.js"></script><script src="libs/bs3compat-0.4.1/tabs.js"></script><script src="libs/bs3compat-0.4.1/bs3compat.js"></script><link href="libs/bs4_book-1.0.0/bs4_book.css" rel="stylesheet">
+<script src="libs/bs4_book-1.0.0/bs4_book.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/autocomplete.js/0.38.0/autocomplete.jquery.min.js" integrity="sha512-GU9ayf+66Xx2TmpxqJpliWbT5PiGYxpaG8rfnBEk1LL8l1KGkRShhngwdXK1UgqhAzWpZHSiYPc09/NwDQIGyg==" crossorigin="anonymous"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/mark.min.js" integrity="sha512-5CYOlHXGh6QpOFA/TeTylKLWfB3ftPsde7AnmhuitiTX4K5SqCLBeKro6sPS8ilsz1Q4NRx3v8Ko2IBiszzdww==" crossorigin="anonymous"></script><!-- CSS --><style type="text/css">
+    
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  </style>
+<link rel="stylesheet" href="style.css">
 </head>
+<body data-spy="scroll" data-target="#toc">
 
-<body>
+<div class="container-fluid">
+<div class="row">
+  <header class="col-sm-12 col-lg-3 sidebar sidebar-book"><a class="sr-only sr-only-focusable" href="#content">Skip to main content</a>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li><a href="./">Time Series Analysis</a></li>
-
-<li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
-<li class="chapter" data-level="2" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-operation"><i class="fa fa-check"></i><b>2.1</b> Basic Operation</a></li>
-<li class="chapter" data-level="2.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#vectors"><i class="fa fa-check"></i><b>2.2</b> Vectors</a></li>
-<li class="chapter" data-level="2.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#files"><i class="fa fa-check"></i><b>2.3</b> Files</a></li>
-<li class="chapter" data-level="2.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#regression"><i class="fa fa-check"></i><b>2.4</b> Regression</a></li>
-<li class="chapter" data-level="2.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#object-oriented-language"><i class="fa fa-check"></i><b>2.5</b> Object-Oriented Language</a></li>
-</ul></li>
-</ul>
-
-      </nav>
+    <div class="d-flex align-items-start justify-content-between">
+      <h1>
+        <a href="index.html" title="">Time Series Analysis</a>
+      </h1>
+      <button class="btn btn-outline-primary d-lg-none ml-2 mt-1" type="button" data-toggle="collapse" data-target="#main-nav" aria-expanded="true" aria-controls="main-nav"><i class="fas fa-bars"></i><span class="sr-only">Show table of contents</span></button>
     </div>
 
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time-Series-Analysis</a>
-          </h1>
+    <div id="main-nav" class="collapse-lg">
+      <form role="search">
+        <input id="search" class="form-control" type="search" placeholder="Search" aria-label="Search">
+</form>
+
+      <nav aria-label="Table of contents"><h2>Table of contents</h2>
+        <ul class="book-toc list-unstyled">
+<li><a class="" href="index.html"><span class="header-section-number">1</span> About</a></li>
+<li><a class="active" href="introduction-to-r.html"><span class="header-section-number">2</span> Introduction to R</a></li>
+<li><a class="" href="time-series-basics-plotting.html"><span class="header-section-number">3</span> Time Series Basics-Plotting</a></li>
+</ul>
+
+        <div class="book-extra">
+          <p><a id="book-repo" href="https://github.com/shang-chieh0830/Time-Series-Analysis">View book source <i class="fab fa-github"></i></a></p>
         </div>
-
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
-
-            <section class="normal" id="section-">
-<div id="introduction-to-r" class="section level1 hasAnchor" number="2">
-<h1><span class="header-section-number">Chapter 2</span> Introduction to R<a href="introduction-to-r.html#introduction-to-r" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>We will go over some of the basic R operations in this section.</p>
-<p>If you have questions, you should check <a href="http://www.chrisbilder.com/stat878/sections.html">Chris Bilder’s website</a> for full information.</p>
-<div id="basic-operation" class="section level2 hasAnchor" number="2.1">
-<h2><span class="header-section-number">2.1</span> Basic Operation<a href="introduction-to-r.html#basic-operation" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="introduction-to-r.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">+</span><span class="dv">2</span></span>
-<span id="cb1-2"><a href="introduction-to-r.html#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4</span></span></code></pre></div>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="introduction-to-r.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="dv">2</span><span class="sc">^</span><span class="dv">3</span></span>
-<span id="cb2-2"><a href="introduction-to-r.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 8</span></span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="introduction-to-r.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># calculate the cdf of std. normal</span></span>
-<span id="cb3-2"><a href="introduction-to-r.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="fl">1.96</span>) <span class="co"># 1.96 is the quantile</span></span>
-<span id="cb3-3"><a href="introduction-to-r.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.9750021</span></span></code></pre></div>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="introduction-to-r.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="dv">1</span>)</span>
-<span id="cb4-2"><a href="introduction-to-r.html#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0</span></span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="introduction-to-r.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sin</span>(pi<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb5-2"><a href="introduction-to-r.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1</span></span></code></pre></div>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="introduction-to-r.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="dv">3</span><span class="sc">/</span><span class="dv">4</span></span>
-<span id="cb6-2"><a href="introduction-to-r.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.75</span></span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="introduction-to-r.html#cb7-1" aria-hidden="true" tabindex="-1"></a>save <span class="ot">&lt;-</span> <span class="dv">2</span><span class="sc">+</span><span class="dv">2</span></span>
-<span id="cb7-2"><a href="introduction-to-r.html#cb7-2" aria-hidden="true" tabindex="-1"></a>save</span>
-<span id="cb7-3"><a href="introduction-to-r.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4</span></span></code></pre></div>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="introduction-to-r.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">objects</span>()</span>
-<span id="cb8-2"><a href="introduction-to-r.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;save&quot;</span></span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="introduction-to-r.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ls</span>()</span>
-<span id="cb9-2"><a href="introduction-to-r.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;save&quot;</span></span></code></pre></div>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="introduction-to-r.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># quit operaiton</span></span>
-<span id="cb10-2"><a href="introduction-to-r.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="co"># q() </span></span></code></pre></div>
+      </nav>
 </div>
-<div id="vectors" class="section level2 hasAnchor" number="2.2">
-<h2><span class="header-section-number">2.2</span> Vectors<a href="introduction-to-r.html#vectors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="introduction-to-r.html#cb11-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">4</span>,<span class="dv">5</span>)</span>
-<span id="cb11-2"><a href="introduction-to-r.html#cb11-2" aria-hidden="true" tabindex="-1"></a>x</span>
-<span id="cb11-3"><a href="introduction-to-r.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1 2 3 4 5</span></span></code></pre></div>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="introduction-to-r.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(x)</span>
-<span id="cb12-2"><a href="introduction-to-r.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1.581139</span></span></code></pre></div>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="introduction-to-r.html#cb13-1" aria-hidden="true" tabindex="-1"></a>mysd <span class="ot">&lt;-</span> <span class="cf">function</span>(x){</span>
-<span id="cb13-2"><a href="introduction-to-r.html#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cat</span>(<span class="st">&quot; My data </span><span class="sc">\n</span><span class="st">&quot;</span>, x, <span class="st">&quot;</span><span class="sc">\n</span><span class="st"> has std deviation&quot;</span>,<span class="fu">sqrt</span>(<span class="fu">var</span>(x)))</span>
-<span id="cb13-3"><a href="introduction-to-r.html#cb13-3" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb13-4"><a href="introduction-to-r.html#cb13-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-5"><a href="introduction-to-r.html#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="introduction-to-r.html#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="fu">mysd</span>(x)</span>
-<span id="cb13-7"><a href="introduction-to-r.html#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  My data </span></span>
-<span id="cb13-8"><a href="introduction-to-r.html#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1 2 3 4 5 </span></span>
-<span id="cb13-9"><a href="introduction-to-r.html#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  has std deviation 1.581139</span></span></code></pre></div>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="introduction-to-r.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q=</span><span class="fl">1.96</span>, <span class="at">mean=</span><span class="fl">1.96</span>, <span class="at">sd=</span><span class="dv">1</span>)</span>
-<span id="cb14-2"><a href="introduction-to-r.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.5</span></span></code></pre></div>
-<p>The full syntax for <code>pnorm()</code> is <code>pnorm(q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)</code></p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="introduction-to-r.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">pnorm</span>(<span class="at">q=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">1.96</span>,<span class="fl">1.96</span>))</span>
-<span id="cb15-2"><a href="introduction-to-r.html#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.0249979 0.9750021</span></span></code></pre></div>
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="introduction-to-r.html#cb16-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">3.68</span>, <span class="sc">-</span><span class="fl">3.63</span>, <span class="fl">0.80</span>, <span class="fl">3.03</span>, <span class="sc">-</span><span class="fl">9.86</span>, <span class="sc">-</span><span class="fl">8.66</span>, </span>
-<span id="cb16-2"><a href="introduction-to-r.html#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">2.38</span>, <span class="fl">8.94</span>, <span class="fl">0.52</span>, <span class="fl">1.25</span>) </span>
-<span id="cb16-3"><a href="introduction-to-r.html#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="introduction-to-r.html#cb16-4" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">0.55</span>, <span class="fl">1.65</span>, <span class="fl">0.98</span>, <span class="sc">-</span><span class="fl">0.07</span>, <span class="sc">-</span><span class="fl">0.01</span>, <span class="sc">-</span><span class="fl">0.31</span>, </span>
-<span id="cb16-5"><a href="introduction-to-r.html#cb16-5" aria-hidden="true" tabindex="-1"></a>    <span class="sc">-</span><span class="fl">0.34</span>, <span class="sc">-</span><span class="fl">1.38</span>, <span class="sc">-</span><span class="fl">1.32</span>, <span class="fl">0.53</span>)</span>
-<span id="cb16-6"><a href="introduction-to-r.html#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-7"><a href="introduction-to-r.html#cb16-7" aria-hidden="true" tabindex="-1"></a>x<span class="sc">+</span>y</span>
-<span id="cb16-8"><a href="introduction-to-r.html#cb16-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  4.23 -1.98  1.78  2.96 -9.87 -8.97 -2.72  7.56 -0.80</span></span>
-<span id="cb16-9"><a href="introduction-to-r.html#cb16-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [10]  1.78</span></span>
-<span id="cb16-10"><a href="introduction-to-r.html#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-11"><a href="introduction-to-r.html#cb16-11" aria-hidden="true" tabindex="-1"></a>x<span class="sc">*</span>y</span>
-<span id="cb16-12"><a href="introduction-to-r.html#cb16-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]   2.0240  -5.9895   0.7840  -0.2121   0.0986   2.6846</span></span>
-<span id="cb16-13"><a href="introduction-to-r.html#cb16-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7]   0.8092 -12.3372  -0.6864   0.6625</span></span></code></pre></div>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="introduction-to-r.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(x)</span>
-<span id="cb17-2"><a href="introduction-to-r.html#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.631</span></span>
-<span id="cb17-3"><a href="introduction-to-r.html#cb17-3" aria-hidden="true" tabindex="-1"></a>x<span class="sc">-</span><span class="fu">mean</span>(x)</span>
-<span id="cb17-4"><a href="introduction-to-r.html#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  4.311 -2.999  1.431  3.661 -9.229 -8.029 -1.749  9.571</span></span>
-<span id="cb17-5"><a href="introduction-to-r.html#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9]  1.151  1.881</span></span>
-<span id="cb17-6"><a href="introduction-to-r.html#cb17-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-7"><a href="introduction-to-r.html#cb17-7" aria-hidden="true" tabindex="-1"></a>x<span class="sc">*</span><span class="dv">2</span></span>
-<span id="cb17-8"><a href="introduction-to-r.html#cb17-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]   7.36  -7.26   1.60   6.06 -19.72 -17.32  -4.76  17.88</span></span>
-<span id="cb17-9"><a href="introduction-to-r.html#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9]   1.04   2.50</span></span></code></pre></div>
+  </header><main class="col-sm-12 col-md-9 col-lg-7" id="content"><div id="introduction-to-r" class="section level1" number="2">
+<h1>
+<span class="header-section-number">2</span> Introduction to R<a class="anchor" aria-label="anchor" href="#introduction-to-r"><i class="fas fa-link"></i></a>
+</h1>
+<p>We will go over some of the basic R operations in this chapter.</p>
+<p>If you have questions, you should check <a href="http://www.chrisbilder.com/stat878/sections.html">Chris Bilder’s website</a> for full information.</p>
+<div id="basic-operation" class="section level2" number="2.1">
+<h2>
+<span class="header-section-number">2.1</span> Basic Operation<a class="anchor" aria-label="anchor" href="#basic-operation"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">2</span><span class="op">+</span><span class="fl">2</span></span>
+<span><span class="co">#&gt; [1] 4</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">2</span><span class="op">^</span><span class="fl">3</span></span>
+<span><span class="co">#&gt; [1] 8</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># calculate the cdf of std. normal</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span><span class="fl">1.96</span><span class="op">)</span> <span class="co"># 1.96 is the quantile</span></span>
+<span><span class="co">#&gt; [1] 0.9750021</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Log.html">log</a></span><span class="op">(</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Trig.html">sin</a></span><span class="op">(</span><span class="va">pi</span><span class="op">/</span><span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fl">3</span><span class="op">/</span><span class="fl">4</span></span>
+<span><span class="co">#&gt; [1] 0.75</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">save</span> <span class="op">&lt;-</span> <span class="fl">2</span><span class="op">+</span><span class="fl">2</span></span>
+<span><span class="va">save</span></span>
+<span><span class="co">#&gt; [1] 4</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/ls.html">objects</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "save"</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/ls.html">ls</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "save"</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># quit operaiton</span></span>
+<span><span class="co"># q() </span></span></code></pre></div>
+</div>
+<div id="vectors" class="section level2" number="2.2">
+<h2>
+<span class="header-section-number">2.2</span> Vectors<a class="anchor" aria-label="anchor" href="#vectors"><i class="fas fa-link"></i></a>
+</h2>
+<div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span>,<span class="fl">3</span>,<span class="fl">4</span>,<span class="fl">5</span><span class="op">)</span></span>
+<span><span class="va">x</span></span>
+<span><span class="co">#&gt; [1] 1 2 3 4 5</span></span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/sd.html">sd</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 1.581139</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mysd</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">{</span></span>
+<span>  <span class="fu"><a href="https://rdrr.io/r/base/cat.html">cat</a></span><span class="op">(</span><span class="st">" My data \n"</span>, <span class="va">x</span>, <span class="st">"\n has std deviation"</span>,<span class="fu"><a href="https://rdrr.io/r/base/MathFun.html">sqrt</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/stats/cor.html">var</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="op">}</span></span>
+<span></span>
+<span></span>
+<span><span class="fu">mysd</span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  My data </span></span>
+<span><span class="co">#&gt;  1 2 3 4 5 </span></span>
+<span><span class="co">#&gt;  has std deviation 1.581139</span></span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span>q<span class="op">=</span><span class="fl">1.96</span>, mean<span class="op">=</span><span class="fl">1.96</span>, sd<span class="op">=</span><span class="fl">1</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.5</span></span></code></pre></div>
+<p>The full syntax for <code><a href="https://rdrr.io/r/stats/Normal.html">pnorm()</a></code> is <code>pnorm(q, mean = 0, sd = 1, lower.tail = TRUE, log.p = FALSE)</code></p>
+<div class="sourceCode" id="cb15"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/stats/Normal.html">pnorm</a></span><span class="op">(</span>q<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="op">-</span><span class="fl">1.96</span>,<span class="fl">1.96</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] 0.0249979 0.9750021</span></span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">x</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">3.68</span>, <span class="op">-</span><span class="fl">3.63</span>, <span class="fl">0.80</span>, <span class="fl">3.03</span>, <span class="op">-</span><span class="fl">9.86</span>, <span class="op">-</span><span class="fl">8.66</span>, </span>
+<span>    <span class="op">-</span><span class="fl">2.38</span>, <span class="fl">8.94</span>, <span class="fl">0.52</span>, <span class="fl">1.25</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="va">y</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0.55</span>, <span class="fl">1.65</span>, <span class="fl">0.98</span>, <span class="op">-</span><span class="fl">0.07</span>, <span class="op">-</span><span class="fl">0.01</span>, <span class="op">-</span><span class="fl">0.31</span>, </span>
+<span>    <span class="op">-</span><span class="fl">0.34</span>, <span class="op">-</span><span class="fl">1.38</span>, <span class="op">-</span><span class="fl">1.32</span>, <span class="fl">0.53</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">x</span><span class="op">+</span><span class="va">y</span></span>
+<span><span class="co">#&gt;  [1]  4.23 -1.98  1.78  2.96 -9.87 -8.97 -2.72  7.56 -0.80</span></span>
+<span><span class="co">#&gt; [10]  1.78</span></span>
+<span></span>
+<span><span class="va">x</span><span class="op">*</span><span class="va">y</span></span>
+<span><span class="co">#&gt;  [1]   2.0240  -5.9895   0.7840  -0.2121   0.0986   2.6846</span></span>
+<span><span class="co">#&gt;  [7]   0.8092 -12.3372  -0.6864   0.6625</span></span></code></pre></div>
+<div class="sourceCode" id="cb17"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] -0.631</span></span>
+<span><span class="va">x</span><span class="op">-</span><span class="fu"><a href="https://rdrr.io/r/base/mean.html">mean</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1]  4.311 -2.999  1.431  3.661 -9.229 -8.029 -1.749  9.571</span></span>
+<span><span class="co">#&gt;  [9]  1.151  1.881</span></span>
+<span></span>
+<span><span class="va">x</span><span class="op">*</span><span class="fl">2</span></span>
+<span><span class="co">#&gt;  [1]   7.36  -7.26   1.60   6.06 -19.72 -17.32  -4.76  17.88</span></span>
+<span><span class="co">#&gt;  [9]   1.04   2.50</span></span></code></pre></div>
 <p>The element(elt)-wise operation makes our life easier.</p>
 </div>
-<div id="files" class="section level2 hasAnchor" number="2.3">
-<h2><span class="header-section-number">2.3</span> Files<a href="introduction-to-r.html#files" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="files" class="section level2" number="2.3">
+<h2>
+<span class="header-section-number">2.3</span> Files<a class="anchor" aria-label="anchor" href="#files"><i class="fas fa-link"></i></a>
+</h2>
 <p>Click <a href="http://www.chrisbilder.com/stat878/sections/1/gpa.csv">gpa.csv</a> to download the GPA csv file.</p>
 <p>Click <a href="http://www.chrisbilder.com/stat878/sections/1/gpa.txt">gpa.txt</a> to download the GPA txt file.</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="introduction-to-r.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
-<span id="cb18-2"><a href="introduction-to-r.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;/Users/weishangjie/Desktop/Time-Series-Analysis&quot;</span></span></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="introduction-to-r.html#cb19-1" aria-hidden="true" tabindex="-1"></a>gpatxt <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;gpa.txt&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb19-2"><a href="introduction-to-r.html#cb19-2" aria-hidden="true" tabindex="-1"></a>gpacsv <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;gpa.csv&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="introduction-to-r.html#cb20-1" aria-hidden="true" tabindex="-1"></a>gpacsv<span class="sc">$</span>HSGPA</span>
-<span id="cb20-2"><a href="introduction-to-r.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] 3.04 2.35 2.70 2.55 2.83 4.32 3.39 2.32 2.69 2.83 2.39</span></span>
-<span id="cb20-3"><a href="introduction-to-r.html#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [12] 3.65 2.85 3.83 2.22 1.98 2.88 4.00 2.28 2.88</span></span></code></pre></div>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="introduction-to-r.html#cb21-1" aria-hidden="true" tabindex="-1"></a>gpacsv<span class="sc">$</span>CollegeGPA</span>
-<span id="cb21-2"><a href="introduction-to-r.html#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] 3.10 2.30 3.00 2.45 2.50 3.70 3.40 2.60 2.80 3.60 2.00</span></span>
-<span id="cb21-3"><a href="introduction-to-r.html#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [12] 2.90 3.30 3.20 2.80 2.40 2.60 3.80 2.20 2.60</span></span></code></pre></div>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="introduction-to-r.html#cb22-1" aria-hidden="true" tabindex="-1"></a>gpacsv[<span class="dv">1</span>,<span class="dv">1</span>] <span class="co"># [row, col]</span></span>
-<span id="cb22-2"><a href="introduction-to-r.html#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3.04</span></span></code></pre></div>
-<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="introduction-to-r.html#cb23-1" aria-hidden="true" tabindex="-1"></a>gpacsv[,<span class="dv">1</span>]</span>
-<span id="cb23-2"><a href="introduction-to-r.html#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] 3.04 2.35 2.70 2.55 2.83 4.32 3.39 2.32 2.69 2.83 2.39</span></span>
-<span id="cb23-3"><a href="introduction-to-r.html#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [12] 3.65 2.85 3.83 2.22 1.98 2.88 4.00 2.28 2.88</span></span></code></pre></div>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="introduction-to-r.html#cb24-1" aria-hidden="true" tabindex="-1"></a>gpacsv[<span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">3</span>,<span class="dv">5</span>),<span class="dv">2</span>]</span>
-<span id="cb24-2"><a href="introduction-to-r.html#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 3.1 3.0 2.5</span></span></code></pre></div>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="introduction-to-r.html#cb25-1" aria-hidden="true" tabindex="-1"></a>gpacsv[,<span class="st">&quot;HSGPA&quot;</span>]</span>
-<span id="cb25-2"><a href="introduction-to-r.html#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] 3.04 2.35 2.70 2.55 2.83 4.32 3.39 2.32 2.69 2.83 2.39</span></span>
-<span id="cb25-3"><a href="introduction-to-r.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [12] 3.65 2.85 3.83 2.22 1.98 2.88 4.00 2.28 2.88</span></span></code></pre></div>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="introduction-to-r.html#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(gpacsv)</span>
-<span id="cb26-2"><a href="introduction-to-r.html#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      HSGPA         CollegeGPA   </span></span>
-<span id="cb26-3"><a href="introduction-to-r.html#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Min.   :1.980   Min.   :2.000  </span></span>
-<span id="cb26-4"><a href="introduction-to-r.html#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  1st Qu.:2.380   1st Qu.:2.487  </span></span>
-<span id="cb26-5"><a href="introduction-to-r.html#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median :2.830   Median :2.800  </span></span>
-<span id="cb26-6"><a href="introduction-to-r.html#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   :2.899   Mean   :2.862  </span></span>
-<span id="cb26-7"><a href="introduction-to-r.html#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:3.127   3rd Qu.:3.225  </span></span>
-<span id="cb26-8"><a href="introduction-to-r.html#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :4.320   Max.   :3.800</span></span></code></pre></div>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="introduction-to-r.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA,</span>
-<span id="cb27-2"><a href="introduction-to-r.html#cb27-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;HS GPA&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>, </span>
-<span id="cb27-3"><a href="introduction-to-r.html#cb27-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;College GPA vs. HS GPA&quot;</span>, </span>
-<span id="cb27-4"><a href="introduction-to-r.html#cb27-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
-<span id="cb27-5"><a href="introduction-to-r.html#cb27-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">1.0</span>, <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, lty </span>
-<span id="cb27-6"><a href="introduction-to-r.html#cb27-6" aria-hidden="true" tabindex="-1"></a>    <span class="ot">=</span> <span class="st">&quot;dotted&quot;</span>))</span></code></pre></div>
-<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-27-1.png" width="672" />
-The <code>plot()</code> function creates a two dimensional plot of data.</p>
+<div class="sourceCode" id="cb18"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/getwd.html">getwd</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "/Users/weishangjie/Documents/GitHub/Time-Series-Analysis"</span></span></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gpatxt</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.table</a></span><span class="op">(</span><span class="st">"gpa.txt"</span>, header<span class="op">=</span><span class="cn">TRUE</span>, sep<span class="op">=</span><span class="st">""</span><span class="op">)</span></span>
+<span><span class="va">gpacsv</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/utils/read.table.html">read.csv</a></span><span class="op">(</span><span class="st">"gpa.csv"</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb20"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gpacsv</span><span class="op">$</span><span class="va">HSGPA</span></span>
+<span><span class="co">#&gt;  [1] 3.04 2.35 2.70 2.55 2.83 4.32 3.39 2.32 2.69 2.83 2.39</span></span>
+<span><span class="co">#&gt; [12] 3.65 2.85 3.83 2.22 1.98 2.88 4.00 2.28 2.88</span></span></code></pre></div>
+<div class="sourceCode" id="cb21"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gpacsv</span><span class="op">$</span><span class="va">CollegeGPA</span></span>
+<span><span class="co">#&gt;  [1] 3.10 2.30 3.00 2.45 2.50 3.70 3.40 2.60 2.80 3.60 2.00</span></span>
+<span><span class="co">#&gt; [12] 2.90 3.30 3.20 2.80 2.40 2.60 3.80 2.20 2.60</span></span></code></pre></div>
+<div class="sourceCode" id="cb22"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gpacsv</span><span class="op">[</span><span class="fl">1</span>,<span class="fl">1</span><span class="op">]</span> <span class="co"># [row, col]</span></span>
+<span><span class="co">#&gt; [1] 3.04</span></span></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gpacsv</span><span class="op">[</span>,<span class="fl">1</span><span class="op">]</span></span>
+<span><span class="co">#&gt;  [1] 3.04 2.35 2.70 2.55 2.83 4.32 3.39 2.32 2.69 2.83 2.39</span></span>
+<span><span class="co">#&gt; [12] 3.65 2.85 3.83 2.22 1.98 2.88 4.00 2.28 2.88</span></span></code></pre></div>
+<div class="sourceCode" id="cb24"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gpacsv</span><span class="op">[</span><span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">3</span>,<span class="fl">5</span><span class="op">)</span>,<span class="fl">2</span><span class="op">]</span></span>
+<span><span class="co">#&gt; [1] 3.1 3.0 2.5</span></span></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">gpacsv</span><span class="op">[</span>,<span class="st">"HSGPA"</span><span class="op">]</span></span>
+<span><span class="co">#&gt;  [1] 3.04 2.35 2.70 2.55 2.83 4.32 3.39 2.32 2.69 2.83 2.39</span></span>
+<span><span class="co">#&gt; [12] 3.65 2.85 3.83 2.22 1.98 2.88 4.00 2.28 2.88</span></span></code></pre></div>
+<div class="sourceCode" id="cb26"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">gpacsv</span><span class="op">)</span></span>
+<span><span class="co">#&gt;      HSGPA         CollegeGPA   </span></span>
+<span><span class="co">#&gt;  Min.   :1.980   Min.   :2.000  </span></span>
+<span><span class="co">#&gt;  1st Qu.:2.380   1st Qu.:2.487  </span></span>
+<span><span class="co">#&gt;  Median :2.830   Median :2.800  </span></span>
+<span><span class="co">#&gt;  Mean   :2.899   Mean   :2.862  </span></span>
+<span><span class="co">#&gt;  3rd Qu.:3.127   3rd Qu.:3.225  </span></span>
+<span><span class="co">#&gt;  Max.   :4.320   Max.   :3.800</span></span></code></pre></div>
+<div class="sourceCode" id="cb27"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gpacsv</span><span class="op">$</span><span class="va">HSGPA</span>, y <span class="op">=</span> <span class="va">gpacsv</span><span class="op">$</span><span class="va">CollegeGPA</span>,</span>
+<span>     xlab <span class="op">=</span> <span class="st">"HS GPA"</span>, ylab <span class="op">=</span> <span class="st">"College GPA"</span>, </span>
+<span>     main <span class="op">=</span> <span class="st">"College GPA vs. HS GPA"</span>, </span>
+<span>     xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4.5</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4.5</span><span class="op">)</span>, col <span class="op">=</span> <span class="st">"red"</span>, </span>
+<span>    pch <span class="op">=</span> <span class="fl">1</span>, cex <span class="op">=</span> <span class="fl">1.0</span>, panel.first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray"</span>, lty </span>
+<span>    <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span><span class="op">)</span></span></code></pre></div>
+<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-27-1.png" width="672">
+The <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> function creates a two dimensional plot of data.</p>
 <p>Here are descriptions of its arguments:</p>
 <ul>
 <li><p>x specifies what is plotted for the x-axis.</p></li>
 <li><p>y specifies what is plotted for the y-axis.</p></li>
 <li><p>xlab and ylab specify the x-axis and y-axis labels, respectively.</p></li>
 <li><p>main specifies the main title of the plot.</p></li>
-<li><p>xlim and ylim specify the x-axis and y-axis limits, respectively.</p>
+<li>
+<p>xlim and ylim specify the x-axis and y-axis limits, respectively.</p>
 <ul>
 <li>Notice the use of the c() function.</li>
-</ul></li>
-<li><p>col specifies the color of the plotting points.</p>
+</ul>
+</li>
+<li>
+<p>col specifies the color of the plotting points.</p>
 <ul>
-<li>Run the <code>colors()</code> function to see what possible colors can be used.</li>
+<li>Run the <code><a href="https://rdrr.io/r/grDevices/colors.html">colors()</a></code> function to see what possible colors can be used.</li>
 <li>Also, you can see <a href="https://github.com/EarlGlynn/colorchart/wiki/Color-Chart-in-R">Here</a> for the colors from colors().</li>
-</ul></li>
+</ul>
+</li>
 <li><p><code>pch</code> specifies the plotting characters.</p></li>
 <li><p><code>cex</code>specifies the height of the plotting characters.
 The value 1.0 is the default.</p></li>
 <li><p><code>panel.first = grid()</code> specifies grid lines will be plotted.</p></li>
 <li><p>The line types can be specified as follows:
-<code>1=solid, 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash</code> or as one of the character strings <code>"blank", "solid", "dashed", "dotted",  "dotdash", "longdash"</code>, or <code>"twodash"</code>.<br />
-These line type specifications can be used in other functions.<br />
-</p></li>
-<li><p>The <code>par()</code>(parameter) function’s Help contains more information about the different plotting options!</p></li>
+<code>1=solid, 2=dashed, 3=dotted, 4=dotdash, 5=longdash, 6=twodash</code> or as one of the character strings <code>"blank", "solid", "dashed", "dotted",  "dotdash", "longdash"</code>, or <code>"twodash"</code>.<br>
+These line type specifications can be used in other functions.<br></p></li>
+<li><p>The <code><a href="https://rdrr.io/r/graphics/par.html">par()</a></code>(parameter) function’s Help contains more information about the different plotting options!</p></li>
 </ul>
 </div>
-<div id="regression" class="section level2 hasAnchor" number="2.4">
-<h2><span class="header-section-number">2.4</span> Regression<a href="introduction-to-r.html#regression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Our is model is:<span class="math display">\[CollegeGPA=\beta_0+\beta_1HSGPA+\epsilon\]</span></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="introduction-to-r.html#cb28-1" aria-hidden="true" tabindex="-1"></a>mod.fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula=</span> CollegeGPA<span class="sc">~</span> HSGPA, <span class="at">data=</span>gpacsv)</span>
-<span id="cb28-2"><a href="introduction-to-r.html#cb28-2" aria-hidden="true" tabindex="-1"></a>mod.fit</span>
-<span id="cb28-3"><a href="introduction-to-r.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb28-4"><a href="introduction-to-r.html#cb28-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb28-5"><a href="introduction-to-r.html#cb28-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = CollegeGPA ~ HSGPA, data = gpacsv)</span></span>
-<span id="cb28-6"><a href="introduction-to-r.html#cb28-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb28-7"><a href="introduction-to-r.html#cb28-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb28-8"><a href="introduction-to-r.html#cb28-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)        HSGPA  </span></span>
-<span id="cb28-9"><a href="introduction-to-r.html#cb28-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      1.0869       0.6125</span></span></code></pre></div>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="introduction-to-r.html#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(mod.fit)</span>
-<span id="cb29-2"><a href="introduction-to-r.html#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] &quot;coefficients&quot;  &quot;residuals&quot;     &quot;effects&quot;      </span></span>
-<span id="cb29-3"><a href="introduction-to-r.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [4] &quot;rank&quot;          &quot;fitted.values&quot; &quot;assign&quot;       </span></span>
-<span id="cb29-4"><a href="introduction-to-r.html#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [7] &quot;qr&quot;            &quot;df.residual&quot;   &quot;xlevels&quot;      </span></span>
-<span id="cb29-5"><a href="introduction-to-r.html#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [10] &quot;call&quot;          &quot;terms&quot;         &quot;model&quot;</span></span></code></pre></div>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="introduction-to-r.html#cb30-1" aria-hidden="true" tabindex="-1"></a>mod.fit<span class="sc">$</span>coefficients</span>
-<span id="cb30-2"><a href="introduction-to-r.html#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)       HSGPA </span></span>
-<span id="cb30-3"><a href="introduction-to-r.html#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   1.0868795   0.6124941</span></span></code></pre></div>
-<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb31-1"><a href="introduction-to-r.html#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(mod.fit<span class="sc">$</span>residuals[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>],<span class="dv">2</span>)</span>
-<span id="cb31-2"><a href="introduction-to-r.html#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     1     2     3     4     5 </span></span>
-<span id="cb31-3"><a href="introduction-to-r.html#cb31-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  0.15 -0.23  0.26 -0.20 -0.32</span></span></code></pre></div>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="introduction-to-r.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb32-2"><a href="introduction-to-r.html#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ── Attaching packages ─────────────────── tidyverse 1.3.2 ──</span></span>
-<span id="cb32-3"><a href="introduction-to-r.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ ggplot2 3.4.1     ✔ purrr   1.0.1</span></span>
-<span id="cb32-4"><a href="introduction-to-r.html#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ tibble  3.1.8     ✔ dplyr   1.1.0</span></span>
-<span id="cb32-5"><a href="introduction-to-r.html#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ tidyr   1.3.0     ✔ stringr 1.5.0</span></span>
-<span id="cb32-6"><a href="introduction-to-r.html#cb32-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✔ readr   2.1.4     ✔ forcats 0.5.2</span></span>
-<span id="cb32-7"><a href="introduction-to-r.html#cb32-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ── Conflicts ────────────────────── tidyverse_conflicts() ──</span></span>
-<span id="cb32-8"><a href="introduction-to-r.html#cb32-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></span>
-<span id="cb32-9"><a href="introduction-to-r.html#cb32-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></span>
-<span id="cb32-10"><a href="introduction-to-r.html#cb32-10" aria-hidden="true" tabindex="-1"></a>save.fit <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(gpacsv, <span class="at">C.GPA.hat =</span> </span>
-<span id="cb32-11"><a href="introduction-to-r.html#cb32-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(mod.fit<span class="sc">$</span>fitted.values,<span class="dv">2</span>), <span class="at">residuals =</span> </span>
-<span id="cb32-12"><a href="introduction-to-r.html#cb32-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">round</span>(mod.fit<span class="sc">$</span>residuals,<span class="dv">2</span>))</span>
-<span id="cb32-13"><a href="introduction-to-r.html#cb32-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb32-14"><a href="introduction-to-r.html#cb32-14" aria-hidden="true" tabindex="-1"></a>save.fit <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span>
-<span id="cb32-15"><a href="introduction-to-r.html#cb32-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   HSGPA CollegeGPA C.GPA.hat residuals</span></span>
-<span id="cb32-16"><a href="introduction-to-r.html#cb32-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  3.04       3.10      2.95      0.15</span></span>
-<span id="cb32-17"><a href="introduction-to-r.html#cb32-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  2.35       2.30      2.53     -0.23</span></span>
-<span id="cb32-18"><a href="introduction-to-r.html#cb32-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  2.70       3.00      2.74      0.26</span></span>
-<span id="cb32-19"><a href="introduction-to-r.html#cb32-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  2.55       2.45      2.65     -0.20</span></span>
-<span id="cb32-20"><a href="introduction-to-r.html#cb32-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5  2.83       2.50      2.82     -0.32</span></span>
-<span id="cb32-21"><a href="introduction-to-r.html#cb32-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  4.32       3.70      3.73     -0.03</span></span></code></pre></div>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="introduction-to-r.html#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(mod.fit)</span>
-<span id="cb33-2"><a href="introduction-to-r.html#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb33-3"><a href="introduction-to-r.html#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
-<span id="cb33-4"><a href="introduction-to-r.html#cb33-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = CollegeGPA ~ HSGPA, data = gpacsv)</span></span>
-<span id="cb33-5"><a href="introduction-to-r.html#cb33-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb33-6"><a href="introduction-to-r.html#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
-<span id="cb33-7"><a href="introduction-to-r.html#cb33-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Min       1Q   Median       3Q      Max </span></span>
-<span id="cb33-8"><a href="introduction-to-r.html#cb33-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -0.55074 -0.25086  0.01633  0.24242  0.77976 </span></span>
-<span id="cb33-9"><a href="introduction-to-r.html#cb33-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb33-10"><a href="introduction-to-r.html#cb33-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
-<span id="cb33-11"><a href="introduction-to-r.html#cb33-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
-<span id="cb33-12"><a href="introduction-to-r.html#cb33-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept)   1.0869     0.3666   2.965 0.008299 ** </span></span>
-<span id="cb33-13"><a href="introduction-to-r.html#cb33-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; HSGPA         0.6125     0.1237   4.953 0.000103 ***</span></span>
-<span id="cb33-14"><a href="introduction-to-r.html#cb33-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
-<span id="cb33-15"><a href="introduction-to-r.html#cb33-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  </span></span>
-<span id="cb33-16"><a href="introduction-to-r.html#cb33-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
-<span id="cb33-17"><a href="introduction-to-r.html#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
-<span id="cb33-18"><a href="introduction-to-r.html#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.3437 on 18 degrees of freedom</span></span>
-<span id="cb33-19"><a href="introduction-to-r.html#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.5768, Adjusted R-squared:  0.5533 </span></span>
-<span id="cb33-20"><a href="introduction-to-r.html#cb33-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 24.54 on 1 and 18 DF,  p-value: 0.0001027</span></span></code></pre></div>
+<div id="regression" class="section level2" number="2.4">
+<h2>
+<span class="header-section-number">2.4</span> Regression<a class="anchor" aria-label="anchor" href="#regression"><i class="fas fa-link"></i></a>
+</h2>
+<p>Our model is:<span class="math display">\[CollegeGPA=\beta_0+\beta_1HSGPA+\epsilon\]</span></p>
+<div class="sourceCode" id="cb28"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mod.fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span>formula<span class="op">=</span> <span class="va">CollegeGPA</span><span class="op">~</span> <span class="va">HSGPA</span>, data<span class="op">=</span><span class="va">gpacsv</span><span class="op">)</span></span>
+<span><span class="va">mod.fit</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = CollegeGPA ~ HSGPA, data = gpacsv)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt; (Intercept)        HSGPA  </span></span>
+<span><span class="co">#&gt;      1.0869       0.6125</span></span></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/names.html">names</a></span><span class="op">(</span><span class="va">mod.fit</span><span class="op">)</span></span>
+<span><span class="co">#&gt;  [1] "coefficients"  "residuals"     "effects"      </span></span>
+<span><span class="co">#&gt;  [4] "rank"          "fitted.values" "assign"       </span></span>
+<span><span class="co">#&gt;  [7] "qr"            "df.residual"   "xlevels"      </span></span>
+<span><span class="co">#&gt; [10] "call"          "terms"         "model"</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">mod.fit</span><span class="op">$</span><span class="va">coefficients</span></span>
+<span><span class="co">#&gt; (Intercept)       HSGPA </span></span>
+<span><span class="co">#&gt;   1.0868795   0.6124941</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">mod.fit</span><span class="op">$</span><span class="va">residuals</span><span class="op">[</span><span class="fl">1</span><span class="op">:</span><span class="fl">5</span><span class="op">]</span>,<span class="fl">2</span><span class="op">)</span></span>
+<span><span class="co">#&gt;     1     2     3     4     5 </span></span>
+<span><span class="co">#&gt;  0.15 -0.23  0.26 -0.20 -0.32</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html">library</a></span><span class="op">(</span><span class="va"><a href="https://tidyverse.tidyverse.org">tidyverse</a></span><span class="op">)</span></span>
+<span><span class="co">#&gt; ── Attaching packages ─────────────────── tidyverse 1.3.2 ──</span></span>
+<span><span class="co">#&gt; ✔ ggplot2 3.4.1     ✔ purrr   1.0.1</span></span>
+<span><span class="co">#&gt; ✔ tibble  3.1.8     ✔ dplyr   1.1.0</span></span>
+<span><span class="co">#&gt; ✔ tidyr   1.3.0     ✔ stringr 1.5.0</span></span>
+<span><span class="co">#&gt; ✔ readr   2.1.4     ✔ forcats 0.5.2</span></span>
+<span><span class="co">#&gt; ── Conflicts ────────────────────── tidyverse_conflicts() ──</span></span>
+<span><span class="co">#&gt; ✖ dplyr::filter() masks stats::filter()</span></span>
+<span><span class="co">#&gt; ✖ dplyr::lag()    masks stats::lag()</span></span>
+<span><span class="va">save.fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/base/data.frame.html">data.frame</a></span><span class="op">(</span><span class="va">gpacsv</span>, C.GPA.hat <span class="op">=</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">mod.fit</span><span class="op">$</span><span class="va">fitted.values</span>,<span class="fl">2</span><span class="op">)</span>, residuals <span class="op">=</span> </span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/base/Round.html">round</a></span><span class="op">(</span><span class="va">mod.fit</span><span class="op">$</span><span class="va">residuals</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span><span class="va">save.fit</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt;   HSGPA CollegeGPA C.GPA.hat residuals</span></span>
+<span><span class="co">#&gt; 1  3.04       3.10      2.95      0.15</span></span>
+<span><span class="co">#&gt; 2  2.35       2.30      2.53     -0.23</span></span>
+<span><span class="co">#&gt; 3  2.70       3.00      2.74      0.26</span></span>
+<span><span class="co">#&gt; 4  2.55       2.45      2.65     -0.20</span></span>
+<span><span class="co">#&gt; 5  2.83       2.50      2.82     -0.32</span></span>
+<span><span class="co">#&gt; 6  4.32       3.70      3.73     -0.03</span></span></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/base/summary.html">summary</a></span><span class="op">(</span><span class="va">mod.fit</span><span class="op">)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Call:</span></span>
+<span><span class="co">#&gt; lm(formula = CollegeGPA ~ HSGPA, data = gpacsv)</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residuals:</span></span>
+<span><span class="co">#&gt;      Min       1Q   Median       3Q      Max </span></span>
+<span><span class="co">#&gt; -0.55074 -0.25086  0.01633  0.24242  0.77976 </span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Coefficients:</span></span>
+<span><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span><span class="co">#&gt; (Intercept)   1.0869     0.3666   2.965 0.008299 ** </span></span>
+<span><span class="co">#&gt; HSGPA         0.6125     0.1237   4.953 0.000103 ***</span></span>
+<span><span class="co">#&gt; ---</span></span>
+<span><span class="co">#&gt; Signif. codes:  </span></span>
+<span><span class="co">#&gt; 0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</span></span>
+<span><span class="co">#&gt; </span></span>
+<span><span class="co">#&gt; Residual standard error: 0.3437 on 18 degrees of freedom</span></span>
+<span><span class="co">#&gt; Multiple R-squared:  0.5768, Adjusted R-squared:  0.5533 </span></span>
+<span><span class="co">#&gt; F-statistic: 24.54 on 1 and 18 DF,  p-value: 0.0001027</span></span></code></pre></div>
 <p>Hence, our estimated regression model is<span class="math display">\[ \hat{collge.GPA}=\hat{\beta_0}+\hat{\beta_1}HS.GPA
 =1.0869+0.6125HS.GPA\]</span></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="introduction-to-r.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open a new graphics window </span></span>
-<span id="cb34-2"><a href="introduction-to-r.html#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="co"># device new</span></span>
-<span id="cb34-3"><a href="introduction-to-r.html#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.new</span>(<span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">pointsize =</span> <span class="dv">10</span>)</span>
-<span id="cb34-4"><a href="introduction-to-r.html#cb34-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-5"><a href="introduction-to-r.html#cb34-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-6"><a href="introduction-to-r.html#cb34-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 1 row and 2 columns of plots</span></span>
-<span id="cb34-7"><a href="introduction-to-r.html#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
-<span id="cb34-8"><a href="introduction-to-r.html#cb34-8" aria-hidden="true" tabindex="-1"></a><span class="co"># par= graphic parameter</span></span>
-<span id="cb34-9"><a href="introduction-to-r.html#cb34-9" aria-hidden="true" tabindex="-1"></a><span class="co"># mfrow= make a frame by row</span></span>
-<span id="cb34-10"><a href="introduction-to-r.html#cb34-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-11"><a href="introduction-to-r.html#cb34-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Same scatter plot as before</span></span>
-<span id="cb34-12"><a href="introduction-to-r.html#cb34-12" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">xlab =</span> <span class="st">&quot;HS </span></span>
-<span id="cb34-13"><a href="introduction-to-r.html#cb34-13" aria-hidden="true" tabindex="-1"></a><span class="st">    GPA&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>, <span class="at">main =</span> <span class="st">&quot;College GPA vs. </span></span>
-<span id="cb34-14"><a href="introduction-to-r.html#cb34-14" aria-hidden="true" tabindex="-1"></a><span class="st">    HS GPA&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="at">col =</span> </span>
-<span id="cb34-15"><a href="introduction-to-r.html#cb34-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">1.0</span>, <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> </span>
-<span id="cb34-16"><a href="introduction-to-r.html#cb34-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
-<span id="cb34-17"><a href="introduction-to-r.html#cb34-17" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb34-18"><a href="introduction-to-r.html#cb34-18" aria-hidden="true" tabindex="-1"></a><span class="co"># Puts the line y = a + bx on the plot</span></span>
-<span id="cb34-19"><a href="introduction-to-r.html#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>], <span class="at">b =</span> </span>
-<span id="cb34-20"><a href="introduction-to-r.html#cb34-20" aria-hidden="true" tabindex="-1"></a>    mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>], <span class="at">lty =</span> <span class="st">&quot;solid&quot;</span>, <span class="at">col =</span> </span>
-<span id="cb34-21"><a href="introduction-to-r.html#cb34-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb34-22"><a href="introduction-to-r.html#cb34-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb34-23"><a href="introduction-to-r.html#cb34-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-24"><a href="introduction-to-r.html#cb34-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Same scatter plot as before</span></span>
-<span id="cb34-25"><a href="introduction-to-r.html#cb34-25" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">xlab =</span> <span class="st">&quot;HS </span></span>
-<span id="cb34-26"><a href="introduction-to-r.html#cb34-26" aria-hidden="true" tabindex="-1"></a><span class="st">    GPA&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>, <span class="at">main =</span> <span class="st">&quot;College GPA vs. </span></span>
-<span id="cb34-27"><a href="introduction-to-r.html#cb34-27" aria-hidden="true" tabindex="-1"></a><span class="st">    HS GPA&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="at">col =</span> </span>
-<span id="cb34-28"><a href="introduction-to-r.html#cb34-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">1.0</span>, <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> </span>
-<span id="cb34-29"><a href="introduction-to-r.html#cb34-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
-<span id="cb34-30"><a href="introduction-to-r.html#cb34-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-31"><a href="introduction-to-r.html#cb34-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-32"><a href="introduction-to-r.html#cb34-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Add line</span></span>
-<span id="cb34-33"><a href="introduction-to-r.html#cb34-33" aria-hidden="true" tabindex="-1"></a><span class="co"># expr= math expression</span></span>
-<span id="cb34-34"><a href="introduction-to-r.html#cb34-34" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="at">expr =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> </span>
-<span id="cb34-35"><a href="introduction-to-r.html#cb34-35" aria-hidden="true" tabindex="-1"></a>    mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span>x, </span>
-<span id="cb34-36"><a href="introduction-to-r.html#cb34-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fu">min</span>(gpacsv<span class="sc">$</span>HSGPA),<span class="fu">max</span>(gpacsv<span class="sc">$</span>HSGPA)), </span>
-<span id="cb34-37"><a href="introduction-to-r.html#cb34-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">col=</span> <span class="st">&quot;blue&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co"># Open a new graphics window </span></span>
+<span><span class="co"># device new</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.new</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">8</span>, height <span class="op">=</span> <span class="fl">6</span>, pointsize <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># 1 row and 2 columns of plots</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/par.html">par</a></span><span class="op">(</span>mfrow <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">1</span>,<span class="fl">2</span><span class="op">)</span><span class="op">)</span></span>
+<span><span class="co"># par= graphic parameter</span></span>
+<span><span class="co"># mfrow= make a frame by row</span></span>
+<span></span>
+<span><span class="co"># Same scatter plot as before</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gpacsv</span><span class="op">$</span><span class="va">HSGPA</span>, y <span class="op">=</span> <span class="va">gpacsv</span><span class="op">$</span><span class="va">CollegeGPA</span>, xlab <span class="op">=</span> <span class="st">"HS </span></span>
+<span><span class="st">    GPA"</span>, ylab <span class="op">=</span> <span class="st">"College GPA"</span>, main <span class="op">=</span> <span class="st">"College GPA vs. </span></span>
+<span><span class="st">    HS GPA"</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4.5</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4.5</span><span class="op">)</span>, col <span class="op">=</span> </span>
+<span>    <span class="st">"red"</span>, pch <span class="op">=</span> <span class="fl">1</span>, cex <span class="op">=</span> <span class="fl">1.0</span>, panel.first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span>col <span class="op">=</span> </span>
+<span>    <span class="st">"gray"</span>, lty <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span><span class="op">)</span></span>
+<span>    </span>
+<span><span class="co"># Puts the line y = a + bx on the plot</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/abline.html">abline</a></span><span class="op">(</span>a <span class="op">=</span> <span class="va">mod.fit</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span>, b <span class="op">=</span> </span>
+<span>    <span class="va">mod.fit</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span>, lty <span class="op">=</span> <span class="st">"solid"</span>, col <span class="op">=</span> </span>
+<span>    <span class="st">"blue"</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
+<span>    </span>
+<span></span>
+<span><span class="co"># Same scatter plot as before</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gpacsv</span><span class="op">$</span><span class="va">HSGPA</span>, y <span class="op">=</span> <span class="va">gpacsv</span><span class="op">$</span><span class="va">CollegeGPA</span>, xlab <span class="op">=</span> <span class="st">"HS </span></span>
+<span><span class="st">    GPA"</span>, ylab <span class="op">=</span> <span class="st">"College GPA"</span>, main <span class="op">=</span> <span class="st">"College GPA vs. </span></span>
+<span><span class="st">    HS GPA"</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4.5</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>,<span class="fl">4.5</span><span class="op">)</span>, col <span class="op">=</span> </span>
+<span>    <span class="st">"red"</span>, pch <span class="op">=</span> <span class="fl">1</span>, cex <span class="op">=</span> <span class="fl">1.0</span>, panel.first <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span>col <span class="op">=</span> </span>
+<span>    <span class="st">"gray"</span>, lty <span class="op">=</span> <span class="st">"dotted"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span></span>
+<span><span class="co"># Add line</span></span>
+<span><span class="co"># expr= math expression</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/curve.html">curve</a></span><span class="op">(</span>expr <span class="op">=</span> <span class="va">mod.fit</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> </span>
+<span>    <span class="va">mod.fit</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">*</span><span class="va">x</span>, </span>
+<span>    xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">gpacsv</span><span class="op">$</span><span class="va">HSGPA</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">gpacsv</span><span class="op">$</span><span class="va">HSGPA</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>    col<span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span>, lwd <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span></code></pre></div>
 <ul>
-<li><p>The <code>dev.new()</code> function can be used to open a new plotting window.</p></li>
-<li><p>The <code>abline()</code> function can be used to draw straight lines on a plot. In the format used here, the line y = a + bx was drawn where a was the (intercept) and b was the (slope).</p></li>
+<li><p>The <code><a href="https://rdrr.io/r/grDevices/dev.html">dev.new()</a></code> function can be used to open a new plotting window.</p></li>
+<li><p>The <code><a href="https://rdrr.io/r/graphics/abline.html">abline()</a></code> function can be used to draw straight lines on a plot. In the format used here, the line y = a + bx was drawn where a was the (intercept) and b was the (slope).</p></li>
 <li><p>In the second plot, the curve() function was used to draw the line on the plot. This was done to have the line within the range of the high school GPA values.</p></li>
 </ul>
 <p>Let’s use function to automate what we have done.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="introduction-to-r.html#cb35-1" aria-hidden="true" tabindex="-1"></a>my.reg.func <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, data) {</span>
-<span id="cb35-2"><a href="introduction-to-r.html#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="introduction-to-r.html#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fit the simple linear regression model and save the results in mod.fit</span></span>
-<span id="cb35-4"><a href="introduction-to-r.html#cb35-4" aria-hidden="true" tabindex="-1"></a>    mod.fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">data =</span> data)</span>
-<span id="cb35-5"><a href="introduction-to-r.html#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-6"><a href="introduction-to-r.html#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Open a new graphics window - do not need to</span></span>
-<span id="cb35-7"><a href="introduction-to-r.html#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dev.new</span>(<span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">pointsize =</span> <span class="dv">10</span>)</span>
-<span id="cb35-8"><a href="introduction-to-r.html#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="introduction-to-r.html#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Same scatter plot as before</span></span>
-<span id="cb35-10"><a href="introduction-to-r.html#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">main =</span> <span class="st">&quot;y vs. x&quot;</span>, <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> </span>
-<span id="cb35-11"><a href="introduction-to-r.html#cb35-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;dotted&quot;</span>))</span>
-<span id="cb35-12"><a href="introduction-to-r.html#cb35-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-13"><a href="introduction-to-r.html#cb35-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot model</span></span>
-<span id="cb35-14"><a href="introduction-to-r.html#cb35-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">curve</span>(<span class="at">expr =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> </span>
-<span id="cb35-15"><a href="introduction-to-r.html#cb35-15" aria-hidden="true" tabindex="-1"></a>      mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span>x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fu">min</span>(x),<span class="fu">max</span>(x)), </span>
-<span id="cb35-16"><a href="introduction-to-r.html#cb35-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb35-17"><a href="introduction-to-r.html#cb35-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-18"><a href="introduction-to-r.html#cb35-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This is the object returned</span></span>
-<span id="cb35-19"><a href="introduction-to-r.html#cb35-19" aria-hidden="true" tabindex="-1"></a>    mod.fit</span>
-<span id="cb35-20"><a href="introduction-to-r.html#cb35-20" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="introduction-to-r.html#cb36-1" aria-hidden="true" tabindex="-1"></a>save.it <span class="ot">&lt;-</span> <span class="fu">my.reg.func</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> </span>
-<span id="cb36-2"><a href="introduction-to-r.html#cb36-2" aria-hidden="true" tabindex="-1"></a>    gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">data =</span> gpacsv)</span></code></pre></div>
-<p>To get specific x-axis or y-axis tick marks on a plot, use the <code>axis()</code> function. For example,</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="introduction-to-r.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Note that xaxt = &quot;n&quot; tells R to not give any labels on the </span></span>
-<span id="cb37-2"><a href="introduction-to-r.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  x-axis (yaxt = &quot;n&quot; works for y-axis)</span></span>
-<span id="cb37-3"><a href="introduction-to-r.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">xlab =</span> <span class="st">&quot;HS GPA&quot;</span>, </span>
-<span id="cb37-4"><a href="introduction-to-r.html#cb37-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>, <span class="at">main =</span> <span class="st">&quot;College GPA vs. HS GPA&quot;</span>, </span>
-<span id="cb37-5"><a href="introduction-to-r.html#cb37-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.5</span>), <span class="at">col =</span> </span>
-<span id="cb37-6"><a href="introduction-to-r.html#cb37-6" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="introduction-to-r.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">xlab =</span> <span class="st">&quot;HS GPA&quot;</span>, </span>
-<span id="cb38-2"><a href="introduction-to-r.html#cb38-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>, <span class="at">main =</span> <span class="st">&quot;College GPA vs. HS GPA&quot;</span>, </span>
-<span id="cb38-3"><a href="introduction-to-r.html#cb38-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.5</span>), <span class="at">col =</span> </span>
-<span id="cb38-4"><a href="introduction-to-r.html#cb38-4" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>)</span>
-<span id="cb38-5"><a href="introduction-to-r.html#cb38-5" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb38-6"><a href="introduction-to-r.html#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Major tick marks</span></span>
-<span id="cb38-7"><a href="introduction-to-r.html#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="fl">4.5</span>, <span class="at">by =</span> <span class="fl">0.5</span>)) </span></code></pre></div>
-<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="introduction-to-r.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">xlab =</span> <span class="st">&quot;HS GPA&quot;</span>, </span>
-<span id="cb39-2"><a href="introduction-to-r.html#cb39-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>, <span class="at">main =</span> <span class="st">&quot;College GPA vs. HS GPA&quot;</span>, </span>
-<span id="cb39-3"><a href="introduction-to-r.html#cb39-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.5</span>), <span class="at">col =</span> </span>
-<span id="cb39-4"><a href="introduction-to-r.html#cb39-4" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>)</span>
-<span id="cb39-5"><a href="introduction-to-r.html#cb39-5" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb39-6"><a href="introduction-to-r.html#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Major tick marks</span></span>
-<span id="cb39-7"><a href="introduction-to-r.html#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="fl">4.5</span>, <span class="at">by =</span> <span class="fl">0.5</span>)) </span>
-<span id="cb39-8"><a href="introduction-to-r.html#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-9"><a href="introduction-to-r.html#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Minor tick marks</span></span>
-<span id="cb39-10"><a href="introduction-to-r.html#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="fl">4.5</span>, <span class="at">by =</span> <span class="fl">0.1</span>), tck </span>
-<span id="cb39-11"><a href="introduction-to-r.html#cb39-11" aria-hidden="true" tabindex="-1"></a>      <span class="ot">=</span> <span class="fl">0.01</span>, <span class="at">labels =</span> <span class="cn">FALSE</span>) </span></code></pre></div>
-<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<div class="sourceCode" id="cb35"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">my.reg.func</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">x</span>, <span class="va">y</span>, <span class="va">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span></span>
+<span>    <span class="co"># Fit the simple linear regression model and save the results in mod.fit</span></span>
+<span>    <span class="va">mod.fit</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/r/stats/lm.html">lm</a></span><span class="op">(</span>formula <span class="op">=</span> <span class="va">y</span> <span class="op">~</span> <span class="va">x</span>, data <span class="op">=</span> <span class="va">data</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="co">#Open a new graphics window - do not need to</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/grDevices/dev.html">dev.new</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">6</span>, height <span class="op">=</span> <span class="fl">6</span>, pointsize <span class="op">=</span> <span class="fl">10</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="co"># Same scatter plot as before</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">x</span>, y <span class="op">=</span> <span class="va">y</span>, xlab <span class="op">=</span> <span class="st">"x"</span>, ylab <span class="op">=</span> <span class="st">"y"</span>, main <span class="op">=</span> <span class="st">"y vs. x"</span>, panel.first<span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/graphics/grid.html">grid</a></span><span class="op">(</span>col <span class="op">=</span> <span class="st">"gray"</span>, lty <span class="op">=</span> </span>
+<span>      <span class="st">"dotted"</span><span class="op">)</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="co"># Plot model</span></span>
+<span>    <span class="fu"><a href="https://rdrr.io/r/graphics/curve.html">curve</a></span><span class="op">(</span>expr <span class="op">=</span> <span class="va">mod.fit</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">1</span><span class="op">]</span> <span class="op">+</span> </span>
+<span>      <span class="va">mod.fit</span><span class="op">$</span><span class="va">coefficients</span><span class="op">[</span><span class="fl">2</span><span class="op">]</span><span class="op">*</span><span class="va">x</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">min</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span>,<span class="fu"><a href="https://rdrr.io/r/base/Extremes.html">max</a></span><span class="op">(</span><span class="va">x</span><span class="op">)</span><span class="op">)</span>, </span>
+<span>      col <span class="op">=</span> <span class="st">"blue"</span>, add <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
+<span></span>
+<span>    <span class="co"># This is the object returned</span></span>
+<span>    <span class="va">mod.fit</span></span>
+<span>  <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="va">save.it</span> <span class="op">&lt;-</span> <span class="fu">my.reg.func</span><span class="op">(</span>x <span class="op">=</span> <span class="va">gpacsv</span><span class="op">$</span><span class="va">HSGPA</span>, y <span class="op">=</span> </span>
+<span>    <span class="va">gpacsv</span><span class="op">$</span><span class="va">CollegeGPA</span>, data <span class="op">=</span> <span class="va">gpacsv</span><span class="op">)</span></span></code></pre></div>
+<p>To get specific x-axis or y-axis tick marks on a plot, use the <code><a href="https://rdrr.io/r/graphics/axis.html">axis()</a></code> function. For example,</p>
+<div class="sourceCode" id="cb37"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="co">#Note that xaxt = "n" tells R to not give any labels on the </span></span>
+<span><span class="co">#  x-axis (yaxt = "n" works for y-axis)</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gpacsv</span><span class="op">$</span><span class="va">HSGPA</span>, y <span class="op">=</span> <span class="va">gpacsv</span><span class="op">$</span><span class="va">CollegeGPA</span>, xlab <span class="op">=</span> <span class="st">"HS GPA"</span>, </span>
+<span>     ylab <span class="op">=</span> <span class="st">"College GPA"</span>, main <span class="op">=</span> <span class="st">"College GPA vs. HS GPA"</span>, </span>
+<span>     xaxt <span class="op">=</span> <span class="st">"n"</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4.5</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4.5</span><span class="op">)</span>, col <span class="op">=</span> </span>
+<span>     <span class="st">"red"</span>, pch <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span></code></pre></div>
+<div class="inline-figure"><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-37-1.png" width="672"></div>
+<div class="sourceCode" id="cb38"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gpacsv</span><span class="op">$</span><span class="va">HSGPA</span>, y <span class="op">=</span> <span class="va">gpacsv</span><span class="op">$</span><span class="va">CollegeGPA</span>, xlab <span class="op">=</span> <span class="st">"HS GPA"</span>, </span>
+<span>     ylab <span class="op">=</span> <span class="st">"College GPA"</span>, main <span class="op">=</span> <span class="st">"College GPA vs. HS GPA"</span>, </span>
+<span>     xaxt <span class="op">=</span> <span class="st">"n"</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4.5</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4.5</span><span class="op">)</span>, col <span class="op">=</span> </span>
+<span>     <span class="st">"red"</span>, pch <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>     </span>
+<span><span class="co">#Major tick marks</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">0</span>, to <span class="op">=</span> <span class="fl">4.5</span>, by <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-38-1.png" width="672"></div>
+<div class="sourceCode" id="cb39"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span>x <span class="op">=</span> <span class="va">gpacsv</span><span class="op">$</span><span class="va">HSGPA</span>, y <span class="op">=</span> <span class="va">gpacsv</span><span class="op">$</span><span class="va">CollegeGPA</span>, xlab <span class="op">=</span> <span class="st">"HS GPA"</span>, </span>
+<span>     ylab <span class="op">=</span> <span class="st">"College GPA"</span>, main <span class="op">=</span> <span class="st">"College GPA vs. HS GPA"</span>, </span>
+<span>     xaxt <span class="op">=</span> <span class="st">"n"</span>, xlim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4.5</span><span class="op">)</span>, ylim <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/c.html">c</a></span><span class="op">(</span><span class="fl">0</span>, <span class="fl">4.5</span><span class="op">)</span>, col <span class="op">=</span> </span>
+<span>     <span class="st">"red"</span>, pch <span class="op">=</span> <span class="fl">1</span><span class="op">)</span></span>
+<span>     </span>
+<span><span class="co">#Major tick marks</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">0</span>, to <span class="op">=</span> <span class="fl">4.5</span>, by <span class="op">=</span> <span class="fl">0.5</span><span class="op">)</span><span class="op">)</span> </span>
+<span></span>
+<span><span class="co">#Minor tick marks</span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/graphics/axis.html">axis</a></span><span class="op">(</span>side <span class="op">=</span> <span class="fl">1</span>, at <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/seq.html">seq</a></span><span class="op">(</span>from <span class="op">=</span> <span class="fl">0</span>, to <span class="op">=</span> <span class="fl">4.5</span>, by <span class="op">=</span> <span class="fl">0.1</span><span class="op">)</span>, tck </span>
+<span>      <span class="op">=</span> <span class="fl">0.01</span>, labels <span class="op">=</span> <span class="cn">FALSE</span><span class="op">)</span> </span></code></pre></div>
+<div class="inline-figure"><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-39-1.png" width="672"></div>
 </div>
-<div id="object-oriented-language" class="section level2 hasAnchor" number="2.5">
-<h2><span class="header-section-number">2.5</span> Object-Oriented Language<a href="introduction-to-r.html#object-oriented-language" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Functions are typically designed to operate on only one or very few classes of objects. However, some functions, like <code>summary()</code>, are <strong>generic</strong>, in the sense that essentially different versions of them have been constructed to work with different classes of objects.</p>
-<p>When a generic function is run with an object, R first checks the object’s class type and then looks to find a method function with the name format <code>&lt;generic function&gt;.&lt;class name&gt;</code>. Below are examples for <code>summary()</code>:</p>
+<div id="object-oriented-language" class="section level2" number="2.5">
+<h2>
+<span class="header-section-number">2.5</span> Object-Oriented Language<a class="anchor" aria-label="anchor" href="#object-oriented-language"><i class="fas fa-link"></i></a>
+</h2>
+<p>Functions are typically designed to operate on only one or very few classes of objects. However, some functions, like <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>, are <strong>generic</strong>, in the sense that essentially different versions of them have been constructed to work with different classes of objects.</p>
+<p>When a generic function is run with an object, R first checks the object’s class type and then looks to find a method function with the name format <code>&lt;generic function&gt;.&lt;class name&gt;</code>. Below are examples for <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code>:</p>
 <ul>
-<li>summary(mod.fit) – The function <code>summary.lm()</code> summarizes the regression model</li>
-<li>summary(gpacsv) – The function <code>summary.data.frame()</code> summarizes the data frame’s contents</li>
+<li>summary(mod.fit) – The function <code><a href="https://rdrr.io/r/stats/summary.lm.html">summary.lm()</a></code> summarizes the regression model</li>
+<li>summary(gpacsv) – The function <code><a href="https://rdrr.io/r/base/summary.html">summary.data.frame()</a></code> summarizes the data frame’s contents</li>
 <li>summary.default() – R attempts to run this function if there is no method function for a class</li>
 </ul>
-<p>There are many generic functions! For example, <code>plot()</code> is a generic function (try<code>plot(mod.fit)</code> to see what happens!). We will also see other generic functions like <code>predict()</code> later in the notes.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="introduction-to-r.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod.fit)</span></code></pre></div>
-<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-1.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-2.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-3.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-4.png" width="672" /></p>
+<p>There are many generic functions! For example, <code><a href="https://rdrr.io/r/graphics/plot.default.html">plot()</a></code> is a generic function (try<code>plot(mod.fit)</code> to see what happens!). We will also see other generic functions like <code><a href="https://rdrr.io/r/stats/predict.html">predict()</a></code> later in the notes.</p>
+<div class="sourceCode" id="cb40"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/graphics/plot.default.html">plot</a></span><span class="op">(</span><span class="va">mod.fit</span><span class="op">)</span></span></code></pre></div>
+<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-1.png" width="672"><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-2.png" width="672"><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-3.png" width="672"><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-4.png" width="672"></p>
 <p>The purpose of generic functions is to use a familiar language set with any object. So it is convenient to use the same language set no matter the application. This is why R is referred to as an object-oriented language.</p>
 <p>To see a list of all method functions associated with a class, use <code>methods(class = &lt;class name&gt;)</code>. For the regression example, the method functions associated with the <code>lm</code> class are:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="introduction-to-r.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class=</span><span class="st">&quot;lm&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span>
-<span id="cb41-2"><a href="introduction-to-r.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;add1.lm&quot;                   &quot;alias.lm&quot;                 </span></span>
-<span id="cb41-3"><a href="introduction-to-r.html#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;anova.lm&quot;                  &quot;case.names.lm&quot;            </span></span>
-<span id="cb41-4"><a href="introduction-to-r.html#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;coerce,oldClass,S3-method&quot; &quot;confint.lm&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html">methods</a></span><span class="op">(</span>class<span class="op">=</span><span class="st">"lm"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "add1.lm"                   "alias.lm"                 </span></span>
+<span><span class="co">#&gt; [3] "anova.lm"                  "case.names.lm"            </span></span>
+<span><span class="co">#&gt; [5] "coerce,oldClass,S3-method" "confint.lm"</span></span></code></pre></div>
 <p>To see a list of all method functions for a generic function, use <code>methods(generic.function = &lt;generic function name&gt;)</code></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="introduction-to-r.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">generic.function =</span> <span class="st">&quot;summary&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span>
-<span id="cb42-2"><a href="introduction-to-r.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;summary,ANY-method&quot;           </span></span>
-<span id="cb42-3"><a href="introduction-to-r.html#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &quot;summary,DBIObject-method&quot;     </span></span>
-<span id="cb42-4"><a href="introduction-to-r.html#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;summary.aov&quot;                  </span></span>
-<span id="cb42-5"><a href="introduction-to-r.html#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;summary.aovlist&quot;              </span></span>
-<span id="cb42-6"><a href="introduction-to-r.html#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;summary.aspell&quot;               </span></span>
-<span id="cb42-7"><a href="introduction-to-r.html#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6] &quot;summary.check_packages_in_dir&quot;</span></span></code></pre></div>
-<p>Knowing what a name of a particular method function can be helpful to find help on it. For example, the help for <code>summary()</code> alone is not very helpful! However, the help for <code>summary.lm()</code>provides a lot of useful information about what is summarized for a regression model.</p>
+<div class="sourceCode" id="cb42"><pre class="downlit sourceCode r">
+<code class="sourceCode R"><span><span class="fu"><a href="https://rdrr.io/r/utils/methods.html">methods</a></span><span class="op">(</span>generic.function <span class="op">=</span> <span class="st">"summary"</span><span class="op">)</span> <span class="op"><a href="https://magrittr.tidyverse.org/reference/pipe.html">%&gt;%</a></span> <span class="fu"><a href="https://rdrr.io/r/utils/head.html">head</a></span><span class="op">(</span><span class="op">)</span></span>
+<span><span class="co">#&gt; [1] "summary,ANY-method"           </span></span>
+<span><span class="co">#&gt; [2] "summary,DBIObject-method"     </span></span>
+<span><span class="co">#&gt; [3] "summary.aov"                  </span></span>
+<span><span class="co">#&gt; [4] "summary.aovlist"              </span></span>
+<span><span class="co">#&gt; [5] "summary.aspell"               </span></span>
+<span><span class="co">#&gt; [6] "summary.check_packages_in_dir"</span></span></code></pre></div>
+<p>Knowing what a name of a particular method function can be helpful to find help on it. For example, the help for <code><a href="https://rdrr.io/r/base/summary.html">summary()</a></code> alone is not very helpful! However, the help for <code><a href="https://rdrr.io/r/stats/summary.lm.html">summary.lm()</a></code>provides a lot of useful information about what is summarized for a regression model.</p>
 
 </div>
 </div>
-            </section>
+  <div class="chapter-nav">
+<div class="prev"><a href="index.html"><span class="header-section-number">1</span> About</a></div>
+<div class="next"><a href="time-series-basics-plotting.html"><span class="header-section-number">3</span> Time Series Basics-Plotting</a></div>
+</div></main><div class="col-md-3 col-lg-2 d-none d-md-block sidebar sidebar-chapter">
+    <nav id="toc" data-toggle="toc" aria-label="On this page"><h2>On this page</h2>
+      <ul class="nav navbar-nav">
+<li><a class="nav-link" href="#introduction-to-r"><span class="header-section-number">2</span> Introduction to R</a></li>
+<li><a class="nav-link" href="#basic-operation"><span class="header-section-number">2.1</span> Basic Operation</a></li>
+<li><a class="nav-link" href="#vectors"><span class="header-section-number">2.2</span> Vectors</a></li>
+<li><a class="nav-link" href="#files"><span class="header-section-number">2.3</span> Files</a></li>
+<li><a class="nav-link" href="#regression"><span class="header-section-number">2.4</span> Regression</a></li>
+<li><a class="nav-link" href="#object-oriented-language"><span class="header-section-number">2.5</span> Object-Oriented Language</a></li>
+</ul>
 
-          </div>
-        </div>
-      </div>
-<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+      <div class="book-extra">
+        <ul class="list-unstyled">
+<li><a id="book-source" href="https://github.com/shang-chieh0830/Time-Series-Analysis/blob/master/01-Introduction-to-R.Rmd">View source <i class="fab fa-github"></i></a></li>
+          <li><a id="book-edit" href="https://github.com/shang-chieh0830/Time-Series-Analysis/edit/master/01-Introduction-to-R.Rmd">Edit this page <i class="fab fa-github"></i></a></li>
+        </ul>
+</div>
+    </nav>
+</div>
 
-    </div>
+</div>
+</div> <!-- .container -->
+
+<footer class="bg-primary text-light mt-5"><div class="container"><div class="row">
+
+  <div class="col-12 col-md-6 mt-3">
+    <p>"<strong>Time Series Analysis</strong>" was written by shang-chieh0830. It was last built on 2023-03-01.</p>
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": ["Time-Series-Analysis.pdf", "Time-Series-Analysis.epub"],
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
-});
-});
-</script>
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
+  <div class="col-12 col-md-6 mt-3">
+    <p>This book was built by the <a class="text-light" href="https://bookdown.org">bookdown</a> R package.</p>
+  </div>
+
+</div></div>
+</footer><!-- dynamically load mathjax for compatibility with self-contained --><script>
   (function () {
     var script = document.createElement("script");
     script.type = "text/javascript";
@@ -571,7 +489,22 @@ gitbook.start({
     script.src = src;
     document.getElementsByTagName("head")[0].appendChild(script);
   })();
+</script><script type="text/x-mathjax-config">const popovers = document.querySelectorAll('a.footnote-ref[data-toggle="popover"]');
+for (let popover of popovers) {
+  const div = document.createElement('div');
+  div.setAttribute('style', 'position: absolute; top: 0, left:0; width:0, height:0, overflow: hidden; visibility: hidden;');
+  div.innerHTML = popover.getAttribute('data-content');
+
+  var has_math = div.querySelector("span.math");
+  if (has_math) {
+    document.body.appendChild(div);
+    MathJax.Hub.Queue(["Typeset", MathJax.Hub, div]);
+    MathJax.Hub.Queue(function() {
+      popover.setAttribute('data-content', div.innerHTML);
+      document.body.removeChild(div);
+    })
+  }
+}
 </script>
 </body>
-
 </html>

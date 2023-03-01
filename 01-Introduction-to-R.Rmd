@@ -1,6 +1,6 @@
 # Introduction to R
 
-We will go over some of the basic R operations in this section.
+We will go over some of the basic R operations in this chapter.
 
 If you have questions, you should check [Chris Bilder's website](http://www.chrisbilder.com/stat878/sections.html) for full information.
 
@@ -186,7 +186,7 @@ Here are descriptions of its arguments:
 
 ## Regression
 
-Our is model is:$$CollegeGPA=\beta_0+\beta_1HSGPA+\epsilon$$
+Our model is:$$CollegeGPA=\beta_0+\beta_1HSGPA+\epsilon$$
 
 ```{r}
 mod.fit <- lm(formula= CollegeGPA~ HSGPA, data=gpacsv)

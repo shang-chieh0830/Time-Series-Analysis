@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Time Series Basics | Time Series Analysis</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::bs4_book,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Time Series Basics | Time Series Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::bs4_book,
+set in the _output.yml file.</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Time Series Basics | Time Series Analysis" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::bs4_book,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="shang-chieh0830" />
+
+
+<meta name="date" content="2023-03-01" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction-to-r.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Time Series Analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-operation"><i class="fa fa-check"></i><b>2.1</b> Basic Operation</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#vectors"><i class="fa fa-check"></i><b>2.2</b> Vectors</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#files"><i class="fa fa-check"></i><b>2.3</b> Files</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#regression"><i class="fa fa-check"></i><b>2.4</b> Regression</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#object-oriented-language"><i class="fa fa-check"></i><b>2.5</b> Object-Oriented Language</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="time-series-basics.html"><a href="time-series-basics.html"><i class="fa fa-check"></i><b>3</b> Time Series Basics</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="time-series-basics.html"><a href="time-series-basics.html#example-data"><i class="fa fa-check"></i><b>3.1</b> Example Data</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time Series Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="time-series-basics" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Time Series Basics<a href="time-series-basics.html#time-series-basics" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>We will go over some basic concepts in <em>Time Series</em> in this chapter.</p>
+<div id="example-data" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Example Data<a href="time-series-basics.html#example-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Click <a href="http://www.chrisbilder.com/stat878/sections/2/OSU_enroll.csv">OSU_enroll.csv</a> to download data.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="time-series-basics.html#cb1-1" aria-hidden="true" tabindex="-1"></a>osu.enroll <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;OSU_enroll.csv&quot;</span>, </span>
+<span id="cb1-2"><a href="time-series-basics.html#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="time-series-basics.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(osu.enroll)</span>
+<span id="cb2-2"><a href="time-series-basics.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   t Semester Year Enrollment      date</span></span>
+<span id="cb2-3"><a href="time-series-basics.html#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1     Fall 1989      20110 8/31/1989</span></span>
+<span id="cb2-4"><a href="time-series-basics.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 2   Spring 1990      19128  2/1/1990</span></span>
+<span id="cb2-5"><a href="time-series-basics.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 3   Summer 1990       7553  6/1/1990</span></span>
+<span id="cb2-6"><a href="time-series-basics.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 4     Fall 1990      19591 8/31/1990</span></span>
+<span id="cb2-7"><a href="time-series-basics.html#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 5   Spring 1991      18361  2/1/1991</span></span>
+<span id="cb2-8"><a href="time-series-basics.html#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 6   Summer 1991       6702  6/1/1991</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="time-series-basics.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(osu.enroll)</span>
+<span id="cb3-2"><a href="time-series-basics.html#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     t Semester Year Enrollment      date</span></span>
+<span id="cb3-3"><a href="time-series-basics.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 35 35   Spring 2001      20004  2/1/2001</span></span>
+<span id="cb3-4"><a href="time-series-basics.html#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 36 36   Summer 2001       7558  6/1/2001</span></span>
+<span id="cb3-5"><a href="time-series-basics.html#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 37 37     Fall 2001      21872 8/31/2001</span></span>
+<span id="cb3-6"><a href="time-series-basics.html#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 38 38   Spring 2002      20922  2/1/2002</span></span>
+<span id="cb3-7"><a href="time-series-basics.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 39 39   Summer 2002       7868  6/1/2002</span></span>
+<span id="cb3-8"><a href="time-series-basics.html#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 40 40     Fall 2002      22992 8/31/2002</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="time-series-basics.html#cb4-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> osu.enroll<span class="sc">$</span>Enrollment</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="time-series-basics.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">#One way to do plot</span></span>
+<span id="cb5-2"><a href="time-series-basics.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.new</span>(<span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">pointsize =</span> <span class="dv">10</span>) </span>
+<span id="cb5-3"><a href="time-series-basics.html#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="time-series-basics.html#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># we did not specify y-axis and R put our x in y-axis, time in  x-axis</span></span>
+<span id="cb5-5"><a href="time-series-basics.html#cb5-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-6"><a href="time-series-basics.html#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">ylab =</span> <span class="st">&quot;OSU Enrollment&quot;</span>, </span>
+<span id="cb5-7"><a href="time-series-basics.html#cb5-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;t (time)&quot;</span>, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb5-8"><a href="time-series-basics.html#cb5-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;OSU Enrollment from Fall 1989 to Fall 2002&quot;</span>, </span>
+<span id="cb5-9"><a href="time-series-basics.html#cb5-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="time-series-basics.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.new</span>(<span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">pointsize =</span> <span class="dv">10</span>) </span>
+<span id="cb6-2"><a href="time-series-basics.html#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-3"><a href="time-series-basics.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># we did not specify y-axis and R put our x in y-axis, time in  x-axis</span></span>
+<span id="cb6-4"><a href="time-series-basics.html#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="time-series-basics.html#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">ylab =</span> <span class="st">&quot;OSU Enrollment&quot;</span>, </span>
+<span id="cb6-6"><a href="time-series-basics.html#cb6-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;t (time)&quot;</span>, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb6-7"><a href="time-series-basics.html#cb6-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;OSU Enrollment from Fall 1989 to Fall 2002&quot;</span>, </span>
+<span id="cb6-8"><a href="time-series-basics.html#cb6-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb6-9"><a href="time-series-basics.html#cb6-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-10"><a href="time-series-basics.html#cb6-10" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> osu.enroll<span class="sc">$</span>Enrollment, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p>Altenatively, you can do the same thing using ggplot.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="time-series-basics.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb7-2"><a href="time-series-basics.html#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="time-series-basics.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame</span></span>
+<span id="cb7-4"><a href="time-series-basics.html#cb7-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(osu.enroll)</span>
+<span id="cb7-5"><a href="time-series-basics.html#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="time-series-basics.html#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
+<span id="cb7-7"><a href="time-series-basics.html#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> Enrollment)) <span class="sc">+</span></span>
+<span id="cb7-8"><a href="time-series-basics.html#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span>  <span class="co"># Line plot</span></span>
+<span id="cb7-9"><a href="time-series-basics.html#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">20</span>, <span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># Add points</span></span>
+<span id="cb7-10"><a href="time-series-basics.html#cb7-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;t (time)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;OSU Enrollment&quot;</span>, </span>
+<span id="cb7-11"><a href="time-series-basics.html#cb7-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;OSU Enrollment from Fall 1989 to Fall 2002&quot;</span>) <span class="sc">+</span>  <span class="co"># Set axis labels and title</span></span>
+<span id="cb7-12"><a href="time-series-basics.html#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span>  <span class="co"># Set the theme to a white background with black lines</span></span>
+<span id="cb7-13"><a href="time-series-basics.html#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>))  <span class="co"># Add gray dotted lines to the plot</span></span></code></pre></div>
+<p><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>When only x is specified in the <code>plot()</code> function, R puts this on the y-axis and uses the observation number on the x-axis.</p>
+<p>Compare this to the next plot below where both x and y arguments are specified.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="time-series-basics.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#More complicated plot</span></span>
+<span id="cb8-2"><a href="time-series-basics.html#cb8-2" aria-hidden="true" tabindex="-1"></a>fall <span class="ot">&lt;-</span> osu.enroll[osu.enroll<span class="sc">$</span>Semester <span class="sc">==</span> <span class="st">&quot;Fall&quot;</span>,]</span>
+<span id="cb8-3"><a href="time-series-basics.html#cb8-3" aria-hidden="true" tabindex="-1"></a>spring <span class="ot">&lt;-</span> osu.enroll[osu.enroll<span class="sc">$</span>Semester <span class="sc">==</span> <span class="st">&quot;Spring&quot;</span>,]</span>
+<span id="cb8-4"><a href="time-series-basics.html#cb8-4" aria-hidden="true" tabindex="-1"></a>summer <span class="ot">&lt;-</span> osu.enroll[osu.enroll<span class="sc">$</span>Semester <span class="sc">==</span> <span class="st">&quot;Summer&quot;</span>,]</span>
+<span id="cb8-5"><a href="time-series-basics.html#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="time-series-basics.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">y =</span> fall<span class="sc">$</span>Enrollment, <span class="at">x =</span> fall<span class="sc">$</span>t,</span>
+<span id="cb8-7"><a href="time-series-basics.html#cb8-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;OSU Enrollment&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;t (time)&quot;</span>, </span>
+<span id="cb8-8"><a href="time-series-basics.html#cb8-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb8-9"><a href="time-series-basics.html#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">&quot;OSU Enrollment from Fall 1989 to Fall 2002&quot;</span>, </span>
+<span id="cb8-10"><a href="time-series-basics.html#cb8-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>), </span>
+<span id="cb8-11"><a href="time-series-basics.html#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;o&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">max</span>(osu.enroll<span class="sc">$</span>Enrollment)))</span>
+<span id="cb8-12"><a href="time-series-basics.html#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="time-series-basics.html#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">y =</span> spring<span class="sc">$</span>Enrollment, <span class="at">x =</span> spring<span class="sc">$</span>t, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb8-14"><a href="time-series-basics.html#cb8-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;o&quot;</span>, <span class="at">pch =</span> <span class="dv">2</span>)</span>
+<span id="cb8-15"><a href="time-series-basics.html#cb8-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-16"><a href="time-series-basics.html#cb8-16" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">y =</span> summer<span class="sc">$</span>Enrollment, <span class="at">x =</span> summer<span class="sc">$</span>t, <span class="at">col =</span> </span>
+<span id="cb8-17"><a href="time-series-basics.html#cb8-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;darkgreen&quot;</span>, <span class="at">type =</span> <span class="st">&quot;o&quot;</span>, <span class="at">pch =</span> <span class="dv">3</span>)</span>
+<span id="cb8-18"><a href="time-series-basics.html#cb8-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb8-19"><a href="time-series-basics.html#cb8-19" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x=</span><span class="st">&quot;center&quot;</span>, <span class="at">legend=</span> <span class="fu">c</span>(<span class="st">&quot;Fall&quot;</span>,<span class="st">&quot;Spring&quot;</span>,<span class="st">&quot;Summer&quot;</span>), <span class="at">pch=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;darkgreen&quot;</span>), <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="time-series-basics.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Another way to do plot with actual dates</span></span>
+<span id="cb9-2"><a href="time-series-basics.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">y =</span> osu.enroll<span class="sc">$</span>Enrollment, </span>
+<span id="cb9-3"><a href="time-series-basics.html#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">as.Date</span>(osu.enroll<span class="sc">$</span>date, <span class="at">format =</span> <span class="st">&quot;%m/%d/%Y&quot;</span>), </span>
+<span id="cb9-4"><a href="time-series-basics.html#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;Time&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,  </span>
+<span id="cb9-5"><a href="time-series-basics.html#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">&quot;OSU Enrollment from Fall 1989 to Fall 2002&quot;</span>,</span>
+<span id="cb9-6"><a href="time-series-basics.html#cb9-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;OSU Enrollment&quot;</span>)</span>
+<span id="cb9-7"><a href="time-series-basics.html#cb9-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-8"><a href="time-series-basics.html#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">y =</span> osu.enroll<span class="sc">$</span>Enrollment, </span>
+<span id="cb9-9"><a href="time-series-basics.html#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">as.Date</span>(osu.enroll<span class="sc">$</span>date, <span class="at">format =</span> <span class="st">&quot;%m/%d/%Y&quot;</span>), pch </span>
+<span id="cb9-10"><a href="time-series-basics.html#cb9-10" aria-hidden="true" tabindex="-1"></a>    <span class="ot">=</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb9-11"><a href="time-series-basics.html#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#Create own gridlines</span></span>
+<span id="cb9-12"><a href="time-series-basics.html#cb9-12" aria-hidden="true" tabindex="-1"></a> <span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">&quot;1990/1/1&quot;</span>, <span class="st">&quot;1992/1/1&quot;</span>, <span class="st">&quot;1994/1/1&quot;</span>, </span>
+<span id="cb9-13"><a href="time-series-basics.html#cb9-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;1996/1/1&quot;</span>, <span class="st">&quot;1998/1/1&quot;</span>, <span class="st">&quot;2000/1/1&quot;</span>, <span class="st">&quot;2002/1/1&quot;</span>)),</span>
+<span id="cb9-14"><a href="time-series-basics.html#cb9-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>, <span class="at">col =</span> <span class="st">&quot;lightgray&quot;</span>)</span>
+<span id="cb9-15"><a href="time-series-basics.html#cb9-15" aria-hidden="true" tabindex="-1"></a> <span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="dv">10000</span>, <span class="dv">15000</span>, <span class="dv">20000</span>), <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>, <span class="at">col =</span> </span>
+<span id="cb9-16"><a href="time-series-basics.html#cb9-16" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;lightgray&quot;</span>)</span></code></pre></div>
+<p><img src="02-Time-Series-Basics_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-r.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Time-Series-Analysis.pdf", "Time-Series-Analysis.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

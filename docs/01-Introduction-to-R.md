@@ -1,6 +1,6 @@
 # Introduction to R
 
-We will go over some of the basic R operations in this section.
+We will go over some of the basic R operations in this chapter.
 
 If you have questions, you should check [Chris Bilder's website](http://www.chrisbilder.com/stat878/sections.html) for full information.
 
@@ -150,7 +150,7 @@ Click [gpa.txt](http://www.chrisbilder.com/stat878/sections/1/gpa.txt) to downlo
 
 ```r
 getwd()
-#> [1] "/Users/weishangjie/Desktop/Time-Series-Analysis"
+#> [1] "/Users/weishangjie/Documents/GitHub/Time-Series-Analysis"
 ```
 
 
@@ -221,7 +221,7 @@ plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA,
     = "dotted"))
 ```
 
-<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-27-1.png)<!-- -->
 The `plot()` function creates a two dimensional plot of data. 
 
 Here are descriptions of its arguments:
@@ -255,7 +255,7 @@ Here are descriptions of its arguments:
 
 ## Regression
 
-Our is model is:$$CollegeGPA=\beta_0+\beta_1HSGPA+\epsilon$$
+Our model is:$$CollegeGPA=\beta_0+\beta_1HSGPA+\epsilon$$
 
 
 ```r
@@ -435,7 +435,7 @@ plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA, xlab = "HS GPA",
      "red", pch = 1)
 ```
 
-<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-37-1.png" width="672" />
+![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-37-1.png)<!-- -->
 
 
 ```r
@@ -448,7 +448,7 @@ plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA, xlab = "HS GPA",
 axis(side = 1, at = seq(from = 0, to = 4.5, by = 0.5)) 
 ```
 
-<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-38-1.png" width="672" />
+![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-38-1.png)<!-- -->
 
 
 ```r
@@ -465,7 +465,7 @@ axis(side = 1, at = seq(from = 0, to = 4.5, by = 0.1), tck
       = 0.01, labels = FALSE) 
 ```
 
-<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-39-1.png" width="672" />
+![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-39-1.png)<!-- -->
 
 ## Object-Oriented Language
 
@@ -484,7 +484,7 @@ There are many generic functions! For example, `plot()` is a generic function (t
 plot(mod.fit)
 ```
 
-<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-1.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-2.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-3.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-4.png" width="672" />
+![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-40-1.png)<!-- -->![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-40-2.png)<!-- -->![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-40-3.png)<!-- -->![](01-Introduction-to-R_files/figure-epub3/unnamed-chunk-40-4.png)<!-- -->
 
 The purpose of generic functions is to use a familiar language set with any object. So it is convenient to use the same language set no matter the application. This is why R is referred to as an object-oriented language.
 
