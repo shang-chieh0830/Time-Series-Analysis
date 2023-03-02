@@ -1,3 +1,7 @@
+def:unlabeled-div-1
+exm:unlabeled-div-2
+exm:unlabeled-div-3
+exm:unlabeled-div-4
 about
 introduction-to-r
 basic-operation
@@ -11,10 +15,6 @@ sp500-index
 sunspots
 plot.ts
 time-series-basics-basic-model
-def:unlabeled-div-1
-exm:unlabeled-div-2
-exm:unlabeled-div-3
-exm:unlabeled-div-4
 white-noise
 moving-average
 autoregression

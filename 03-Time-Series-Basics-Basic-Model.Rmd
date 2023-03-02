@@ -1,5 +1,7 @@
 # Time Series Basics-Basic Model
 
+In this chapter, we will go introduce some basic _Time Series_ model. Hopefully, we can discuss them in details in the following chapters.
+
 :::{.definition }    
 
 **_Stochastic process_**
