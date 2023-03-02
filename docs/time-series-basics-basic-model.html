@@ -60,6 +60,70 @@ set in the _output.yml file.</p>" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
 
 
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -96,7 +160,12 @@ set in the _output.yml file.</p>" />
 <li class="chapter" data-level="3.3.1" data-path="time-series-basics-plotting.html"><a href="time-series-basics-plotting.html#plot.ts"><i class="fa fa-check"></i><b>3.3.1</b> plot.ts()</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="time-series-basics-basic-model.html"><a href="time-series-basics-basic-model.html"><i class="fa fa-check"></i><b>4</b> Time Series Basics-Basic Model</a></li>
+<li class="chapter" data-level="4" data-path="time-series-basics-basic-model.html"><a href="time-series-basics-basic-model.html"><i class="fa fa-check"></i><b>4</b> Time Series Basics-Basic Model</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="time-series-basics-basic-model.html"><a href="time-series-basics-basic-model.html#white-noise"><i class="fa fa-check"></i><b>4.1</b> White Noise</a></li>
+<li class="chapter" data-level="4.2" data-path="time-series-basics-basic-model.html"><a href="time-series-basics-basic-model.html#moving-average"><i class="fa fa-check"></i><b>4.2</b> Moving Average</a></li>
+<li class="chapter" data-level="4.3" data-path="time-series-basics-basic-model.html"><a href="time-series-basics-basic-model.html#autoregression"><i class="fa fa-check"></i><b>4.3</b> Autoregression</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -117,10 +186,187 @@ set in the _output.yml file.</p>" />
 <div id="time-series-basics-basic-model" class="section level1 hasAnchor" number="4">
 <h1><span class="header-section-number">Chapter 4</span> Time Series Basics-Basic Model<a href="time-series-basics-basic-model.html#time-series-basics-basic-model" class="anchor-section" aria-label="Anchor link to header"></a></h1>
 <div class="definition">
-<p><span id="def:unlabeled-div-1" class="definition"><strong>Definition 4.1  </strong></span><strong><em>Stochastic process</em></strong> is a collection of random variables <span class="math inline">\(\{X_t\}\)</span> indexed by t</p>
+<p><span id="def:unlabeled-div-1" class="definition"><strong>Definition 4.1  </strong></span><strong><em>Stochastic process</em></strong></p>
+<p><strong><em>Stochastic process</em></strong> is a collection of random variables <span class="math inline">\(\{X_t\}\)</span> indexed by t.</p>
 <p><strong><em>Time Series</em></strong> is a collection of random vatiables indexed according to the order they are obtained in time.</p>
+<p>A <strong><em>realization</em></strong> of the stochastic process is the observed values.</p>
 </div>
+<div id="white-noise" class="section level2 hasAnchor" number="4.1">
+<h2><span class="header-section-number">4.1</span> White Noise<a href="time-series-basics-basic-model.html#white-noise" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="example">
+<p><span id="exm:unlabeled-div-2" class="example"><strong>Example 4.1  </strong></span><strong><em>White Noise</em></strong></p>
+<p><span class="math inline">\(W_t\sim \mathrm{i.i.d.} (0,\sigma^2) , \forall t=1,...,n\)</span></p>
+<p>usually, we assume normal distribution, i.e.,</p>
+<p><span class="math inline">\(W_t\sim \mathrm{i.i.d.} N(0,\sigma^2) , \forall t=1,...,n\)</span></p>
+</div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="time-series-basics-basic-model.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">8128</span>)</span>
+<span id="cb1-2"><a href="time-series-basics-basic-model.html#cb1-2" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb1-3"><a href="time-series-basics-basic-model.html#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(w)</span>
+<span id="cb1-4"><a href="time-series-basics-basic-model.html#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.10528941  0.25548490  0.82065388  0.04070997</span></span>
+<span id="cb1-5"><a href="time-series-basics-basic-model.html#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] -0.66722880 -1.54502793</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="time-series-basics-basic-model.html#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="time-series-basics-basic-model.html#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.new</span>(<span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">pointsize =</span> <span class="dv">10</span>)</span>
+<span id="cb2-3"><a href="time-series-basics-basic-model.html#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="time-series-basics-basic-model.html#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># we did not specify y-axis here</span></span>
+<span id="cb2-5"><a href="time-series-basics-basic-model.html#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># note that we use expression() to type math expression</span></span>
+<span id="cb2-6"><a href="time-series-basics-basic-model.html#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> w, <span class="at">ylab =</span> <span class="fu">expression</span>(w[t]), <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, type </span>
+<span id="cb2-7"><a href="time-series-basics-basic-model.html#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="ot">=</span> <span class="st">&quot;o&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;White </span></span>
+<span id="cb2-8"><a href="time-series-basics-basic-model.html#cb2-8" aria-hidden="true" tabindex="-1"></a><span class="st">    noise where &quot;</span>, w[t], <span class="st">&quot; ~ ind. N(0, 1)&quot;</span>)), </span>
+<span id="cb2-9"><a href="time-series-basics-basic-model.html#cb2-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb2-10"><a href="time-series-basics-basic-model.html#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in title(...): font metrics unknown for character</span></span>
+<span id="cb2-11"><a href="time-series-basics-basic-model.html#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 0xa</span></span>
+<span id="cb2-12"><a href="time-series-basics-basic-model.html#cb2-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-13"><a href="time-series-basics-basic-model.html#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in title(...): font metrics unknown for character</span></span>
+<span id="cb2-14"><a href="time-series-basics-basic-model.html#cb2-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 0xa</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="time-series-basics-basic-model.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Advantage of second plot is separate control over color of points</span></span>
+<span id="cb3-2"><a href="time-series-basics-basic-model.html#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="time-series-basics-basic-model.html#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> w, <span class="at">ylab =</span> <span class="fu">expression</span>(w[t]), <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> </span>
+<span id="cb3-4"><a href="time-series-basics-basic-model.html#cb3-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;White noise where &quot;</span>, w[t], <span class="st">&quot; ~ ind. N(0, 1)&quot;</span>)), </span>
+<span id="cb3-5"><a href="time-series-basics-basic-model.html#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb3-6"><a href="time-series-basics-basic-model.html#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="time-series-basics-basic-model.html#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> w, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="03-Time-Series-Basics-Basic-Model_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Suppose another white noise process is simulated. Below is a plot overlaying the two time series.</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="time-series-basics-basic-model.html#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1298</span>)</span>
+<span id="cb4-2"><a href="time-series-basics-basic-model.html#cb4-2" aria-hidden="true" tabindex="-1"></a>w.new <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb4-3"><a href="time-series-basics-basic-model.html#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(w.new)</span>
+<span id="cb4-4"><a href="time-series-basics-basic-model.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  1.08820292 -1.46217413 -1.10887422  0.55156914</span></span>
+<span id="cb4-5"><a href="time-series-basics-basic-model.html#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5]  0.70582813  0.05079594</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="time-series-basics-basic-model.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> w, </span>
+<span id="cb5-2"><a href="time-series-basics-basic-model.html#cb5-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="fu">expression</span>(w[t]), <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, </span>
+<span id="cb5-3"><a href="time-series-basics-basic-model.html#cb5-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb5-4"><a href="time-series-basics-basic-model.html#cb5-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;White noise where &quot;</span>, w[t], <span class="st">&quot; ~ ind. N(0, 1)&quot;</span>)), </span>
+<span id="cb5-5"><a href="time-series-basics-basic-model.html#cb5-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb5-6"><a href="time-series-basics-basic-model.html#cb5-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-7"><a href="time-series-basics-basic-model.html#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> w, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb5-8"><a href="time-series-basics-basic-model.html#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="time-series-basics-basic-model.html#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> w.new, <span class="at">col =</span> <span class="st">&quot;green&quot;</span>)</span>
+<span id="cb5-10"><a href="time-series-basics-basic-model.html#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> w.new, <span class="at">pch =</span> <span class="dv">20</span>,<span class="at">col =</span> <span class="st">&quot;orange&quot;</span>)</span>
+<span id="cb5-11"><a href="time-series-basics-basic-model.html#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span><span class="st">&quot;top&quot;</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Time series 1&quot;</span>, <span class="st">&quot;Time series 2&quot;</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>), </span>
+<span id="cb5-12"><a href="time-series-basics-basic-model.html#cb5-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="03-Time-Series-Basics-Basic-Model_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p>We could also plot the two time series separately.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="time-series-basics-basic-model.html#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make frame by row 2 rows 1 cols</span></span>
+<span id="cb6-2"><a href="time-series-basics-basic-model.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
+<span id="cb6-3"><a href="time-series-basics-basic-model.html#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> w, <span class="at">ylab =</span> <span class="fu">expression</span>(w[t]), <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> </span>
+<span id="cb6-4"><a href="time-series-basics-basic-model.html#cb6-4" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;White noise where &quot;</span>, w[t], <span class="st">&quot;~N(0, 1)&quot;</span>)), <span class="at">panel.first =</span> </span>
+<span id="cb6-5"><a href="time-series-basics-basic-model.html#cb6-5" aria-hidden="true" tabindex="-1"></a>      <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb6-6"><a href="time-series-basics-basic-model.html#cb6-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> w, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb6-7"><a href="time-series-basics-basic-model.html#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="time-series-basics-basic-model.html#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="time-series-basics-basic-model.html#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> w.new, <span class="at">ylab =</span> <span class="fu">expression</span>(w.new[t]), <span class="at">xlab =</span> </span>
+<span id="cb6-10"><a href="time-series-basics-basic-model.html#cb6-10" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;green&quot;</span>, <span class="at">main =</span> </span>
+<span id="cb6-11"><a href="time-series-basics-basic-model.html#cb6-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;White noise where &quot;</span>, w[t], <span class="st">&quot; ~ ind.N(0, 1)&quot;</span>)), <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> </span>
+<span id="cb6-12"><a href="time-series-basics-basic-model.html#cb6-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb6-13"><a href="time-series-basics-basic-model.html#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> w.new, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;orange&quot;</span>)</span></code></pre></div>
+<p><img src="03-Time-Series-Basics-Basic-Model_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<div id="moving-average" class="section level2 hasAnchor" number="4.2">
+<h2><span class="header-section-number">4.2</span> Moving Average<a href="time-series-basics-basic-model.html#moving-average" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="example">
+<p><span id="exm:unlabeled-div-3" class="example"><strong>Example 4.2  </strong></span><strong><em>Moving Average of White Noise</em></strong></p>
+<p>The previous time series had no correlation between the observations. One way to induce correlation is to create a “moving average” of the observations. This will have an effect of “smoothing” the series.</p>
+<p>Let <span class="math inline">\(m_t = \frac{w_t+w_{t-1}+w_{t-2}}{3}\)</span>. This can be done in R using the following code:</p>
+</div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="time-series-basics-basic-model.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">8128</span>)</span>
+<span id="cb7-2"><a href="time-series-basics-basic-model.html#cb7-2" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n=</span><span class="dv">100</span>,<span class="at">mean=</span><span class="dv">0</span>, <span class="at">sd=</span><span class="dv">1</span>)</span>
+<span id="cb7-3"><a href="time-series-basics-basic-model.html#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(w)</span>
+<span id="cb7-4"><a href="time-series-basics-basic-model.html#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.10528941  0.25548490  0.82065388  0.04070997</span></span>
+<span id="cb7-5"><a href="time-series-basics-basic-model.html#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] -0.66722880 -1.54502793</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="time-series-basics-basic-model.html#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># rep(1/3,3) repeats 1/3 3 times</span></span>
+<span id="cb8-2"><a href="time-series-basics-basic-model.html#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="time-series-basics-basic-model.html#cb8-3" aria-hidden="true" tabindex="-1"></a>m <span class="ot">&lt;-</span> <span class="fu">filter</span>(<span class="at">x=</span>w, <span class="at">filter =</span> <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">3</span>), <span class="at">method=</span><span class="st">&quot;convolution&quot;</span>, <span class="at">sides=</span><span class="dv">1</span>)</span>
+<span id="cb8-4"><a href="time-series-basics-basic-model.html#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="time-series-basics-basic-model.html#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(m)</span>
+<span id="cb8-6"><a href="time-series-basics-basic-model.html#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]          NA          NA  0.32361646  0.37228292</span></span>
+<span id="cb8-7"><a href="time-series-basics-basic-model.html#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5]  0.06471168 -0.72384892</span></span>
+<span id="cb8-8"><a href="time-series-basics-basic-model.html#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(m)</span>
+<span id="cb8-9"><a href="time-series-basics-basic-model.html#cb8-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  0.3158762 -0.1803096  0.2598066 -0.6450531 -0.5879723</span></span>
+<span id="cb8-10"><a href="time-series-basics-basic-model.html#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6] -0.9120182</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="time-series-basics-basic-model.html#cb9-1" aria-hidden="true" tabindex="-1"></a>(w[<span class="dv">1</span>]<span class="sc">+</span>w[<span class="dv">2</span>]<span class="sc">+</span>w[<span class="dv">3</span>])<span class="sc">/</span><span class="dv">3</span></span>
+<span id="cb9-2"><a href="time-series-basics-basic-model.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.3236165</span></span>
+<span id="cb9-3"><a href="time-series-basics-basic-model.html#cb9-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-4"><a href="time-series-basics-basic-model.html#cb9-4" aria-hidden="true" tabindex="-1"></a>(w[<span class="dv">98</span>]<span class="sc">+</span>w[<span class="dv">99</span>]<span class="sc">+</span>w[<span class="dv">100</span>])<span class="sc">/</span><span class="dv">3</span></span>
+<span id="cb9-5"><a href="time-series-basics-basic-model.html#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -0.9120182</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="time-series-basics-basic-model.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> w, <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(m[t], <span class="st">&quot; or &quot;</span>, w[t])), </span>
+<span id="cb10-2"><a href="time-series-basics-basic-model.html#cb10-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">panel.first =</span> </span>
+<span id="cb10-3"><a href="time-series-basics-basic-model.html#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>), <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>)</span>
+<span id="cb10-4"><a href="time-series-basics-basic-model.html#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> w, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb10-5"><a href="time-series-basics-basic-model.html#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> m, <span class="at">col =</span> <span class="st">&quot;brown&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;solid&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb10-6"><a href="time-series-basics-basic-model.html#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> m, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;orange&quot;</span>)</span>
+<span id="cb10-7"><a href="time-series-basics-basic-model.html#cb10-7" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span> <span class="st">&quot;top&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;MA, 3 points&quot;</span>, <span class="st">&quot;White noise&quot;</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dotted&quot;</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;brown&quot;</span>, </span>
+<span id="cb10-8"><a href="time-series-basics-basic-model.html#cb10-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;red&quot;</span>), <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">1</span>), <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="03-Time-Series-Basics-Basic-Model_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p>The plot below shows a 7-point moving average.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="time-series-basics-basic-model.html#cb11-1" aria-hidden="true" tabindex="-1"></a>m7 <span class="ot">&lt;-</span> <span class="fu">filter</span>(<span class="at">x=</span>w, <span class="at">filter=</span><span class="fu">rep</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">/</span><span class="dv">7</span>, <span class="at">times=</span><span class="dv">7</span>),<span class="at">method=</span><span class="st">&quot;convolution&quot;</span>, <span class="at">sides=</span><span class="dv">1</span>)</span>
+<span id="cb11-2"><a href="time-series-basics-basic-model.html#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="time-series-basics-basic-model.html#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>w, <span class="at">ylab=</span><span class="fu">expression</span>(<span class="fu">paste</span>(m[t],<span class="st">&quot;or&quot;</span>,w[t])), <span class="at">xlab=</span><span class="st">&quot;t&quot;</span>,<span class="at">type=</span><span class="st">&quot;l&quot;</span>,<span class="at">col=</span><span class="st">&quot;red&quot;</span>,<span class="at">panel_filter=</span><span class="fu">grid</span>(<span class="at">col=</span><span class="st">&quot;gray&quot;</span>,<span class="at">lty=</span><span class="st">&quot;dotted&quot;</span>), <span class="at">lty=</span><span class="st">&quot;dotted&quot;</span>)</span>
+<span id="cb11-4"><a href="time-series-basics-basic-model.html#cb11-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-5"><a href="time-series-basics-basic-model.html#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>w, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb11-6"><a href="time-series-basics-basic-model.html#cb11-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-7"><a href="time-series-basics-basic-model.html#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x=</span>m, <span class="at">col=</span><span class="st">&quot;brown&quot;</span>, <span class="at">lty=</span><span class="st">&quot;solid&quot;</span>,<span class="at">lwd=</span><span class="dv">4</span>)</span>
+<span id="cb11-8"><a href="time-series-basics-basic-model.html#cb11-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-9"><a href="time-series-basics-basic-model.html#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>m, <span class="at">pch=</span><span class="dv">20</span>, <span class="at">col=</span><span class="st">&quot;orange&quot;</span>)</span>
+<span id="cb11-10"><a href="time-series-basics-basic-model.html#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">x =</span> m7, <span class="at">col =</span> <span class="st">&quot;lightgreen&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;solid&quot;</span>, <span class="at">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb11-11"><a href="time-series-basics-basic-model.html#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> m7, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;darkgreen&quot;</span>)</span>
+<span id="cb11-12"><a href="time-series-basics-basic-model.html#cb11-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-13"><a href="time-series-basics-basic-model.html#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span> <span class="st">&quot;top&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;MA, 3 points&quot;</span>, <span class="st">&quot;White noise&quot;</span>, <span class="st">&quot;MA 7 points&quot;</span>),</span>
+<span id="cb11-14"><a href="time-series-basics-basic-model.html#cb11-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">lty =</span> <span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dotted&quot;</span>, <span class="st">&quot;solid&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;brown&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;lightgreen&quot;</span>),</span>
+<span id="cb11-15"><a href="time-series-basics-basic-model.html#cb11-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>), <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="03-Time-Series-Basics-Basic-Model_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+</div>
+<div id="autoregression" class="section level2 hasAnchor" number="4.3">
+<h2><span class="header-section-number">4.3</span> Autoregression<a href="time-series-basics-basic-model.html#autoregression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div class="example">
+<p><span id="exm:unlabeled-div-4" class="example"><strong>Example 4.3  </strong></span><strong><em>Autoregression</em></strong></p>
+<p>An autoregression model uses past observations to predict future observations in a regression model.</p>
+<p>Suppose the autoregression model is</p>
+<p><span class="math inline">\(x_t = 0.7x_{t-1} + w_t, w_t \sim \mathrm{i.i.d.} N(0,1) ,\forall t = 1, …, n\)</span></p>
+<p>Because there is one past period on the right hand side, this is often denoted as an AR(1) model</p>
+<p>Obviously, there will be a correlation between the random variables.</p>
+</div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="time-series-basics-basic-model.html#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">6381</span>)  <span class="co">#Different seed from white_noise.R</span></span>
+<span id="cb12-2"><a href="time-series-basics-basic-model.html#cb12-2" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb12-3"><a href="time-series-basics-basic-model.html#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(w)</span>
+<span id="cb12-4"><a href="time-series-basics-basic-model.html#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  0.06737166 -0.68095839  0.78930605  0.60049855</span></span>
+<span id="cb12-5"><a href="time-series-basics-basic-model.html#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] -1.21297680 -1.14082872</span></span></code></pre></div>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="time-series-basics-basic-model.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Simple way to simulate AR(1) data</span></span>
+<span id="cb13-2"><a href="time-series-basics-basic-model.html#cb13-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="at">length =</span> <span class="dv">200</span>)</span>
+<span id="cb13-3"><a href="time-series-basics-basic-model.html#cb13-3" aria-hidden="true" tabindex="-1"></a>x<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb13-4"><a href="time-series-basics-basic-model.html#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span>(i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
+<span id="cb13-5"><a href="time-series-basics-basic-model.html#cb13-5" aria-hidden="true" tabindex="-1"></a>    x[i] <span class="ot">&lt;-</span> <span class="fl">0.7</span><span class="sc">*</span>x<span class="fl">.1</span> <span class="sc">+</span> w[i]</span>
+<span id="cb13-6"><a href="time-series-basics-basic-model.html#cb13-6" aria-hidden="true" tabindex="-1"></a>    x<span class="fl">.1</span> <span class="ot">&lt;-</span> x[i]</span>
+<span id="cb13-7"><a href="time-series-basics-basic-model.html#cb13-7" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="time-series-basics-basic-model.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">data.frame</span>(x, w))</span>
+<span id="cb14-2"><a href="time-series-basics-basic-model.html#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             x           w</span></span>
+<span id="cb14-3"><a href="time-series-basics-basic-model.html#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  0.06737166  0.06737166</span></span>
+<span id="cb14-4"><a href="time-series-basics-basic-model.html#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 -0.63379823 -0.68095839</span></span>
+<span id="cb14-5"><a href="time-series-basics-basic-model.html#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3  0.34564730  0.78930605</span></span>
+<span id="cb14-6"><a href="time-series-basics-basic-model.html#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4  0.84245166  0.60049855</span></span>
+<span id="cb14-7"><a href="time-series-basics-basic-model.html#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 -0.62326064 -1.21297680</span></span>
+<span id="cb14-8"><a href="time-series-basics-basic-model.html#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 -1.57711117 -1.14082872</span></span></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="time-series-basics-basic-model.html#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Do not use first 100</span></span>
+<span id="cb15-2"><a href="time-series-basics-basic-model.html#cb15-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> x[<span class="dv">101</span><span class="sc">:</span><span class="dv">200</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="time-series-basics-basic-model.html#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">ylab =</span> <span class="fu">expression</span>(x[t]), <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> </span>
+<span id="cb16-2"><a href="time-series-basics-basic-model.html#cb16-2" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>), <span class="at">lwd =</span> <span class="dv">1</span> , <span class="at">main =</span> </span>
+<span id="cb16-3"><a href="time-series-basics-basic-model.html#cb16-3" aria-hidden="true" tabindex="-1"></a>      <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;AR(1): &quot;</span>, x[t] <span class="sc">==</span> <span class="fl">0.7</span><span class="sc">*</span>x[t<span class="dv">-1</span>] <span class="sc">+</span> </span>
+<span id="cb16-4"><a href="time-series-basics-basic-model.html#cb16-4" aria-hidden="true" tabindex="-1"></a>      w[t])), <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> </span>
+<span id="cb16-5"><a href="time-series-basics-basic-model.html#cb16-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb16-6"><a href="time-series-basics-basic-model.html#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> x, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="03-Time-Series-Basics-Basic-Model_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>Here is an easier way to simulate observations from an AR(1). Note that this uses an Autoregressive Integrated Moving Average (ARIMA) structure that we will discuss later in the course. In this case, I use <span class="math inline">\(\sigma_w\)</span>= 10.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="time-series-basics-basic-model.html#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7181</span>)</span>
+<span id="cb17-2"><a href="time-series-basics-basic-model.html#cb17-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">ar =</span> <span class="fu">c</span>(<span class="fl">0.7</span>)), <span class="at">n =</span> <span class="dv">100</span>, </span>
+<span id="cb17-3"><a href="time-series-basics-basic-model.html#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">rand.gen =</span> rnorm, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb17-4"><a href="time-series-basics-basic-model.html#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">ylab =</span> <span class="fu">expression</span>(x[t]), <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> </span>
+<span id="cb17-5"><a href="time-series-basics-basic-model.html#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span> ,<span class="at">main =</span> </span>
+<span id="cb17-6"><a href="time-series-basics-basic-model.html#cb17-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;AR(1): &quot;</span>, x[t] <span class="sc">==</span> <span class="fl">0.7</span><span class="sc">*</span>x[t<span class="dv">-1</span>] <span class="sc">+</span> </span>
+<span id="cb17-7"><a href="time-series-basics-basic-model.html#cb17-7" aria-hidden="true" tabindex="-1"></a>    w[t])), <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> </span>
+<span id="cb17-8"><a href="time-series-basics-basic-model.html#cb17-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb17-9"><a href="time-series-basics-basic-model.html#cb17-9" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> x, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="03-Time-Series-Basics-Basic-Model_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 
+</div>
 </div>
             </section>
 
