@@ -139,8 +139,12 @@ head(w)
 
 ```r
 # rep(1/3,3) repeats 1/3 3 times
-
-m <- filter(x=w, filter = rep(1/3, 3), method="convolution", sides=1)
+# we can use filter() to generate moveing average
+# filter() help us build linear combination of elts of w
+# filter= linear combination coef
+# convolution for moving average
+# sides=1，表示只使用輸入向量的左側。
+m <- filter(w, filter = rep(1/3, 3), method="convolution", sides=1)
 
 head(m)
 #> [1]          NA          NA  0.32361646  0.37228292
