@@ -85,13 +85,52 @@ Let $x_t = w_t + w_{t-1}$ and $y_t = w_t - w_{t-1}$, where $w_t \sim \mathrm{ind
 
 Claim: $x_t$ and $y_t$ are weakly stationary.
 
-pf:
+$pf:$
 
 - $X_t$
 
 $E(X_t)=E(w_t+w_{t-1})=E(w_t+w_{t-1})=0+0=0$
+Thus $E(X_t)=\mu_{X_t}=0 \forall t$
+
+$\gamma(s,t)=E[(X_s-\mu_{X_s})(X_t-\mu_{X_t})]\\=E[X_sX_t]=E[(w_s+w_{s+1})(w_t+w_{t+1})]\\=E[w_sw_t+w_{s-1}w_t+w_sw_{t-1}+w_{s-1}w_{t-1}]$
 
 
+if s=t, then $\gamma(t,t)=E[w^2_t+ w_{t-1}w_t + w_tw_{t-1} +  w^2_{t-1}]\\= Var(w_t) + (E[w_t])^2 + 2E[w_{t-1}]E[w_t] + Var(w_{t-1}) + (E[w_{t-1}])^2\\= \sigma^2_w + 0 + 0 + \sigma^2_w + 0= 2\sigma^2_w$
+
+if s=t-1, then $\gamma(t-1,t)=E[w_{t-1}w_t+ w_{t-2}w_t + w^2_{t-1} +  w_{t-2}w_{t-1}]\\= E[w_{t-1}]E[w_t] + E[w_{t-2}]E[w_t] + Var(w_{t-1}) +(E[w_{t-1}])^2 + E[w_{t-2}]E[w_{t-1}]\\=  0 + 0 + \sigma^2_w + 0+0=\sigma^2_w$
+
+Note that $\gamma(t - 1, t) = \sigma^2_w$  and $\gamma(s,t) = 0$ for |s - t|>1.  
+
+$$\begin{cases}
+  \gamma(s,t)= 2\sigma^2_w & \text{if } s=t \\
+  \gamma(s,t)= \sigma^2_w & \text{if } |s-t|=1\\
+  \gamma(s,t)= 0 & \text{if } |s-t|\ge 1\\
+\end{cases}$$
+
+$X_t$ is weakly stationary.
+
+
+- $Y_t$
+
+
+$E(Y_t)=E(w_t-w_{t-1})=E(w_t-w_{t-1})=0-0=0$
+Thus $E(Y_t)=\mu_{Y_t}=0 \forall t$
+
+$\gamma(s,t)=E[(Y_s-\mu_{Y_s})(Y_t-\mu_{Y_t})]=E[Y_sY_t]\\=E[(w_s-w_{s+1})(w_t-w_{t+1})]=\\E[w_sw_t-w_{s-1}w_t-w_sw_{t-1}+w_{s-1}w_{t-1}]$
+
+if s=t, then $\gamma(t,t)=E[w^2_t- w_{t-1}w_t - w_tw_{t-1} +  w^2_{t-1}]\\= Var(w_t) + (E[w_t])^2 - 2E[w_{t-1}]E[w_t] + Var(w_{t-1}) + (E[w_{t-1}])^2\\= \sigma^2_w + 0 - 0 + \sigma^2_w + 0= 2\sigma^2_w$
+
+if s=t-1, then $\gamma(t-1,t)=E[w_{t-1}w_t- w_{t-2}w_t - w^2_{t-1} +  w_{t-2}w_{t-1}]\\ = E[w_{t-1}]E[w_t] - E[w_{t-2}]E[w_t] - Var(w_{t-1}) -(E[w_{t-1}])^2 + E[w_{t-2}]E[w_{t-1}]\\=  0 - 0 - \sigma^2_w - 0+0=-\sigma^2_w$
+
+Note that $\gamma(t - 1, t) = -\sigma^2_w$  and $\gamma(s,t) = 0$ for |s - t|>1.  
+
+$$\begin{cases}
+  \gamma(s,t)= 2\sigma^2_w & \text{if } s=t \\
+  \gamma(s,t)= -\sigma^2_w & \text{if } |s-t|=1\\
+  \gamma(s,t)= 0 & \text{if } |s-t|\ge 1\\
+\end{cases}$$
+
+$Y_t$ is weakly stationary.
 :::
 
 

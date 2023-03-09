@@ -256,11 +256,37 @@ Suppose <span class="math inline">\(w_t \sim ind. N(0,\sigma^2_w ), t=1,…,n.\)
 <div class="example">
 <p><span id="exm:unlabeled-div-15" class="example"><strong>Example 6.3  </strong></span>Let <span class="math inline">\(x_t = w_t + w_{t-1}\)</span> and <span class="math inline">\(y_t = w_t - w_{t-1}\)</span>, where <span class="math inline">\(w_t \sim \mathrm{ind}N(0,\sigma^2_w )\)</span> for t = 1, …, n</p>
 <p>Claim: <span class="math inline">\(x_t\)</span> and <span class="math inline">\(y_t\)</span> are weakly stationary.</p>
-<p>pf:</p>
+<p><span class="math inline">\(pf:\)</span></p>
 <ul>
 <li><span class="math inline">\(X_t\)</span></li>
 </ul>
-<p><span class="math inline">\(E(X_t)=E(w_t+w_{t-1})=E(w_t+w_{t-1})=0+0=0\)</span></p>
+<p><span class="math inline">\(E(X_t)=E(w_t+w_{t-1})=E(w_t+w_{t-1})=0+0=0\)</span>
+Thus <span class="math inline">\(E(X_t)=\mu_{X_t}=0 \forall t\)</span></p>
+<p><span class="math inline">\(\gamma(s,t)=E[(X_s-\mu_{X_s})(X_t-\mu_{X_t})]\\=E[X_sX_t]=E[(w_s+w_{s+1})(w_t+w_{t+1})]\\=E[w_sw_t+w_{s-1}w_t+w_sw_{t-1}+w_{s-1}w_{t-1}]\)</span></p>
+<p>if s=t, then <span class="math inline">\(\gamma(t,t)=E[w^2_t+ w_{t-1}w_t + w_tw_{t-1} + w^2_{t-1}]\\= Var(w_t) + (E[w_t])^2 + 2E[w_{t-1}]E[w_t] + Var(w_{t-1}) + (E[w_{t-1}])^2\\= \sigma^2_w + 0 + 0 + \sigma^2_w + 0= 2\sigma^2_w\)</span></p>
+<p>if s=t-1, then <span class="math inline">\(\gamma(t-1,t)=E[w_{t-1}w_t+ w_{t-2}w_t + w^2_{t-1} + w_{t-2}w_{t-1}]\\= E[w_{t-1}]E[w_t] + E[w_{t-2}]E[w_t] + Var(w_{t-1}) +(E[w_{t-1}])^2 + E[w_{t-2}]E[w_{t-1}]\\= 0 + 0 + \sigma^2_w + 0+0=\sigma^2_w\)</span></p>
+<p>Note that <span class="math inline">\(\gamma(t - 1, t) = \sigma^2_w\)</span> and <span class="math inline">\(\gamma(s,t) = 0\)</span> for |s - t|&gt;1.</p>
+<p><span class="math display">\[\begin{cases}
+  \gamma(s,t)= 2\sigma^2_w &amp; \text{if } s=t \\
+  \gamma(s,t)= \sigma^2_w &amp; \text{if } |s-t|=1\\
+  \gamma(s,t)= 0 &amp; \text{if } |s-t|\ge 1\\
+\end{cases}\]</span></p>
+<p><span class="math inline">\(X_t\)</span> is weakly stationary.</p>
+<ul>
+<li><span class="math inline">\(Y_t\)</span></li>
+</ul>
+<p><span class="math inline">\(E(Y_t)=E(w_t-w_{t-1})=E(w_t-w_{t-1})=0-0=0\)</span>
+Thus <span class="math inline">\(E(Y_t)=\mu_{Y_t}=0 \forall t\)</span></p>
+<p><span class="math inline">\(\gamma(s,t)=E[(Y_s-\mu_{Y_s})(Y_t-\mu_{Y_t})]=E[Y_sY_t]\\=E[(w_s-w_{s+1})(w_t-w_{t+1})]=\\E[w_sw_t-w_{s-1}w_t-w_sw_{t-1}+w_{s-1}w_{t-1}]\)</span></p>
+<p>if s=t, then <span class="math inline">\(\gamma(t,t)=E[w^2_t- w_{t-1}w_t - w_tw_{t-1} + w^2_{t-1}]\\= Var(w_t) + (E[w_t])^2 - 2E[w_{t-1}]E[w_t] + Var(w_{t-1}) + (E[w_{t-1}])^2\\= \sigma^2_w + 0 - 0 + \sigma^2_w + 0= 2\sigma^2_w\)</span></p>
+<p>if s=t-1, then <span class="math inline">\(\gamma(t-1,t)=E[w_{t-1}w_t- w_{t-2}w_t - w^2_{t-1} + w_{t-2}w_{t-1}]\\ = E[w_{t-1}]E[w_t] - E[w_{t-2}]E[w_t] - Var(w_{t-1}) -(E[w_{t-1}])^2 + E[w_{t-2}]E[w_{t-1}]\\= 0 - 0 - \sigma^2_w - 0+0=-\sigma^2_w\)</span></p>
+<p>Note that <span class="math inline">\(\gamma(t - 1, t) = -\sigma^2_w\)</span> and <span class="math inline">\(\gamma(s,t) = 0\)</span> for |s - t|&gt;1.</p>
+<p><span class="math display">\[\begin{cases}
+  \gamma(s,t)= 2\sigma^2_w &amp; \text{if } s=t \\
+  \gamma(s,t)= -\sigma^2_w &amp; \text{if } |s-t|=1\\
+  \gamma(s,t)= 0 &amp; \text{if } |s-t|\ge 1\\
+\end{cases}\]</span></p>
+<p><span class="math inline">\(Y_t\)</span> is weakly stationary.</p>
 </div>
 <div id="linear-process" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">6.1</span> Linear Process<a href="time-series-basics-stationarity.html#linear-process" class="anchor-section" aria-label="Anchor link to header"></a></h2>
