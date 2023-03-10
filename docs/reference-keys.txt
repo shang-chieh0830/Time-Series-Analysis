@@ -37,3 +37,7 @@ strong-positive-and-negative-linear-dependence
 time-series-basics-stationarity
 stationarity
 linear-process
+time-series-basics-estimation-and-inference-for-measures-of-dependence
+sample-mean-function
+sample-autocovariance-function
+sample-autocorrelation-function-acf
