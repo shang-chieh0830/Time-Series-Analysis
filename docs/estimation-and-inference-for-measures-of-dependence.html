@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Time Series Analysis</title>
+  <title>Chapter 7 Estimation and Inference for measures of dependence | Time Series Analysis</title>
   <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::bs4_book,
 set in the _output.yml file.</p>" />
   <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Time Series Analysis" />
+  <meta property="og:title" content="Chapter 7 Estimation and Inference for measures of dependence | Time Series Analysis" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
@@ -19,7 +19,7 @@ set in the _output.yml file.</p>" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Time Series Analysis" />
+  <meta name="twitter:title" content="Chapter 7 Estimation and Inference for measures of dependence | Time Series Analysis" />
   
   <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::bs4_book,
@@ -36,8 +36,8 @@ set in the _output.yml file.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="stationarity.html"/>
 
-<link rel="next" href="introduction-to-r.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -200,26 +200,41 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Time Series Analysis</h1>
-<p class="author"><em>shang-chieh0830</em></p>
-<p class="date"><em>2023-03-10</em></p>
+<div id="estimation-and-inference-for-measures-of-dependence" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Chapter 7</span> Estimation and Inference for measures of dependence<a href="estimation-and-inference-for-measures-of-dependence.html#estimation-and-inference-for-measures-of-dependence" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p><span class="math inline">\(\mu, \gamma(h),\rho(h)\)</span> are usually unknown so we need to estimate them. To estimate these quantities, we need to assume the time series is weakly stationary.</p>
+<div id="sample-mean-function" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Sample mean function<a href="estimation-and-inference-for-measures-of-dependence.html#sample-mean-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>By the weakly stationary assumption, <span class="math inline">\(E(x_1) = \mu, E(x_2) = \mu,…, E(x_n) = \mu\)</span>. Thus, a logical estimate of <span class="math inline">\(\mu\)</span> is<span class="math display">\[\bar{X}=\frac{1}{n}\sum_{t=1}^{n}X_t\]</span>
+Note that this would not make sense to do if the weakly stationarity assumption did not hold!</p>
 </div>
-<div id="about" class="section level1 hasAnchor" number="1">
-<h1><span class="header-section-number">Chapter 1</span> About<a href="index.html#about" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<p>This book is a concise lecture note about <em>Time Series Analysis</em>.</p>
-<p>The content of this book is from the course Time Series Analysis taught by Chris Bilder. You can check his <a href="https://www.youtube.com/@ChrisBilder">YouTube channel</a> to get full(and correct) information about this course.</p>
-<p>Again, I do <strong>NOT</strong> own the content of this book. I write this book only for studying. All credits belong to Chris Bilder.</p>
-<p>If there is any copyright concerns, I will make this book private ASAP.</p>
+<div id="sample-autocovariance-function" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Sample autocovariance function<a href="estimation-and-inference-for-measures-of-dependence.html#sample-autocovariance-function" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Again with the weakly stationarity assumption, we only need to worry about the lag difference. The estimated autocovariance function is: <span class="math display">\[\hat{\gamma}(h)=\frac{1}{n}\sum_{t=1}^{n-h}(X_{t+h}-\bar{X})(X_t-\bar{X})\]</span></p>
+<ul>
+<li><span class="math inline">\(\hat{\gamma}(h)=\hat{\gamma}(-h)\)</span></li>
+<li>What is this quantity if h = 0?</li>
+<li>What is this quantity if h =1?</li>
+<li>This is similar to the formula often used to estimate the covariance between two random variables x and y:<span class="math inline">\(\hat{Cov}(X,Y)=\frac{1}{n}\sum_{i=1}^{n}(X_i-\bar{X})(Y_i-\bar{Y})\)</span>.</li>
+<li>The sum goes up to n - h to avoid having negative subscripts in the x’s.</li>
+<li>This is NOT an unbiased estimate of <span class="math inline">\(\gamma(h)\)</span>! However, as n gets larger, the bias will go to 0.</li>
+</ul>
+</div>
+<div id="sample-autocorrelation-function-acf" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Sample autocorrelation function (ACF)<a href="estimation-and-inference-for-measures-of-dependence.html#sample-autocorrelation-function-acf" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p><span class="math display">\[\hat{\rho}(h)=\frac{\hat{\gamma}(h)}{\hat{\gamma}(0)}\]</span></p>
+<p>Question: What does <span class="math inline">\(\rho(h) = 0\)</span> mean and why would this be important to detect?</p>
+<p>Because this is important, we conduct hypothesis tests for <span class="math inline">\(\rho(h)\)</span> for all h <span class="math inline">\(\ne\)</span> 0! To do the hypothesis test, we need to find the sampling distribution for (h) under the null hypothesis of <span class="math inline">\(\rho(h)\)</span> = 0.</p>
 
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="stationarity.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="introduction-to-r.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

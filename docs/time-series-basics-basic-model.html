@@ -36,7 +36,7 @@ set in the _output.yml file.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="time-series-basics-plotting.html"/>
+<link rel="prev" href="plotting.html"/>
 <link rel="next" href="time-series-basics-dependence.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -151,13 +151,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#regression"><i class="fa fa-check"></i><b>2.4</b> Regression</a></li>
 <li class="chapter" data-level="2.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#object-oriented-language"><i class="fa fa-check"></i><b>2.5</b> Object-Oriented Language</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="time-series-basics-plotting.html"><a href="time-series-basics-plotting.html"><i class="fa fa-check"></i><b>3</b> Time Series Basics-Plotting</a>
+<li class="chapter" data-level="3" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>3</b> Plotting</a>
 <ul>
-<li class="chapter" data-level="3.1" data-path="time-series-basics-plotting.html"><a href="time-series-basics-plotting.html#example-data"><i class="fa fa-check"></i><b>3.1</b> Example Data</a></li>
-<li class="chapter" data-level="3.2" data-path="time-series-basics-plotting.html"><a href="time-series-basics-plotting.html#sp500-index"><i class="fa fa-check"></i><b>3.2</b> S&amp;P500 Index</a></li>
-<li class="chapter" data-level="3.3" data-path="time-series-basics-plotting.html"><a href="time-series-basics-plotting.html#sunspots"><i class="fa fa-check"></i><b>3.3</b> Sunspots</a>
+<li class="chapter" data-level="3.1" data-path="plotting.html"><a href="plotting.html#example-data"><i class="fa fa-check"></i><b>3.1</b> Example Data</a></li>
+<li class="chapter" data-level="3.2" data-path="plotting.html"><a href="plotting.html#sp500-index"><i class="fa fa-check"></i><b>3.2</b> S&amp;P500 Index</a></li>
+<li class="chapter" data-level="3.3" data-path="plotting.html"><a href="plotting.html#sunspots"><i class="fa fa-check"></i><b>3.3</b> Sunspots</a>
 <ul>
-<li class="chapter" data-level="3.3.1" data-path="time-series-basics-plotting.html"><a href="time-series-basics-plotting.html#plot.ts"><i class="fa fa-check"></i><b>3.3.1</b> plot.ts()</a></li>
+<li class="chapter" data-level="3.3.1" data-path="plotting.html"><a href="plotting.html#plot.ts"><i class="fa fa-check"></i><b>3.3.1</b> plot.ts()</a></li>
 </ul></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="time-series-basics-basic-model.html"><a href="time-series-basics-basic-model.html"><i class="fa fa-check"></i><b>4</b> Time Series Basics-Basic Model</a>
@@ -172,10 +172,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.2" data-path="time-series-basics-dependence.html"><a href="time-series-basics-dependence.html#autocorrelation-function-acf"><i class="fa fa-check"></i><b>5.2</b> Autocorrelation function (ACF)</a></li>
 <li class="chapter" data-level="5.3" data-path="time-series-basics-dependence.html"><a href="time-series-basics-dependence.html#strong-positive-and-negative-linear-dependence"><i class="fa fa-check"></i><b>5.3</b> Strong positive and negative linear dependence</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="time-series-basics-stationarity.html"><a href="time-series-basics-stationarity.html"><i class="fa fa-check"></i><b>6</b> Time Series Basics-Stationarity</a>
+<li class="chapter" data-level="6" data-path="stationarity.html"><a href="stationarity.html"><i class="fa fa-check"></i><b>6</b> Stationarity</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="time-series-basics-stationarity.html"><a href="time-series-basics-stationarity.html#stationarity"><i class="fa fa-check"></i><b>6.1</b> Stationarity</a></li>
-<li class="chapter" data-level="6.2" data-path="time-series-basics-stationarity.html"><a href="time-series-basics-stationarity.html#linear-process"><i class="fa fa-check"></i><b>6.2</b> Linear Process</a></li>
+<li class="chapter" data-level="6.1" data-path="stationarity.html"><a href="stationarity.html#stationarity-1"><i class="fa fa-check"></i><b>6.1</b> Stationarity</a></li>
+<li class="chapter" data-level="6.2" data-path="stationarity.html"><a href="stationarity.html#linear-process"><i class="fa fa-check"></i><b>6.2</b> Linear Process</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="time-series-basics-estimation-and-inference-for-measures-of-dependence.html"><a href="time-series-basics-estimation-and-inference-for-measures-of-dependence.html"><i class="fa fa-check"></i><b>7</b> Time Series Basics-Estimation and Inference for measures of dependence</a>
 <ul>
@@ -243,7 +243,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb69-5"><a href="time-series-basics-basic-model.html#cb69-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
 <span id="cb69-6"><a href="time-series-basics-basic-model.html#cb69-6" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb69-7"><a href="time-series-basics-basic-model.html#cb69-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> w, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="03-Time-Series-Basics-Basic-Model_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="03-Basic-Model_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p>Suppose another white noise process is simulated. Below is a plot overlaying the two time series.</p>
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="time-series-basics-basic-model.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1298</span>)</span>
 <span id="cb70-2"><a href="time-series-basics-basic-model.html#cb70-2" aria-hidden="true" tabindex="-1"></a>w.new <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">100</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
@@ -262,7 +262,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb71-10"><a href="time-series-basics-basic-model.html#cb71-10" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> w.new, <span class="at">pch =</span> <span class="dv">20</span>,<span class="at">col =</span> <span class="st">&quot;orange&quot;</span>)</span>
 <span id="cb71-11"><a href="time-series-basics-basic-model.html#cb71-11" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span><span class="st">&quot;top&quot;</span>,<span class="at">legend=</span><span class="fu">c</span>(<span class="st">&quot;Time series 1&quot;</span>, <span class="st">&quot;Time series 2&quot;</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;red&quot;</span>, <span class="st">&quot;green&quot;</span>), </span>
 <span id="cb71-12"><a href="time-series-basics-basic-model.html#cb71-12" aria-hidden="true" tabindex="-1"></a>      <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
-<p><img src="03-Time-Series-Basics-Basic-Model_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
+<p><img src="03-Basic-Model_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
 <p>We could also plot the two time series separately.</p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="time-series-basics-basic-model.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="co">#make frame by row 2 rows 1 cols</span></span>
 <span id="cb72-2"><a href="time-series-basics-basic-model.html#cb72-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>))</span>
@@ -277,7 +277,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb72-11"><a href="time-series-basics-basic-model.html#cb72-11" aria-hidden="true" tabindex="-1"></a>      <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;White noise where &quot;</span>, w[t], <span class="st">&quot; ~ ind.N(0, 1)&quot;</span>)), <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> </span>
 <span id="cb72-12"><a href="time-series-basics-basic-model.html#cb72-12" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;dotted&quot;</span>))</span>
 <span id="cb72-13"><a href="time-series-basics-basic-model.html#cb72-13" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> w.new, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;orange&quot;</span>)</span></code></pre></div>
-<p><img src="03-Time-Series-Basics-Basic-Model_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="03-Basic-Model_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 </div>
 <div id="moving-average" class="section level2 hasAnchor" number="4.2">
 <h2><span class="header-section-number">4.2</span> Moving Average<a href="time-series-basics-basic-model.html#moving-average" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -318,7 +318,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb76-6"><a href="time-series-basics-basic-model.html#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> m, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;orange&quot;</span>)</span>
 <span id="cb76-7"><a href="time-series-basics-basic-model.html#cb76-7" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span> <span class="st">&quot;top&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;MA, 3 points&quot;</span>, <span class="st">&quot;White noise&quot;</span>), <span class="at">lty =</span> <span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dotted&quot;</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;brown&quot;</span>, </span>
 <span id="cb76-8"><a href="time-series-basics-basic-model.html#cb76-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;red&quot;</span>), <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">4</span>,<span class="dv">1</span>), <span class="at">bty =</span> <span class="st">&quot;n&quot;</span>)</span></code></pre></div>
-<p><img src="03-Time-Series-Basics-Basic-Model_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="03-Basic-Model_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p>The plot below shows a 7-point moving average.</p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="time-series-basics-basic-model.html#cb77-1" aria-hidden="true" tabindex="-1"></a>m7 <span class="ot">&lt;-</span> <span class="fu">filter</span>(<span class="at">x=</span>w, <span class="at">filter=</span><span class="fu">rep</span>(<span class="at">x=</span><span class="dv">1</span><span class="sc">/</span><span class="dv">7</span>, <span class="at">times=</span><span class="dv">7</span>),<span class="at">method=</span><span class="st">&quot;convolution&quot;</span>, <span class="at">sides=</span><span class="dv">1</span>)</span>
 <span id="cb77-2"><a href="time-series-basics-basic-model.html#cb77-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -335,7 +335,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb77-13"><a href="time-series-basics-basic-model.html#cb77-13" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x =</span> <span class="st">&quot;top&quot;</span>, <span class="at">legend =</span> <span class="fu">c</span>(<span class="st">&quot;MA, 3 points&quot;</span>, <span class="st">&quot;White noise&quot;</span>, <span class="st">&quot;MA 7 points&quot;</span>),</span>
 <span id="cb77-14"><a href="time-series-basics-basic-model.html#cb77-14" aria-hidden="true" tabindex="-1"></a>         <span class="at">lty =</span> <span class="fu">c</span>(<span class="st">&quot;solid&quot;</span>, <span class="st">&quot;dotted&quot;</span>, <span class="st">&quot;solid&quot;</span>), <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;brown&quot;</span>, <span class="st">&quot;red&quot;</span>, <span class="st">&quot;lightgreen&quot;</span>),</span>
 <span id="cb77-15"><a href="time-series-basics-basic-model.html#cb77-15" aria-hidden="true" tabindex="-1"></a>         <span class="at">lwd =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">1</span>,<span class="dv">4</span>), <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
-<p><img src="03-Time-Series-Basics-Basic-Model_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="03-Basic-Model_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 </div>
 <div id="autoregression" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Autoregression<a href="time-series-basics-basic-model.html#autoregression" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -375,7 +375,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb82-4"><a href="time-series-basics-basic-model.html#cb82-4" aria-hidden="true" tabindex="-1"></a>      w[t])), <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> </span>
 <span id="cb82-5"><a href="time-series-basics-basic-model.html#cb82-5" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;dotted&quot;</span>))</span>
 <span id="cb82-6"><a href="time-series-basics-basic-model.html#cb82-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> x, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="03-Time-Series-Basics-Basic-Model_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="03-Basic-Model_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p>Here is an easier way to simulate observations from an AR(1). Note that this uses an Autoregressive Integrated Moving Average (ARIMA) structure that we will discuss later in the course. In this case, I use <span class="math inline">\(\sigma_w\)</span>= 10.</p>
 <div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="time-series-basics-basic-model.html#cb83-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7181</span>)</span>
 <span id="cb83-2"><a href="time-series-basics-basic-model.html#cb83-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">ar =</span> <span class="fu">c</span>(<span class="fl">0.7</span>)), <span class="at">n =</span> <span class="dv">100</span>, </span>
@@ -386,7 +386,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb83-7"><a href="time-series-basics-basic-model.html#cb83-7" aria-hidden="true" tabindex="-1"></a>    w[t])), <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> </span>
 <span id="cb83-8"><a href="time-series-basics-basic-model.html#cb83-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;dotted&quot;</span>))</span>
 <span id="cb83-9"><a href="time-series-basics-basic-model.html#cb83-9" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> x, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="03-Time-Series-Basics-Basic-Model_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="03-Basic-Model_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 
 </div>
 </div>
@@ -395,7 +395,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           </div>
         </div>
       </div>
-<a href="time-series-basics-plotting.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="plotting.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="time-series-basics-dependence.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

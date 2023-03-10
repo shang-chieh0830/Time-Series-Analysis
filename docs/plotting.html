@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 3 Plotting | Time Series Analysis</title>
+  <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::bs4_book,
+set in the _output.yml file.</p>" />
+  <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 3 Plotting | Time Series Analysis" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::bs4_book,
+set in the _output.yml file.</p>" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 3 Plotting | Time Series Analysis" />
+  
+  <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
+The HTML output format for this example is bookdown::bs4_book,
+set in the _output.yml file.</p>" />
+  
+
+<meta name="author" content="shang-chieh0830" />
+
+
+<meta name="date" content="2023-03-10" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="introduction-to-r.html"/>
+<link rel="next" href="basic-model.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Time Series Analysis</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> About</a></li>
+<li class="chapter" data-level="2" data-path="introduction-to-r.html"><a href="introduction-to-r.html"><i class="fa fa-check"></i><b>2</b> Introduction to R</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="introduction-to-r.html"><a href="introduction-to-r.html#basic-operation"><i class="fa fa-check"></i><b>2.1</b> Basic Operation</a></li>
+<li class="chapter" data-level="2.2" data-path="introduction-to-r.html"><a href="introduction-to-r.html#vectors"><i class="fa fa-check"></i><b>2.2</b> Vectors</a></li>
+<li class="chapter" data-level="2.3" data-path="introduction-to-r.html"><a href="introduction-to-r.html#files"><i class="fa fa-check"></i><b>2.3</b> Files</a></li>
+<li class="chapter" data-level="2.4" data-path="introduction-to-r.html"><a href="introduction-to-r.html#regression"><i class="fa fa-check"></i><b>2.4</b> Regression</a></li>
+<li class="chapter" data-level="2.5" data-path="introduction-to-r.html"><a href="introduction-to-r.html#object-oriented-language"><i class="fa fa-check"></i><b>2.5</b> Object-Oriented Language</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="plotting.html"><a href="plotting.html"><i class="fa fa-check"></i><b>3</b> Plotting</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="plotting.html"><a href="plotting.html#example-data"><i class="fa fa-check"></i><b>3.1</b> Example Data</a></li>
+<li class="chapter" data-level="3.2" data-path="plotting.html"><a href="plotting.html#sp500-index"><i class="fa fa-check"></i><b>3.2</b> S&amp;P500 Index</a></li>
+<li class="chapter" data-level="3.3" data-path="plotting.html"><a href="plotting.html#sunspots"><i class="fa fa-check"></i><b>3.3</b> Sunspots</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="plotting.html"><a href="plotting.html#plot.ts"><i class="fa fa-check"></i><b>3.3.1</b> plot.ts()</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="basic-model.html"><a href="basic-model.html"><i class="fa fa-check"></i><b>4</b> Basic Model</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="basic-model.html"><a href="basic-model.html#white-noise"><i class="fa fa-check"></i><b>4.1</b> White Noise</a></li>
+<li class="chapter" data-level="4.2" data-path="basic-model.html"><a href="basic-model.html#moving-average"><i class="fa fa-check"></i><b>4.2</b> Moving Average</a></li>
+<li class="chapter" data-level="4.3" data-path="basic-model.html"><a href="basic-model.html#autoregression"><i class="fa fa-check"></i><b>4.3</b> Autoregression</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="dependence.html"><a href="dependence.html"><i class="fa fa-check"></i><b>5</b> Dependence</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="dependence.html"><a href="dependence.html#autocovariance-function"><i class="fa fa-check"></i><b>5.1</b> Autocovariance function</a></li>
+<li class="chapter" data-level="5.2" data-path="dependence.html"><a href="dependence.html#autocorrelation-function-acf"><i class="fa fa-check"></i><b>5.2</b> Autocorrelation function (ACF)</a></li>
+<li class="chapter" data-level="5.3" data-path="dependence.html"><a href="dependence.html#strong-positive-and-negative-linear-dependence"><i class="fa fa-check"></i><b>5.3</b> Strong positive and negative linear dependence</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="stationarity.html"><a href="stationarity.html"><i class="fa fa-check"></i><b>6</b> Stationarity</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="stationarity.html"><a href="stationarity.html#stationarity-1"><i class="fa fa-check"></i><b>6.1</b> Stationarity</a></li>
+<li class="chapter" data-level="6.2" data-path="stationarity.html"><a href="stationarity.html#linear-process"><i class="fa fa-check"></i><b>6.2</b> Linear Process</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="estimation-and-inference-for-measures-of-dependence.html"><a href="estimation-and-inference-for-measures-of-dependence.html"><i class="fa fa-check"></i><b>7</b> Estimation and Inference for measures of dependence</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="estimation-and-inference-for-measures-of-dependence.html"><a href="estimation-and-inference-for-measures-of-dependence.html#sample-mean-function"><i class="fa fa-check"></i><b>7.1</b> Sample mean function</a></li>
+<li class="chapter" data-level="7.2" data-path="estimation-and-inference-for-measures-of-dependence.html"><a href="estimation-and-inference-for-measures-of-dependence.html#sample-autocovariance-function"><i class="fa fa-check"></i><b>7.2</b> Sample autocovariance function</a></li>
+<li class="chapter" data-level="7.3" data-path="estimation-and-inference-for-measures-of-dependence.html"><a href="estimation-and-inference-for-measures-of-dependence.html#sample-autocorrelation-function-acf"><i class="fa fa-check"></i><b>7.3</b> Sample autocorrelation function (ACF)</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Time Series Analysis</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="plotting" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Chapter 3</span> Plotting<a href="plotting.html#plotting" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>In this chapter, we will go over some <em>Time Series</em> examples.
+The aim of this chapter is to help you grasp some of the ideas about plotting.</p>
+<div id="example-data" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Example Data<a href="plotting.html#example-data" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Click <a href="http://www.chrisbilder.com/stat878/sections/2/OSU_enroll.csv">OSU_enroll.csv</a> to download data.</p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="plotting.html#cb43-1" aria-hidden="true" tabindex="-1"></a>osu.enroll <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;OSU_enroll.csv&quot;</span>, </span>
+<span id="cb43-2"><a href="plotting.html#cb43-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="plotting.html#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(osu.enroll)</span>
+<span id="cb44-2"><a href="plotting.html#cb44-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   t Semester Year Enrollment      date</span></span>
+<span id="cb44-3"><a href="plotting.html#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1 1     Fall 1989      20110 8/31/1989</span></span>
+<span id="cb44-4"><a href="plotting.html#cb44-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2 2   Spring 1990      19128  2/1/1990</span></span>
+<span id="cb44-5"><a href="plotting.html#cb44-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 3   Summer 1990       7553  6/1/1990</span></span>
+<span id="cb44-6"><a href="plotting.html#cb44-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 4     Fall 1990      19591 8/31/1990</span></span>
+<span id="cb44-7"><a href="plotting.html#cb44-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 5   Spring 1991      18361  2/1/1991</span></span>
+<span id="cb44-8"><a href="plotting.html#cb44-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6 6   Summer 1991       6702  6/1/1991</span></span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="plotting.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(osu.enroll)</span>
+<span id="cb45-2"><a href="plotting.html#cb45-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     t Semester Year Enrollment      date</span></span>
+<span id="cb45-3"><a href="plotting.html#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 35 35   Spring 2001      20004  2/1/2001</span></span>
+<span id="cb45-4"><a href="plotting.html#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 36 36   Summer 2001       7558  6/1/2001</span></span>
+<span id="cb45-5"><a href="plotting.html#cb45-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 37 37     Fall 2001      21872 8/31/2001</span></span>
+<span id="cb45-6"><a href="plotting.html#cb45-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 38 38   Spring 2002      20922  2/1/2002</span></span>
+<span id="cb45-7"><a href="plotting.html#cb45-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 39 39   Summer 2002       7868  6/1/2002</span></span>
+<span id="cb45-8"><a href="plotting.html#cb45-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 40 40     Fall 2002      22992 8/31/2002</span></span></code></pre></div>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="plotting.html#cb46-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> osu.enroll<span class="sc">$</span>Enrollment</span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="plotting.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="co">#One way to do plot</span></span>
+<span id="cb47-2"><a href="plotting.html#cb47-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.new</span>(<span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">pointsize =</span> <span class="dv">10</span>) </span>
+<span id="cb47-3"><a href="plotting.html#cb47-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-4"><a href="plotting.html#cb47-4" aria-hidden="true" tabindex="-1"></a><span class="co"># we did not specify y-axis and R put our x in y-axis, time in  x-axis</span></span>
+<span id="cb47-5"><a href="plotting.html#cb47-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-6"><a href="plotting.html#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">ylab =</span> <span class="st">&quot;OSU Enrollment&quot;</span>, </span>
+<span id="cb47-7"><a href="plotting.html#cb47-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;t (time)&quot;</span>, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb47-8"><a href="plotting.html#cb47-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;OSU Enrollment from Fall 1989 to Fall 2002&quot;</span>, </span>
+<span id="cb47-9"><a href="plotting.html#cb47-9" aria-hidden="true" tabindex="-1"></a>       <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="plotting.html#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.new</span>(<span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">pointsize =</span> <span class="dv">10</span>) </span>
+<span id="cb48-2"><a href="plotting.html#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-3"><a href="plotting.html#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="co"># we did not specify y-axis and R put our x in y-axis, time in  x-axis</span></span>
+<span id="cb48-4"><a href="plotting.html#cb48-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-5"><a href="plotting.html#cb48-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">ylab =</span> <span class="st">&quot;OSU Enrollment&quot;</span>, </span>
+<span id="cb48-6"><a href="plotting.html#cb48-6" aria-hidden="true" tabindex="-1"></a>       <span class="at">xlab =</span> <span class="st">&quot;t (time)&quot;</span>, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb48-7"><a href="plotting.html#cb48-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="st">&quot;OSU Enrollment from Fall 1989 to Fall 2002&quot;</span>, </span>
+<span id="cb48-8"><a href="plotting.html#cb48-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb48-9"><a href="plotting.html#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-10"><a href="plotting.html#cb48-10" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> osu.enroll<span class="sc">$</span>Enrollment, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p>Altenatively, you can do the same thing using ggplot.</p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="plotting.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb49-2"><a href="plotting.html#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="plotting.html#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a data frame</span></span>
+<span id="cb49-4"><a href="plotting.html#cb49-4" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(osu.enroll)</span>
+<span id="cb49-5"><a href="plotting.html#cb49-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-6"><a href="plotting.html#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="co"># Create the plot</span></span>
+<span id="cb49-7"><a href="plotting.html#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(<span class="at">x =</span> t, <span class="at">y =</span> Enrollment)) <span class="sc">+</span></span>
+<span id="cb49-8"><a href="plotting.html#cb49-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">colour =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span>  <span class="co"># Line plot</span></span>
+<span id="cb49-9"><a href="plotting.html#cb49-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="at">shape =</span> <span class="dv">20</span>, <span class="at">colour =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span>  <span class="co"># Add points</span></span>
+<span id="cb49-10"><a href="plotting.html#cb49-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">x =</span> <span class="st">&quot;t (time)&quot;</span>, <span class="at">y =</span> <span class="st">&quot;OSU Enrollment&quot;</span>, </span>
+<span id="cb49-11"><a href="plotting.html#cb49-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">title =</span> <span class="st">&quot;OSU Enrollment from Fall 1989 to Fall 2002&quot;</span>) <span class="sc">+</span>  <span class="co"># Set axis labels and title</span></span>
+<span id="cb49-12"><a href="plotting.html#cb49-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>() <span class="sc">+</span>  <span class="co"># Set the theme to a white background with black lines</span></span>
+<span id="cb49-13"><a href="plotting.html#cb49-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme</span>(<span class="at">panel.grid.major =</span> <span class="fu">element_line</span>(<span class="at">colour =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">linetype =</span> <span class="st">&quot;dotted&quot;</span>))  <span class="co"># Add gray dotted lines to the plot</span></span></code></pre></div>
+<p><img src="02-Plotting_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>When only x is specified in the <code>plot()</code> function, R puts this on the y-axis and uses the observation number on the x-axis.</p>
+<p>Compare this to the next plot below where both x and y arguments are specified.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="plotting.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="co">#More complicated plot</span></span>
+<span id="cb50-2"><a href="plotting.html#cb50-2" aria-hidden="true" tabindex="-1"></a>fall <span class="ot">&lt;-</span> osu.enroll[osu.enroll<span class="sc">$</span>Semester <span class="sc">==</span> <span class="st">&quot;Fall&quot;</span>,]</span>
+<span id="cb50-3"><a href="plotting.html#cb50-3" aria-hidden="true" tabindex="-1"></a>spring <span class="ot">&lt;-</span> osu.enroll[osu.enroll<span class="sc">$</span>Semester <span class="sc">==</span> <span class="st">&quot;Spring&quot;</span>,]</span>
+<span id="cb50-4"><a href="plotting.html#cb50-4" aria-hidden="true" tabindex="-1"></a>summer <span class="ot">&lt;-</span> osu.enroll[osu.enroll<span class="sc">$</span>Semester <span class="sc">==</span> <span class="st">&quot;Summer&quot;</span>,]</span>
+<span id="cb50-5"><a href="plotting.html#cb50-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-6"><a href="plotting.html#cb50-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">y =</span> fall<span class="sc">$</span>Enrollment, <span class="at">x =</span> fall<span class="sc">$</span>t,</span>
+<span id="cb50-7"><a href="plotting.html#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;OSU Enrollment&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;t (time)&quot;</span>, </span>
+<span id="cb50-8"><a href="plotting.html#cb50-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, </span>
+<span id="cb50-9"><a href="plotting.html#cb50-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">&quot;OSU Enrollment from Fall 1989 to Fall 2002&quot;</span>, </span>
+<span id="cb50-10"><a href="plotting.html#cb50-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>), </span>
+<span id="cb50-11"><a href="plotting.html#cb50-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">type =</span> <span class="st">&quot;o&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fu">max</span>(osu.enroll<span class="sc">$</span>Enrollment)))</span>
+<span id="cb50-12"><a href="plotting.html#cb50-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-13"><a href="plotting.html#cb50-13" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">y =</span> spring<span class="sc">$</span>Enrollment, <span class="at">x =</span> spring<span class="sc">$</span>t, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb50-14"><a href="plotting.html#cb50-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;o&quot;</span>, <span class="at">pch =</span> <span class="dv">2</span>)</span>
+<span id="cb50-15"><a href="plotting.html#cb50-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-16"><a href="plotting.html#cb50-16" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(<span class="at">y =</span> summer<span class="sc">$</span>Enrollment, <span class="at">x =</span> summer<span class="sc">$</span>t, <span class="at">col =</span> </span>
+<span id="cb50-17"><a href="plotting.html#cb50-17" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;darkgreen&quot;</span>, <span class="at">type =</span> <span class="st">&quot;o&quot;</span>, <span class="at">pch =</span> <span class="dv">3</span>)</span>
+<span id="cb50-18"><a href="plotting.html#cb50-18" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb50-19"><a href="plotting.html#cb50-19" aria-hidden="true" tabindex="-1"></a><span class="fu">legend</span>(<span class="at">x=</span><span class="st">&quot;center&quot;</span>, <span class="at">legend=</span> <span class="fu">c</span>(<span class="st">&quot;Fall&quot;</span>,<span class="st">&quot;Spring&quot;</span>,<span class="st">&quot;Summer&quot;</span>), <span class="at">pch=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>), <span class="at">lty=</span><span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">1</span>,<span class="dv">1</span>), <span class="at">col=</span><span class="fu">c</span>(<span class="st">&quot;blue&quot;</span>,<span class="st">&quot;red&quot;</span>,<span class="st">&quot;darkgreen&quot;</span>), <span class="at">bty=</span><span class="st">&quot;n&quot;</span>)</span></code></pre></div>
+<p><img src="02-Plotting_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="plotting.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Another way to do plot with actual dates</span></span>
+<span id="cb51-2"><a href="plotting.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">y =</span> osu.enroll<span class="sc">$</span>Enrollment, </span>
+<span id="cb51-3"><a href="plotting.html#cb51-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">as.Date</span>(osu.enroll<span class="sc">$</span>date, <span class="at">format =</span> <span class="st">&quot;%m/%d/%Y&quot;</span>), </span>
+<span id="cb51-4"><a href="plotting.html#cb51-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;Time&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,  </span>
+<span id="cb51-5"><a href="plotting.html#cb51-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">&quot;OSU Enrollment from Fall 1989 to Fall 2002&quot;</span>,</span>
+<span id="cb51-6"><a href="plotting.html#cb51-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;OSU Enrollment&quot;</span>)</span>
+<span id="cb51-7"><a href="plotting.html#cb51-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-8"><a href="plotting.html#cb51-8" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">y =</span> osu.enroll<span class="sc">$</span>Enrollment, </span>
+<span id="cb51-9"><a href="plotting.html#cb51-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">x =</span> <span class="fu">as.Date</span>(osu.enroll<span class="sc">$</span>date, <span class="at">format =</span> <span class="st">&quot;%m/%d/%Y&quot;</span>), pch </span>
+<span id="cb51-10"><a href="plotting.html#cb51-10" aria-hidden="true" tabindex="-1"></a>    <span class="ot">=</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
+<span id="cb51-11"><a href="plotting.html#cb51-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-12"><a href="plotting.html#cb51-12" aria-hidden="true" tabindex="-1"></a><span class="co">#Create own gridlines</span></span>
+<span id="cb51-13"><a href="plotting.html#cb51-13" aria-hidden="true" tabindex="-1"></a><span class="co"># v specifies vertical line; h specifies horizontal line</span></span>
+<span id="cb51-14"><a href="plotting.html#cb51-14" aria-hidden="true" tabindex="-1"></a> <span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">&quot;1990/1/1&quot;</span>, <span class="st">&quot;1992/1/1&quot;</span>, <span class="st">&quot;1994/1/1&quot;</span>, </span>
+<span id="cb51-15"><a href="plotting.html#cb51-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;1996/1/1&quot;</span>, <span class="st">&quot;1998/1/1&quot;</span>, <span class="st">&quot;2000/1/1&quot;</span>, <span class="st">&quot;2002/1/1&quot;</span>)),</span>
+<span id="cb51-16"><a href="plotting.html#cb51-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>, <span class="at">col =</span> <span class="st">&quot;lightgray&quot;</span>)</span>
+<span id="cb51-17"><a href="plotting.html#cb51-17" aria-hidden="true" tabindex="-1"></a> <span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="dv">10000</span>, <span class="dv">15000</span>, <span class="dv">20000</span>), <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>, <span class="at">col =</span> </span>
+<span id="cb51-18"><a href="plotting.html#cb51-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;lightgray&quot;</span>)</span></code></pre></div>
+<p><img src="02-Plotting_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="sp500-index" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> S&amp;P500 Index<a href="plotting.html#sp500-index" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Click <a href="http://www.chrisbilder.com/stat878/sections/2/SP500weekly.csv">SP500weekly.csv</a> to download data.</p>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="plotting.html#cb52-1" aria-hidden="true" tabindex="-1"></a>SP500 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="st">&quot;SP500weekly.csv&quot;</span>,<span class="at">stringsAsFactors =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="plotting.html#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(SP500)</span>
+<span id="cb53-2"><a href="plotting.html#cb53-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   WeekStart   Open   High    Low  Close AdjClose     Volume</span></span>
+<span id="cb53-3"><a href="plotting.html#cb53-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1  1/1/1995 459.21 462.49 457.20 460.68   460.68 1199080000</span></span>
+<span id="cb53-4"><a href="plotting.html#cb53-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2  1/8/1995 460.67 466.43 458.65 465.97   465.97 1627330000</span></span>
+<span id="cb53-5"><a href="plotting.html#cb53-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3 1/15/1995 465.97 470.43 463.99 464.78   464.78 1667400000</span></span>
+<span id="cb53-6"><a href="plotting.html#cb53-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4 1/22/1995 464.78 471.36 461.14 470.39   470.39 1628110000</span></span>
+<span id="cb53-7"><a href="plotting.html#cb53-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5 1/29/1995 470.39 479.91 467.49 478.65   478.65 1888560000</span></span>
+<span id="cb53-8"><a href="plotting.html#cb53-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6  2/5/1995 478.64 482.60 478.36 481.46   481.46 1579920000</span></span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="plotting.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(SP500)</span>
+<span id="cb54-2"><a href="plotting.html#cb54-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       WeekStart    Open    High     Low   Close AdjClose</span></span>
+<span id="cb54-3"><a href="plotting.html#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1395  9/19/2021 4402.95 4465.40 4305.91 4455.48  4455.48</span></span>
+<span id="cb54-4"><a href="plotting.html#cb54-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1396  9/26/2021 4442.12 4457.30 4288.52 4357.04  4357.04</span></span>
+<span id="cb54-5"><a href="plotting.html#cb54-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1397  10/3/2021 4348.84 4429.97 4278.94 4391.34  4391.34</span></span>
+<span id="cb54-6"><a href="plotting.html#cb54-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1398 10/10/2021 4385.44 4475.82 4329.92 4471.37  4471.37</span></span>
+<span id="cb54-7"><a href="plotting.html#cb54-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1399 10/17/2021 4463.72 4559.67 4447.47 4544.90  4544.90</span></span>
+<span id="cb54-8"><a href="plotting.html#cb54-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1400 10/24/2021 4553.69 4608.08 4537.36 4605.38  4605.38</span></span>
+<span id="cb54-9"><a href="plotting.html#cb54-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           Volume</span></span>
+<span id="cb54-10"><a href="plotting.html#cb54-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1395 15697030000</span></span>
+<span id="cb54-11"><a href="plotting.html#cb54-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1396 15555390000</span></span>
+<span id="cb54-12"><a href="plotting.html#cb54-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1397 14795520000</span></span>
+<span id="cb54-13"><a href="plotting.html#cb54-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1398 13758090000</span></span>
+<span id="cb54-14"><a href="plotting.html#cb54-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1399 13966070000</span></span>
+<span id="cb54-15"><a href="plotting.html#cb54-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1400 16206040000</span></span></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="plotting.html#cb55-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> SP500<span class="sc">$</span>Close</span></code></pre></div>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="plotting.html#cb56-1" aria-hidden="true" tabindex="-1"></a><span class="co">#One way to do plot</span></span>
+<span id="cb56-2"><a href="plotting.html#cb56-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.new</span>(<span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">pointsize =</span> <span class="dv">10</span>) </span>
+<span id="cb56-3"><a href="plotting.html#cb56-3" aria-hidden="true" tabindex="-1"></a><span class="co">#again, we do not specify y-axis here</span></span>
+<span id="cb56-4"><a href="plotting.html#cb56-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">ylab =</span> <span class="st">&quot;S&amp;P 500 Index&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;t (time)&quot;</span>, </span>
+<span id="cb56-5"><a href="plotting.html#cb56-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">main =</span> <span class="st">&quot;S&amp;P 500 Index from </span></span>
+<span id="cb56-6"><a href="plotting.html#cb56-6" aria-hidden="true" tabindex="-1"></a><span class="st">    1/1/1995 to 10/25/2021 (weekly)&quot;</span>, </span>
+<span id="cb56-7"><a href="plotting.html#cb56-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="plotting.html#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Another way to do plot with actual dates</span></span>
+<span id="cb57-2"><a href="plotting.html#cb57-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">y =</span> x, <span class="at">x =</span> <span class="fu">as.Date</span>(SP500<span class="sc">$</span>WeekStart, <span class="at">format =</span></span>
+<span id="cb57-3"><a href="plotting.html#cb57-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;%m/%d/%Y&quot;</span>), <span class="at">xlab =</span> <span class="st">&quot;Time&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, main </span>
+<span id="cb57-4"><a href="plotting.html#cb57-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">=</span> <span class="st">&quot;S&amp;P 500 Index from 1/1/1995 to 10/25/2021 (weekly)&quot;</span>,</span>
+<span id="cb57-5"><a href="plotting.html#cb57-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;S&amp;P 500 Index&quot;</span>)</span>
+<span id="cb57-6"><a href="plotting.html#cb57-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-7"><a href="plotting.html#cb57-7" aria-hidden="true" tabindex="-1"></a><span class="co">#Create own gridlines</span></span>
+<span id="cb57-8"><a href="plotting.html#cb57-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">&quot;1995/1/1&quot;</span>, <span class="st">&quot;2000/1/1&quot;</span>, <span class="st">&quot;2005/1/1&quot;</span>, </span>
+<span id="cb57-9"><a href="plotting.html#cb57-9" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;2010/1/1&quot;</span>, <span class="st">&quot;2015/1/1&quot;</span>, <span class="st">&quot;2020/1/1&quot;</span>)), <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>, </span>
+<span id="cb57-10"><a href="plotting.html#cb57-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;lightgray&quot;</span>)</span>
+<span id="cb57-11"><a href="plotting.html#cb57-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb57-12"><a href="plotting.html#cb57-12" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">5000</span>, <span class="at">by =</span> <span class="dv">1000</span>), <span class="at">lty =</span> </span>
+<span id="cb57-13"><a href="plotting.html#cb57-13" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;dotted&quot;</span>, <span class="at">col =</span> <span class="st">&quot;lightgray&quot;</span>)</span></code></pre></div>
+<p><img src="02-Plotting_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="plotting.html#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="co"># One more way with fine control of the dates</span></span>
+<span id="cb58-2"><a href="plotting.html#cb58-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">y =</span> x, <span class="at">x =</span> <span class="fu">as.Date</span>(SP500<span class="sc">$</span>WeekStart, <span class="at">format =</span> </span>
+<span id="cb58-3"><a href="plotting.html#cb58-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;%m/%d/%Y&quot;</span>), <span class="at">xlab =</span> <span class="st">&quot;Time&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb58-4"><a href="plotting.html#cb58-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">&quot;S&amp;P 500 Index from 1/1/1995 to 10/25/2021 </span></span>
+<span id="cb58-5"><a href="plotting.html#cb58-5" aria-hidden="true" tabindex="-1"></a><span class="st">    (weekly)&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;S&amp;P 500 Index&quot;</span>, <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>)</span>
+<span id="cb58-6"><a href="plotting.html#cb58-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-7"><a href="plotting.html#cb58-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis.Date</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">&quot;1995/1/1&quot;</span>),</span>
+<span id="cb58-8"><a href="plotting.html#cb58-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">to =</span> <span class="fu">as.Date</span>(<span class="st">&quot;2021/12/31&quot;</span>), <span class="at">by =</span> <span class="st">&quot;years&quot;</span>), <span class="at">labels =</span> </span>
+<span id="cb58-9"><a href="plotting.html#cb58-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">format</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="fu">as.Date</span>(<span class="st">&quot;1995/1/1&quot;</span>), <span class="at">to =</span> </span>
+<span id="cb58-10"><a href="plotting.html#cb58-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">as.Date</span>(<span class="st">&quot;2021/12/31&quot;</span>), <span class="at">by =</span> <span class="st">&quot;years&quot;</span>), <span class="at">format =</span> <span class="st">&quot;%b%y&quot;</span>), </span>
+<span id="cb58-11"><a href="plotting.html#cb58-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">las =</span> <span class="dv">2</span>)  <span class="co">#las changes orientation of labels</span></span>
+<span id="cb58-12"><a href="plotting.html#cb58-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb58-13"><a href="plotting.html#cb58-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Create own gridlines</span></span>
+<span id="cb58-14"><a href="plotting.html#cb58-14" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">v =</span> <span class="fu">as.Date</span>(<span class="fu">c</span>(<span class="st">&quot;1995/1/1&quot;</span>, <span class="st">&quot;2000/1/1&quot;</span>, <span class="st">&quot;2005/1/1&quot;</span>, </span>
+<span id="cb58-15"><a href="plotting.html#cb58-15" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;2010/1/1&quot;</span>, <span class="st">&quot;2015/1/1&quot;</span>, <span class="st">&quot;2020/1/1&quot;</span>)), <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>, </span>
+<span id="cb58-16"><a href="plotting.html#cb58-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;lightgray&quot;</span>)</span>
+<span id="cb58-17"><a href="plotting.html#cb58-17" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="dv">5000</span>, <span class="at">by =</span> <span class="dv">1000</span>), <span class="at">lty =</span> </span>
+<span id="cb58-18"><a href="plotting.html#cb58-18" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;dotted&quot;</span>, <span class="at">col =</span> <span class="st">&quot;lightgray&quot;</span>)</span></code></pre></div>
+<p><img src="02-Plotting_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+</div>
+<div id="sunspots" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Sunspots<a href="plotting.html#sunspots" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Click <a href="http://www.chrisbilder.com/stat878/sections/2/SN_y_tot_V2.0.csv">SN_y_tot_V2.0.csv</a> to download data.</p>
+<div class="sourceCode" id="cb59"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb59-1"><a href="plotting.html#cb59-1" aria-hidden="true" tabindex="-1"></a>sunspots <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="at">file =</span> <span class="st">&quot;SN_y_tot_V2.0.csv&quot;</span>, <span class="at">sep =</span> </span>
+<span id="cb59-2"><a href="plotting.html#cb59-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;;&quot;</span>, <span class="at">col.names =</span> <span class="fu">c</span>(<span class="st">&quot;Mid.year&quot;</span>, <span class="st">&quot;Mean.total&quot;</span>, </span>
+<span id="cb59-3"><a href="plotting.html#cb59-3" aria-hidden="true" tabindex="-1"></a>   <span class="st">&quot;Mean.SD.total&quot;</span>, <span class="st">&quot;Numb.obs.used&quot;</span>, <span class="st">&quot;Definitive&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="plotting.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(sunspots)</span>
+<span id="cb60-2"><a href="plotting.html#cb60-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Mid.year Mean.total Mean.SD.total Numb.obs.used</span></span>
+<span id="cb60-3"><a href="plotting.html#cb60-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1   1700.5        8.3            -1            -1</span></span>
+<span id="cb60-4"><a href="plotting.html#cb60-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2   1701.5       18.3            -1            -1</span></span>
+<span id="cb60-5"><a href="plotting.html#cb60-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3   1702.5       26.7            -1            -1</span></span>
+<span id="cb60-6"><a href="plotting.html#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4   1703.5       38.3            -1            -1</span></span>
+<span id="cb60-7"><a href="plotting.html#cb60-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5   1704.5       60.0            -1            -1</span></span>
+<span id="cb60-8"><a href="plotting.html#cb60-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6   1705.5       96.7            -1            -1</span></span>
+<span id="cb60-9"><a href="plotting.html#cb60-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Definitive</span></span>
+<span id="cb60-10"><a href="plotting.html#cb60-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1          1</span></span>
+<span id="cb60-11"><a href="plotting.html#cb60-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2          1</span></span>
+<span id="cb60-12"><a href="plotting.html#cb60-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3          1</span></span>
+<span id="cb60-13"><a href="plotting.html#cb60-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4          1</span></span>
+<span id="cb60-14"><a href="plotting.html#cb60-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5          1</span></span>
+<span id="cb60-15"><a href="plotting.html#cb60-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6          1</span></span></code></pre></div>
+<div class="sourceCode" id="cb61"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb61-1"><a href="plotting.html#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(sunspots)</span>
+<span id="cb61-2"><a href="plotting.html#cb61-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Mid.year Mean.total Mean.SD.total Numb.obs.used</span></span>
+<span id="cb61-3"><a href="plotting.html#cb61-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 316   2015.5       69.8           6.4          8903</span></span>
+<span id="cb61-4"><a href="plotting.html#cb61-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 317   2016.5       39.8           3.9          9940</span></span>
+<span id="cb61-5"><a href="plotting.html#cb61-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 318   2017.5       21.7           2.5         11444</span></span>
+<span id="cb61-6"><a href="plotting.html#cb61-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 319   2018.5        7.0           1.1         12611</span></span>
+<span id="cb61-7"><a href="plotting.html#cb61-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 320   2019.5        3.6           0.5         12884</span></span>
+<span id="cb61-8"><a href="plotting.html#cb61-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 321   2020.5        8.8           4.1         14440</span></span>
+<span id="cb61-9"><a href="plotting.html#cb61-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     Definitive</span></span>
+<span id="cb61-10"><a href="plotting.html#cb61-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 316          1</span></span>
+<span id="cb61-11"><a href="plotting.html#cb61-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 317          1</span></span>
+<span id="cb61-12"><a href="plotting.html#cb61-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 318          1</span></span>
+<span id="cb61-13"><a href="plotting.html#cb61-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 319          1</span></span>
+<span id="cb61-14"><a href="plotting.html#cb61-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 320          1</span></span>
+<span id="cb61-15"><a href="plotting.html#cb61-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 321          1</span></span></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="plotting.html#cb62-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.new</span>(<span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">pointsize =</span> <span class="dv">10</span>)</span>
+<span id="cb62-2"><a href="plotting.html#cb62-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-3"><a href="plotting.html#cb62-3" aria-hidden="true" tabindex="-1"></a><span class="co">#again, we did not specify y-axis here</span></span>
+<span id="cb62-4"><a href="plotting.html#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> sunspots<span class="sc">$</span>Mean.total, <span class="at">ylab =</span> <span class="st">&quot;Number of </span></span>
+<span id="cb62-5"><a href="plotting.html#cb62-5" aria-hidden="true" tabindex="-1"></a><span class="st">    sunspots&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;t (time)&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb62-6"><a href="plotting.html#cb62-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">&quot;Sunspots per year from 1700 to 2020&quot;</span>,</span>
+<span id="cb62-7"><a href="plotting.html#cb62-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb62-8"><a href="plotting.html#cb62-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-9"><a href="plotting.html#cb62-9" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> sunspots<span class="sc">$</span>Mean.total, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb63"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb63-1"><a href="plotting.html#cb63-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Include dates</span></span>
+<span id="cb63-2"><a href="plotting.html#cb63-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">y =</span> sunspots<span class="sc">$</span>Mean.total, <span class="at">x =</span> sunspots<span class="sc">$</span>Mid.year, ylab </span>
+<span id="cb63-3"><a href="plotting.html#cb63-3" aria-hidden="true" tabindex="-1"></a>    <span class="ot">=</span> <span class="st">&quot;Number of sunspots&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, col </span>
+<span id="cb63-4"><a href="plotting.html#cb63-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">=</span> <span class="st">&quot;red&quot;</span>, <span class="at">main =</span> <span class="st">&quot;Sunspots per year from 1700 to 2020&quot;</span>,</span>
+<span id="cb63-5"><a href="plotting.html#cb63-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb63-6"><a href="plotting.html#cb63-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb63-7"><a href="plotting.html#cb63-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">y =</span> sunspots<span class="sc">$</span>Mean.total, <span class="at">x =</span> sunspots<span class="sc">$</span>Mid.year, </span>
+<span id="cb63-8"><a href="plotting.html#cb63-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="02-Plotting_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="plotting.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Convert to an object of class &quot;ts&quot;</span></span>
+<span id="cb64-2"><a href="plotting.html#cb64-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-3"><a href="plotting.html#cb64-3" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="at">data =</span> sunspots<span class="sc">$</span>Mean.total, <span class="at">start =</span> <span class="dv">1700</span>, frequency </span>
+<span id="cb64-4"><a href="plotting.html#cb64-4" aria-hidden="true" tabindex="-1"></a>    <span class="ot">=</span> <span class="dv">1</span>)</span>
+<span id="cb64-5"><a href="plotting.html#cb64-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb64-6"><a href="plotting.html#cb64-6" aria-hidden="true" tabindex="-1"></a>x</span>
+<span id="cb64-7"><a href="plotting.html#cb64-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time Series:</span></span>
+<span id="cb64-8"><a href="plotting.html#cb64-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Start = 1700 </span></span>
+<span id="cb64-9"><a href="plotting.html#cb64-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; End = 2020 </span></span>
+<span id="cb64-10"><a href="plotting.html#cb64-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Frequency = 1 </span></span>
+<span id="cb64-11"><a href="plotting.html#cb64-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   [1]   8.3  18.3  26.7  38.3  60.0  96.7  48.3  33.3  16.7</span></span>
+<span id="cb64-12"><a href="plotting.html#cb64-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [10]  13.3   5.0   0.0   0.0   3.3  18.3  45.0  78.3 105.0</span></span>
+<span id="cb64-13"><a href="plotting.html#cb64-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [19] 100.0  65.0  46.7  43.3  36.7  18.3  35.0  66.7 130.0</span></span>
+<span id="cb64-14"><a href="plotting.html#cb64-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [28] 203.3 171.7 121.7  78.3  58.3  18.3   8.3  26.7  56.7</span></span>
+<span id="cb64-15"><a href="plotting.html#cb64-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [37] 116.7 135.0 185.0 168.3 121.7  66.7  33.3  26.7   8.3</span></span>
+<span id="cb64-16"><a href="plotting.html#cb64-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [46]  18.3  36.7  66.7 100.0 134.8 139.0  79.5  79.7  51.2</span></span>
+<span id="cb64-17"><a href="plotting.html#cb64-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [55]  20.3  16.0  17.0  54.0  79.3  90.0 104.8 143.2 102.0</span></span>
+<span id="cb64-18"><a href="plotting.html#cb64-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [64]  75.2  60.7  34.8  19.0  63.0 116.3 176.8 168.0 136.0</span></span>
+<span id="cb64-19"><a href="plotting.html#cb64-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [73] 110.8  58.0  51.0  11.7  33.0 154.2 257.3 209.8 141.3</span></span>
+<span id="cb64-20"><a href="plotting.html#cb64-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [82] 113.5  64.2  38.0  17.0  40.2 138.2 220.0 218.2 196.8</span></span>
+<span id="cb64-21"><a href="plotting.html#cb64-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [91] 149.8 111.0 100.0  78.2  68.3  35.5  26.7  10.7   6.8</span></span>
+<span id="cb64-22"><a href="plotting.html#cb64-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [100]  11.3  24.2  56.7  75.0  71.8  79.2  70.3  46.8  16.8</span></span>
+<span id="cb64-23"><a href="plotting.html#cb64-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [109]  13.5   4.2   0.0   2.3   8.3  20.3  23.2  59.0  76.3</span></span>
+<span id="cb64-24"><a href="plotting.html#cb64-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [118]  68.3  52.9  38.5  24.2   9.2   6.3   2.2  11.4  28.2</span></span>
+<span id="cb64-25"><a href="plotting.html#cb64-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [127]  59.9  83.0 108.5 115.2 117.4  80.8  44.3  13.4  19.5</span></span>
+<span id="cb64-26"><a href="plotting.html#cb64-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [136]  85.8 192.7 227.3 168.7 143.0 105.5  63.3  40.3  18.1</span></span>
+<span id="cb64-27"><a href="plotting.html#cb64-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [145]  25.1  65.8 102.7 166.3 208.3 182.5 126.3 122.0 102.7</span></span>
+<span id="cb64-28"><a href="plotting.html#cb64-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [154]  74.1  39.0  12.7   8.2  43.4 104.4 178.3 182.2 146.6</span></span>
+<span id="cb64-29"><a href="plotting.html#cb64-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [163] 112.1  83.5  89.2  57.8  30.7  13.9  62.8 123.6 232.0</span></span>
+<span id="cb64-30"><a href="plotting.html#cb64-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [172] 185.3 169.2 110.1  74.5  28.3  18.9  20.7   5.7  10.0</span></span>
+<span id="cb64-31"><a href="plotting.html#cb64-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [181]  53.7  90.5  99.0 106.1 105.8  86.3  42.4  21.8  11.2</span></span>
+<span id="cb64-32"><a href="plotting.html#cb64-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [190]  10.4  11.8  59.5 121.7 142.0 130.0 106.6  69.4  43.8</span></span>
+<span id="cb64-33"><a href="plotting.html#cb64-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [199]  44.4  20.2  15.7   4.6   8.5  40.8  70.1 105.5  90.1</span></span>
+<span id="cb64-34"><a href="plotting.html#cb64-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [208] 102.8  80.9  73.2  30.9   9.5   6.0   2.4  16.1  79.0</span></span>
+<span id="cb64-35"><a href="plotting.html#cb64-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [217]  95.0 173.6 134.6 105.7  62.7  43.5  23.7   9.7  27.9</span></span>
+<span id="cb64-36"><a href="plotting.html#cb64-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [226]  74.0 106.5 114.7 129.7 108.2  59.4  35.1  18.6   9.2</span></span>
+<span id="cb64-37"><a href="plotting.html#cb64-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [235]  14.6  60.2 132.8 190.6 182.6 148.0 113.0  79.2  50.8</span></span>
+<span id="cb64-38"><a href="plotting.html#cb64-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [244]  27.1  16.1  55.3 154.3 214.7 193.0 190.7 118.9  98.3</span></span>
+<span id="cb64-39"><a href="plotting.html#cb64-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [253]  45.0  20.1   6.6  54.2 200.7 269.3 261.7 225.1 159.0</span></span>
+<span id="cb64-40"><a href="plotting.html#cb64-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [262]  76.4  53.4  39.9  15.0  22.0  66.8 132.9 150.0 149.4</span></span>
+<span id="cb64-41"><a href="plotting.html#cb64-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [271] 148.0  94.4  97.6  54.1  49.2  22.5  18.4  39.3 131.0</span></span>
+<span id="cb64-42"><a href="plotting.html#cb64-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [280] 220.1 218.9 198.9 162.4  91.0  60.5  20.6  14.8  33.9</span></span>
+<span id="cb64-43"><a href="plotting.html#cb64-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [289] 123.0 211.1 191.8 203.3 133.0  76.1  44.9  25.1  11.6</span></span>
+<span id="cb64-44"><a href="plotting.html#cb64-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [298]  28.9  88.3 136.3 173.9 170.4 163.6  99.3  65.3  45.8</span></span>
+<span id="cb64-45"><a href="plotting.html#cb64-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [307]  24.7  12.6   4.2   4.8  24.9  80.8  84.5  94.0 113.3</span></span>
+<span id="cb64-46"><a href="plotting.html#cb64-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [316]  69.8  39.8  21.7   7.0   3.6   8.8</span></span></code></pre></div>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="plotting.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(x)</span>
+<span id="cb65-2"><a href="plotting.html#cb65-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;ts&quot;</span></span>
+<span id="cb65-3"><a href="plotting.html#cb65-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb65-4"><a href="plotting.html#cb65-4" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(sunspots<span class="sc">$</span>Mean.total)</span>
+<span id="cb65-5"><a href="plotting.html#cb65-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;numeric&quot;</span></span></code></pre></div>
+<div id="plot.ts" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> plot.ts()<a href="plotting.html#plot.ts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>plot() is a generic function - uses the plot.ts() method function</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="plotting.html#cb66-1" aria-hidden="true" tabindex="-1"></a><span class="co"># we did not specify y-axis here, but x is now ts</span></span>
+<span id="cb66-2"><a href="plotting.html#cb66-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(x[t], <span class="st">&quot; (Number of </span></span>
+<span id="cb66-3"><a href="plotting.html#cb66-3" aria-hidden="true" tabindex="-1"></a><span class="st">   sunspots)&quot;</span>)), <span class="at">xlab =</span> <span class="st">&quot;Year&quot;</span>, <span class="at">type =</span> <span class="st">&quot;o&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, main </span>
+<span id="cb66-4"><a href="plotting.html#cb66-4" aria-hidden="true" tabindex="-1"></a>   <span class="ot">=</span> <span class="st">&quot;Sunspots per year from 1700 to 2020&quot;</span>)</span></code></pre></div>
+<p><img src="02-Plotting_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="introduction-to-r.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="basic-model.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["Time-Series-Analysis.pdf", "Time-Series-Analysis.epub"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"repo": "https://github.com/shang-chieh0830/Time-Series-Analysis"
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
