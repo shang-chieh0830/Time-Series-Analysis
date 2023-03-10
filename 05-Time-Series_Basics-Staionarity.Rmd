@@ -1,5 +1,7 @@
 # Time Series Basics-Stationarity
 
+## Stationarity 
+
 Stationarity is a VERY important concept to understand because it allow us to construct time series models.  
 
 :::{.definition }

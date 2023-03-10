@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="shang-chieh0830" />
 
 
-<meta name="date" content="2023-03-09" />
+<meta name="date" content="2023-03-10" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -174,7 +174,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="time-series-basics-stationarity.html"><a href="time-series-basics-stationarity.html"><i class="fa fa-check"></i><b>6</b> Time Series Basics-Stationarity</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="time-series-basics-stationarity.html"><a href="time-series-basics-stationarity.html#linear-process"><i class="fa fa-check"></i><b>6.1</b> Linear Process</a></li>
+<li class="chapter" data-level="6.1" data-path="time-series-basics-stationarity.html"><a href="time-series-basics-stationarity.html#stationarity"><i class="fa fa-check"></i><b>6.1</b> Stationarity</a></li>
+<li class="chapter" data-level="6.2" data-path="time-series-basics-stationarity.html"><a href="time-series-basics-stationarity.html#linear-process"><i class="fa fa-check"></i><b>6.2</b> Linear Process</a></li>
 </ul></li>
 </ul>
 
@@ -195,6 +196,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="time-series-basics-stationarity" class="section level1 hasAnchor" number="6">
 <h1><span class="header-section-number">Chapter 6</span> Time Series Basics-Stationarity<a href="time-series-basics-stationarity.html#time-series-basics-stationarity" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="stationarity" class="section level2 hasAnchor" number="6.1">
+<h2><span class="header-section-number">6.1</span> Stationarity<a href="time-series-basics-stationarity.html#stationarity" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Stationarity is a VERY important concept to understand because it allow us to construct time series models.</p>
 <div class="definition">
 <p><span id="def:unlabeled-div-11" class="definition"><strong>Definition 6.1  </strong></span><strong>Strictly Stationary</strong></p>
@@ -288,9 +291,25 @@ Thus <span class="math inline">\(E(Y_t)=\mu_{Y_t}=0 \forall t\)</span></p>
 \end{cases}\]</span></p>
 <p><span class="math inline">\(Y_t\)</span> is weakly stationary.</p>
 </div>
-<div id="linear-process" class="section level2 hasAnchor" number="6.1">
-<h2><span class="header-section-number">6.1</span> Linear Process<a href="time-series-basics-stationarity.html#linear-process" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The previous examples are special cases of a “linear process”. In general, a linear process can be defined as</p>
+</div>
+<div id="linear-process" class="section level2 hasAnchor" number="6.2">
+<h2><span class="header-section-number">6.2</span> Linear Process<a href="time-series-basics-stationarity.html#linear-process" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The previous examples are special cases of a “linear process”. In general, a linear process can be defined as <span class="math display">\[X_t=\mu+ \sum_{j=-\infty}^{\infty} \psi_jw_{t-j}, \sum_{j=-\infty}^{\infty}|\psi_j|\leq{\infty}\]</span> and <span class="math display">\[w_t\sim\mathrm{ind.}N(0,\sigma^2_w)\]</span></p>
+<p>It can be shown that <span class="math inline">\(\gamma(h)=\sigma^2_w\sum_{j=-\infty}^{\infty}\psi_{j+h}\psi_j\)</span> for h <span class="math inline">\(\geq\)</span> 0 provided the series is stationary (remember that and <span class="math inline">\(\gamma(h) = \gamma(-h)\)</span>).</p>
+<p><span class="math inline">\(pf:\)</span></p>
+<p>WLOG, let <span class="math inline">\(\mu=0\)</span>, since constants do not affect a covariance.</p>
+<p><span class="math inline">\(E(X_t)=E(\mu+\sum_{j=-\infty}^{\infty} \psi_jw_{t-j})\\=0+\sum_{j=-\infty}^{\infty} \psi_jE(w_{t-j})\\=0+\sum_{j=-\infty}^{\infty} \psi_j0=0\)</span></p>
+<p>Note that <span class="math inline">\(\gamma(h) = Cov(x_t, x_{t+h}) = E(x_tx_{t+h}) – E(x_t)E(x_{t+h}) = E(x_tx_{t+h})\)</span> since <span class="math inline">\(E(x_t) = E(x_{t+h}) = 0\)</span></p>
+<p>Then <span class="math inline">\(E(x_tx_{t+h})=E[(\sum_{i=-\infty}^{\infty}\psi_iw_{t-i})(\sum_{i=-\infty}^{\infty}\psi_jw_{t+h-j})]\\=E[\sum_{i=-\infty}^{\infty}\sum_{j=-\infty}^{\infty}\psi_i\psi_jw_{t-i}w_{t+h-j}]\\=\sum_{i=-\infty}^{\infty}\sum_{j=-\infty}^{\infty}\psi_i\psi_jE(w_{t-i}w_{t+h-j})\\=\sigma^2_w\sum_{k=-\infty}^{\infty}\psi_k\psi_{k+h}\)</span></p>
+<p>Note that <span class="math inline">\(E(w_{t-i}w_{t+h-j})=0, \forall -i\ne{h-j}\)</span> and <span class="math inline">\(E(w_{t-i}w_{t+h-j})=E(w^2_{t-i})=\sigma^2_w ],\forall -i=h-j ( i.e.,j-i=h)\)</span> and <span class="math inline">\(\psi&#39;s\)</span> are constants.</p>
+<p>Hence, <span class="math inline">\(\gamma(h)=\sigma^2_w\sum_{j=-\infty}^{\infty}\psi_{j+h}\psi_j\)</span> for h <span class="math inline">\(\geq\)</span> 0.</p>
+<p>Important:</p>
+<p>There is a very important case when weakly stationary implies strictly stationary. This occurs when the time series has a multivariate normal distribution. Remember that a univariate normal distribution is defined only by its mean and variance. The multivariate normal distribution is defined only by its mean vector and covariance matrix.</p>
+<p>Thus, if we can assume a multivariate normal distribution, we ONLY need to check if the time series satisfies the weakly stationary requirements to say the time series is strongly stationary. Thus, notice what the word “stationary” would mean in this case.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-16" class="example"><strong>Example 6.4  </strong></span><strong>Visualizing Stationarity</strong></p>
+<p>Below are a few plots of the observed values of a time series. Identify which plots correspond to a weakly stationary series.</p>
+</div>
 
 </div>
 </div>
