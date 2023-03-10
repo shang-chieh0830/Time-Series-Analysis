@@ -136,7 +136,38 @@ $Y_t$ is weakly stationary.
 
 ## Linear Process
 
-The previous examples are special cases of a “linear process”. In general, a linear process can be defined as 
+The previous examples are special cases of a “linear process”. In general, a linear process can be defined as $$X_t=\mu+ \sum_{j=-\infty}^{\infty} \psi_jw_{t-j}, \sum_{j=-\infty}^{\infty}|\psi_j|\leq{\infty}$$ and $$w_t\sim\mathrm{ind.}N(0,\sigma^2_w)$$
+
+It can be shown that $\gamma(h)=\sigma^2_w\sum_{j=-\infty}^{\infty}\psi_{j+h}\psi_j$ for h $\geq$ 0 provided the series is stationary (remember that and $\gamma(h) = \gamma(-h)$).
+
+$pf:$
+
+WLOG, let $\mu=0$, since constants do not affect a covariance.
+
+$E(X_t)=E(\mu+\sum_{j=-\infty}^{\infty} \psi_jw_{t-j})\\=0+\sum_{j=-\infty}^{\infty} \psi_jE(w_{t-j})\\=0+\sum_{j=-\infty}^{\infty} \psi_j0=0$
+
+Note that $\gamma(h) = Cov(x_t, x_{t+h}) = E(x_tx_{t+h}) – E(x_t)E(x_{t+h}) = E(x_tx_{t+h})$ since $E(x_t) = E(x_{t+h}) = 0$
+
+Then $E(x_tx_{t+h})=E[(\sum_{i=-\infty}^{\infty}\psi_iw_{t-i})(\sum_{i=-\infty}^{\infty}\psi_jw_{t+h-j})]\\=E[\sum_{i=-\infty}^{\infty}\sum_{j=-\infty}^{\infty}\psi_i\psi_jw_{t-i}w_{t+h-j}]\\=\sum_{i=-\infty}^{\infty}\sum_{j=-\infty}^{\infty}\psi_i\psi_jE(w_{t-i}w_{t+h-j})\\=\sigma^2_w\sum_{k=-\infty}^{\infty}\psi_k\psi_{k+h}$
+
+Note that $E(w_{t-i}w_{t+h-j})=0, \forall -i\ne{h-j}$ and $E(w_{t-i}w_{t+h-j})=E(w^2_{t-i})=\sigma^2_w ],\forall -i=h-j ( i.e.,j-i=h)$ and $\psi's$ are constants.
+
+Hence, $\gamma(h)=\sigma^2_w\sum_{j=-\infty}^{\infty}\psi_{j+h}\psi_j$ for h $\geq$ 0.
 
 
+Important:
+
+There is a very important case when weakly stationary implies strictly stationary. This occurs when the time series has a multivariate normal distribution. Remember that a univariate normal distribution is defined only by its mean and variance. The multivariate normal distribution is defined only by its mean vector and covariance matrix.  
+
+Thus, if we can assume a multivariate normal distribution, we ONLY need to check if the time series satisfies the weakly stationary requirements to say the time series is strongly stationary. Thus, notice what the word “stationary” would mean in this case. 
+
+:::{.example }
+
+**Visualizing Stationarity**
+
+Below are a few plots of the observed values of a time series. Identify which plots correspond to a weakly stationary series.
+
+
+
+:::
 
