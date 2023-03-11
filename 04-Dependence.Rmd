@@ -143,6 +143,7 @@ $$\rho=\frac{Cov(X,Y)}{\sqrt{Var(X)Var(Y)}}$$
 The reason the correlation coefficient is examined instead of the covariance is that it is always between –1 and 1. 
 
 Note the following:
+
 -  close to 1 means strong, positive linear dependence
 -  close to –1 means strong, negative linear dependence
 -  close to 0 means weak linear dependence.  
