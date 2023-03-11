@@ -12,9 +12,11 @@ Note that this would not make sense to do if the weakly stationarity assumption 
 Again with the weakly stationarity assumption, we only need to worry about the lag difference. The estimated autocovariance function is: $$\hat{\gamma}(h)=\frac{1}{n}\sum_{t=1}^{n-h}(X_{t+h}-\bar{X})(X_t-\bar{X})$$
 
 - $\hat{\gamma}(h)=\hat{\gamma}(-h)$
-- What is this quantity if h = 0? 
+- What is this quantity if h = 0?
+  - $\hat{\gamma}(h)=\sum_{t=1}^{n}(X_t-\bar{X})(X_t-\bar{X})$, which is essentially the sample variance.(when n is large n$\approx$n-1)
 - What is this quantity if h =1?
-- This is similar to the formula often used to estimate the covariance between two random variables x and y:$\hat{Cov}(X,Y)=\frac{1}{n}\sum_{i=1}^{n}(X_i-\bar{X})(Y_i-\bar{Y})$.
+  - $\hat{\gamma}(h)=\sum_{t=1}^{n-1}(X_{t+1}-\bar{X})(X_t-\bar{X})$
+- This is similar to the formula often used to estimate the covariance between two random variables x and y: $\hat{Cov}(X,Y)=\frac{1}{n}\sum_{i=1}^{n}(X_i-\bar{X})(Y_i-\bar{Y})$.
 - The sum goes up to n - h to avoid having negative subscripts in the x’s.
 - This is NOT an unbiased estimate of $\gamma(h)$! However, as n gets larger, the bias will go to 0. 
 
@@ -24,13 +26,24 @@ $$\hat{\rho}(h)=\frac{\hat{\gamma}(h)}{\hat{\gamma}(0)}$$
 
 Question: What does $\rho(h) = 0$ mean and why would this be important to detect?  
 
-Because this is important, we conduct hypothesis tests for $\rho(h)$ for all h $\ne$ 0! To do the hypothesis test, we need to find the sampling distribution for \hat{\rho}(h) under the null hypothesis of $\rho(h)$ = 0.
+That means there's no linear relationship between $X_{t-h}$ and $X_t$ for this particular lag h. This is important b/c this makes it no sense to use $X_{t-h}$ to predict $X_t$.
+
+Because this is important, we conduct hypothesis tests for $\rho(h)$ for all h $\ne$ 0! To do the hypothesis test, we need to find the sampling distribution for $\hat{\rho}(h)$ under the null hypothesis of $\rho(h)$ = 0.
 
 
 ## Sampling distribution
 
-In summary, if $\rho(h)$ = 0, $x_t$ is stationary, and the sample size is “large”, then $\hat{\rho}(h)$ has an approximate normal distribution with mean 0 and standard deviation $\sigma_{\hat{\rho}(h)}=\frac{1}{\sqrt{n}}$ .  
-A proof is available in Shumway and Stoffer’s textbook and requires an understanding asymptotics (PhD level statistics course).  
+In summary, if $\rho(h)$ = 0, $x_t$ is stationary, and the sample size is “large”, then $\hat{\rho}(h)$ has an approximate normal distribution with mean 0 and standard deviation $\sigma_{\hat{\rho}(h)}=\frac{1}{\sqrt{n}}$, i.e., $\hat{\rho}(h)\sim N(0,\frac{1}{\sqrt{n}})$
+
+A proof is available in Shumway and Stoffer’s textbook and requires an understanding asymptotics (PhD level statistics course). ($\sqrt{n}(\hat{\rho}(h)-0) \to^{d} N(0,1)$)
+
+$H_0: \rho(h)=0$
+
+$Z=\frac{\hat{\rho}(h)-0}{\frac{1}{\sqrt{n}}}$
+
+$Z>|Z_{1-\frac{\alpha}{2}}|$ reject $H_0$
+
+$\hat{\rho}(h)>\pm \frac{Z_{1-\frac{\alpha}{2}}}{\sqrt{n}}$ reject $H_0$
 
 For a hypothesis test, we could check if $\hat{\rho}(h)$ is within  the bounds of 0 $\pm \frac{Z_{1-\frac{\alpha}{2}}}{\sqrt{n}}$ or not where P(Z < $Z_{1-\frac{\alpha}{2}}$) = 1 – $\frac{\alpha}{2}$ for a standard normal random variable Z. If it is not, then there is sufficient evidence to conclude that $\rho(h) \ne$ 0. We will be using this result a lot for the rest of this course!
 
@@ -55,6 +68,7 @@ x <- ar1$x
 ```
 
 
+
 ```r
 dev.new(width = 8, height = 6, pointsize = 10)  
 #Opens up wider plot window than the default (good for time series plots)
@@ -64,6 +78,7 @@ plot(x = x, ylab = expression(x[t]), xlab = "t", type = "l", col = "red", lwd = 
 points(x = x, pch = 20, col = "blue")
 ```
  
+
 The easiest way to find the autocorrelations in R is to use the `acf()` function.  
 
 
@@ -79,7 +94,12 @@ rho.x <- acf(x = x, type = "correlation", main =
   # lag.max argument can be used to change the maximum number of lags
 ```
 
-The horizontal lines on the plot are drawn at 0  where $Z_{1-\frac{0.05}{2}} = 1.96$. The location of the lines can be changed by using the `ci` argument. The default is ci = 0.95.  
+In our language, lag=h, ACF=$\hat{\rho}(h)$
+
+The horizontal lines on the plot are drawn at 0 $\pm \frac{Z_{1-\frac{0.05}{2}}}{\sqrt{n}}$ where $Z_{1-\frac{0.05}{2}} = 1.96$.
+i.e., outside the blue dashed line, we reject $H_0$
+
+The location of the lines can be changed by using the `ci` (confidence interval )argument. The default is ci = 0.95. i.e., $\alpha=0.05$  
 
 
 
@@ -94,7 +114,10 @@ rho.x
 #> -0.058  0.005 -0.044 -0.041 -0.017  0.064  0.076  0.160 
 #>     16     17     18     19     20 
 #>  0.191  0.141  0.081  0.006 -0.132
+# the first one is rho_hat(0)
+# the second one is rho_hat(1)
 ```
+
 
 ```r
 names(rho.x)
@@ -129,6 +152,8 @@ rho.x$acf
 #> [19,]  0.080508273
 #> [20,]  0.005584061
 #> [21,] -0.131559629
+# the first one is rho_hat(0)
+# the second one is rho_hat(1)
 ```
 
 
@@ -144,16 +169,22 @@ rho.x$acf[1:2]
 Questions:
 
 - What happens to the autocorrelations over time? Why do you think this happens?  
+  - From the model $x_t=0.7x_{t-1}+w_t$, you can see that the auto correlation dies out as the lag term h increases, the main reason is the coefficient 0.7
+  
 - Is there a positive or negative correlation?
-- At what lags is $\rho(h) \ne  $0?  
+  - A positive correlation, again from our model $x_t=0.7x_{t-1}+w_t$, 0.7>0
+
+- At what lags is $\rho(h) \ne$0?  
+  - h=0,1,2. But we don't care h=0, it's just sample variance.
 
 
-R plots $\hat{\rho}(0)=1$ by default. This is unnecessary because $\hat{\rho}(0)$  will be 1 for all time series data sets! To remove  $\hat{\rho}(0)$ from the plot, one can specify the x-axis limit to start at 1. Below is one way this can be done and also illustrates how to use the `lag.max` argument. 
+R plots $\hat{\rho}(0)=1$ by default. This is unnecessary because $\hat{\rho}(0)$  will be 1 for all time series data sets (again, it's just sample covariance)! To remove  $\hat{\rho}(0)$ from the plot, one can specify the x-axis limit to start at 1. Below is one way this can be done and also illustrates how to use the `lag.max` argument. 
 
 
 ```r
 par(xaxs = "i") 
 # Remove default 4% extra space around  min and max of x-axis
+
 rho.x2 <- acf(x = x, type = "correlation", xlim = 
     c(0,30), lag.max = 30, main = expression(paste("Data 
     simulated from AR(1): ", x[t] == 0.7*x[t-1] + w[t], " 
@@ -163,12 +194,16 @@ rho.x2 <- acf(x = x, type = "correlation", xlim =
 <img src="06-Estimation-and-Inference_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 ```r
-par(xaxs = "r") # Return to the default
+
+par(xaxs = "r") # Return to the default: regular pattern
 ```
 
 Note that $\hat{\rho}(0)=1$ is still present but the y-axis at x = 0 hides it. 
 
 While displaying $\hat{\rho}(0)=1$ may seem minor, we will examine these autocorrelations later in the course to determine an appropriate model for a data set. Often, one will forget to ignore the line drawn at lag = 0 and choose an incorrect model. 
+
+**You should always ignore the line drawn at lag=0!!! b/c it's just sample variance.**
+
 
 The autocovariances can also be found using `acf()`.  
 
@@ -186,10 +221,51 @@ To help understand autocorrelations and their relationship with the correlation 
   
 
 ```r
- # Examine usual ways to check correlation
-  x.ts <- ts(x)
-  set1 <- ts.intersect(x.ts, x.ts1 = lag(x = x.ts, k = -1), x.ts2 = lag(x = x.ts, k = -2), x.ts3 = lag(x = x.ts, k = -3))
-  set1
+# Examine usual ways to check correlation
+x.ts <- ts(x)
+x.ts
+#> Time Series:
+#> Start = 1 
+#> End = 100 
+#> Frequency = 1 
+#>   [1]  0.04172680  0.37190682 -0.18545185 -1.38297422
+#>   [5] -2.87593652 -2.60017605 -1.10401719 -0.46385116
+#>   [9]  0.80339069  2.11483585  3.39124978  3.86739194
+#>  [13]  2.12733595  0.67590604  0.71429367  0.38928044
+#>  [17] -1.22681923  0.02287443 -0.57321924 -2.68376851
+#>  [21] -4.80850095 -2.44797633 -1.73921817 -1.48773023
+#>  [25]  0.68920966  0.40220308 -1.58781041 -2.07300848
+#>  [29] -2.63408197 -3.54333559 -2.74116328 -2.54401750
+#>  [33] -3.19570817 -0.02623669  0.41663974 -1.74485791
+#>  [37] -3.04847994 -1.64692948 -1.71478199  0.11340965
+#>  [41]  1.55017869  0.47317192 -0.18521791 -0.05759091
+#>  [45] -1.32105323 -1.22071881 -1.53827085  0.01277076
+#>  [49] -3.19955388 -3.11022833 -3.30621969 -2.00546537
+#>  [53]  0.18084415  0.58776479 -0.70238414 -0.34570939
+#>  [57]  0.94209248 -0.78176791  1.30547320 -1.04054783
+#>  [61] -1.06897160 -1.08850000  0.06031172 -0.05724856
+#>  [65] -1.14731083 -0.79262221 -0.55565451 -1.55985750
+#>  [69] -2.17062644 -1.07776017  0.51569067  2.30660050
+#>  [73]  1.53530426  2.55899301  1.83836277  1.08072014
+#>  [77]  1.34125182 -0.80729300 -1.42735924 -0.42456207
+#>  [81] -0.11625003 -0.74807460  0.70052717  0.08557377
+#>  [85] -0.06039041  0.04479407 -0.12657328 -1.30097021
+#>  [89]  0.81586192 -0.13139757  1.84725644  1.62364752
+#>  [93]  0.33080663 -0.40824385 -1.56008530 -1.63175408
+#>  [97] -1.36418639 -0.37209392 -0.65833401  2.03705932
+```
+
+
+```r
+set1 <- ts.intersect(x.ts, x.ts1 = lag(x = x.ts, k = -1), x.ts2 = lag(x = x.ts, k = -2), x.ts3 = lag(x = x.ts, k = -3))
+
+# b/c we use ts.intersect (take intersection), we have the following
+# x.ts starts at X4
+# x.ts1 starts at X3
+# x.ts2 starts at X2
+# x.ts3 starts at X1
+  
+set1
 #> Time Series:
 #> Start = 4 
 #> End = 100 
@@ -295,13 +371,15 @@ To help understand autocorrelations and their relationship with the correlation 
 ```
 
 
+
 ```r
- cor(set1)
+cor(set1)
 #>            x.ts     x.ts1     x.ts2     x.ts3
 #> x.ts  1.0000000 0.6824913 0.4065326 0.1710145
 #> x.ts1 0.6824913 1.0000000 0.6929638 0.4108375
 #> x.ts2 0.4065326 0.6929638 1.0000000 0.6935801
 #> x.ts3 0.1710145 0.4108375 0.6935801 1.0000000
+# corr matrix
 ```
 
 
@@ -314,7 +392,7 @@ scatterplotMatrix(formula = ~x.ts + x.ts1 + x.ts2 + x.ts3, data = set1,
     diagonal = list(method = "histogram"), col = "red")
 ```
 
-<img src="06-Estimation-and-Inference_files/figure-html/unnamed-chunk-12-1.png" width="672" />
+<img src="06-Estimation-and-Inference_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 ```r
 
@@ -439,18 +517,18 @@ cor(set2)
 
 ```r
 #Another way to see dependence
-  lag.plot(x = x, lags = 4, layout = c(2,2), main = "x vs. lagged x",
+lag.plot(x = x, lags = 4, layout = c(2,2), main = "x vs. lagged x",
     do.lines = FALSE)
 ```
 
-<img src="06-Estimation-and-Inference_files/figure-html/unnamed-chunk-14-1.png" width="672" />
+<img src="06-Estimation-and-Inference_files/figure-html/unnamed-chunk-15-1.png" width="672" />
 
 
 - The `ts()` function converts the time series data to an object that R recognizes as a time series.  
 - The `lag()` function is used to find xt-1, xt-2, and xt-3. The k argument specifies how many time periods to go back. Run `lag(x.ts, k = -1)` and `lag(x.ts, k = 1) `to see what happens. To get everything lined up as I wanted with `ts.intersect()`, I chose to use k = -1. 
 
 ```r
-lag(x.ts, k = -1)
+lag(x.ts, k = -1) #shift down one time period(forward)
 #> Time Series:
 #> Start = 2 
 #> End = 101 
@@ -481,6 +559,41 @@ lag(x.ts, k = -1)
 #>  [93]  0.33080663 -0.40824385 -1.56008530 -1.63175408
 #>  [97] -1.36418639 -0.37209392 -0.65833401  2.03705932
 ```
+
+
+```r
+lag(x.ts, k = 0)
+#> Time Series:
+#> Start = 1 
+#> End = 100 
+#> Frequency = 1 
+#>   [1]  0.04172680  0.37190682 -0.18545185 -1.38297422
+#>   [5] -2.87593652 -2.60017605 -1.10401719 -0.46385116
+#>   [9]  0.80339069  2.11483585  3.39124978  3.86739194
+#>  [13]  2.12733595  0.67590604  0.71429367  0.38928044
+#>  [17] -1.22681923  0.02287443 -0.57321924 -2.68376851
+#>  [21] -4.80850095 -2.44797633 -1.73921817 -1.48773023
+#>  [25]  0.68920966  0.40220308 -1.58781041 -2.07300848
+#>  [29] -2.63408197 -3.54333559 -2.74116328 -2.54401750
+#>  [33] -3.19570817 -0.02623669  0.41663974 -1.74485791
+#>  [37] -3.04847994 -1.64692948 -1.71478199  0.11340965
+#>  [41]  1.55017869  0.47317192 -0.18521791 -0.05759091
+#>  [45] -1.32105323 -1.22071881 -1.53827085  0.01277076
+#>  [49] -3.19955388 -3.11022833 -3.30621969 -2.00546537
+#>  [53]  0.18084415  0.58776479 -0.70238414 -0.34570939
+#>  [57]  0.94209248 -0.78176791  1.30547320 -1.04054783
+#>  [61] -1.06897160 -1.08850000  0.06031172 -0.05724856
+#>  [65] -1.14731083 -0.79262221 -0.55565451 -1.55985750
+#>  [69] -2.17062644 -1.07776017  0.51569067  2.30660050
+#>  [73]  1.53530426  2.55899301  1.83836277  1.08072014
+#>  [77]  1.34125182 -0.80729300 -1.42735924 -0.42456207
+#>  [81] -0.11625003 -0.74807460  0.70052717  0.08557377
+#>  [85] -0.06039041  0.04479407 -0.12657328 -1.30097021
+#>  [89]  0.81586192 -0.13139757  1.84725644  1.62364752
+#>  [93]  0.33080663 -0.40824385 -1.56008530 -1.63175408
+#>  [97] -1.36418639 -0.37209392 -0.65833401  2.03705932
+```
+
 
 
 ```r
@@ -517,6 +630,40 @@ lag(x.ts, k = 1)
 ```
 
 
+```r
+# 創建一個時間序列 x.ts
+b.ts <- ts(c(10, 20, 30, 40, 50, 60), start = c(2022, 1), frequency = 12)
+
+# 使用 ts.intersect() 函數合併 x.ts 和它的三個 lag 時間序列
+ts.intersect(b.ts, b.ts1 = lag(x = b.ts, k = -1), b.ts2 = lag(x = b.ts, k = -2), b.ts3 = lag(x = b.ts, k = -3))
+#>          b.ts b.ts1 b.ts2 b.ts3
+#> Apr 2022   40    30    20    10
+#> May 2022   50    40    30    20
+#> Jun 2022   60    50    40    30
+```
+
+```r
+#b.ts1、b.ts2 和 b.ts3 的時間點是 b.ts 的時間點往後推 1、2、3 個時間單位。
+b.ts1 = lag(x = b.ts, k = -1)
+b.ts2 = lag(x = b.ts, k = -2)
+b.ts3 = lag(x = b.ts, k = -3)
+b.ts
+#>      Jan Feb Mar Apr May Jun
+#> 2022  10  20  30  40  50  60
+b.ts1
+#>      Feb Mar Apr May Jun Jul
+#> 2022  10  20  30  40  50  60
+b.ts2
+#>      Mar Apr May Jun Jul Aug
+#> 2022  10  20  30  40  50  60
+b.ts3
+#>      Apr May Jun Jul Aug Sep
+#> 2022  10  20  30  40  50  60
+```
+
+
+
+
 - The `ts.intersect()` function finds the intersection of the four different “variables”.  
 - The` cor() `function finds the estimated Pearson correlation coefficients between all variable pairs. Notice how close these correlations are to the autocorrelations!      
 - The `scatterplotMatrix()` function finds a scatter plot matrix. The function is in the car package.  
@@ -530,7 +677,7 @@ lag(x.ts, k = 1)
     expression(paste("Data simulated from AR(1): ", x[t] == 0.7*x[t-1] + w[t], " where ", w[t], "~N(0,1)")))
 ```
 
-<img src="06-Estimation-and-Inference_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="06-Estimation-and-Inference_files/figure-html/unnamed-chunk-21-1.png" width="672" />
 
 ```r
   gamma.x
@@ -581,7 +728,7 @@ Click [here](http://www.chrisbilder.com/stat878/sections/2/OSU_enroll.csv) to do
   rho.x <- acf(x = x, type = "correlation", main = "OSU Enrollment series")
 ```
 
-<img src="06-Estimation-and-Inference_files/figure-html/unnamed-chunk-19-1.png" width="672" />
+<img src="06-Estimation-and-Inference_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 ```r
   rho.x
@@ -605,6 +752,6 @@ Click [here](http://www.chrisbilder.com/stat878/sections/2/OSU_enroll.csv) to do
 
 Notes: 
 
-- There are some large autocorrelations. This is a characteristic of a nonstationary series. We will examine this more later.
+- There are some large autocorrelations. This is a characteristic of a nonstationary series (seasonal factor). We will examine this more later.
 - Because the series is not stationary, the hypothesis test for $\rho(h)$ = 0 should not be done here using the methods discussed earlier.  
-- There is a pattern among the autocorrelations. What does this correspond to? 
+- There is a pattern among the autocorrelations. What does this correspond to? (seasonal factor) (similar value/behavior happens during specific period of time/months across different years)

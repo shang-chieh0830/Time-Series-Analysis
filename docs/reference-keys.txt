@@ -44,3 +44,4 @@ sample-mean-function
 sample-autocovariance-function
 sample-autocorrelation-function-acf
 sampling-distribution
+resolving-non-stationarity-problems
