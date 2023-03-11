@@ -115,6 +115,10 @@ getwd()
 gpatxt <- read.table("gpa.txt", header=TRUE, sep="")
 gpacsv <- read.csv("gpa.csv")
 
+#write.table(x = gpacsv, file = "gpa-out1.csv", quote = FALSE, row.names =
+#  FALSE, sep  =",")
+#write.csv(x = gpacsv, file = "gpa-out2.csv")
+
 ```
 
 ```{r}
@@ -143,7 +147,9 @@ gpacsv[,"HSGPA"]
 
 ```{r}
 summary(gpacsv)
+names(gpacsv)
 ```
+
 ```{r}
 plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA,
      xlab = "HS GPA", ylab = "College GPA", 
@@ -218,7 +224,9 @@ save.fit %>% head()
 
 ```{r}
 summary(mod.fit)
+class(mod.fit)
 ```
+
 
 Hence, our estimated regression model is$$ \hat{collge.GPA}=\hat{\beta_0}+\hat{\beta_1}HS.GPA
 =1.0869+0.6125HS.GPA$$
@@ -247,6 +255,9 @@ abline(a = mod.fit$coefficients[1], b =
     "blue", lwd = 2)
     
 
+```
+
+```{r}
 # Same scatter plot as before
 plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA, xlab = "HS 
     GPA", ylab = "College GPA", main = "College GPA vs. 
@@ -263,8 +274,12 @@ curve(expr = mod.fit$coefficients[1] +
     col= "blue", add = TRUE, lwd = 2)
 
 
-
+# Draw a line from (x0, y0) to (x1, y1)
+  segments(x0 = min(gpacsv$HSGPA), y0 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*min(gpacsv$HSGPA),
+           x1 = max(gpacsv$HSGPA), y1 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*max(gpacsv$HSGPA),
+           lty = 1, col = "blue", lwd = 2)
 ```
+
 
 - The `dev.new()` function can be used to open a new plotting window. 
 - The `abline()` function can be used to draw straight lines on a plot. In the format used here, the line y = a + bx was drawn where a was the (intercept) and b was the (slope).  
@@ -290,6 +305,11 @@ my.reg.func <- function(x, y, data) {
     curve(expr = mod.fit$coefficients[1] + 
       mod.fit$coefficients[2]*x, xlim = c(min(x),max(x)), 
       col = "blue", add = TRUE)
+    
+    segments(x0 = min(x), y0 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*min(x),
+             x1 = max(x), y1 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*max(x),
+             lty = 1, col = "blue", lwd = 2)
+
 
     # This is the object returned
     mod.fit
@@ -300,6 +320,8 @@ my.reg.func <- function(x, y, data) {
 ```{r}
 save.it <- my.reg.func(x = gpacsv$HSGPA, y = 
     gpacsv$CollegeGPA, data = gpacsv)
+
+
 
 ```
 To get specific x-axis or y-axis tick marks on a plot, use the `axis()` function. For example, 
@@ -338,6 +360,33 @@ axis(side = 1, at = seq(from = 0, to = 4.5, by = 0.5))
 axis(side = 1, at = seq(from = 0, to = 4.5, by = 0.1), tck 
       = 0.01, labels = FALSE) 
 
+```
+
+```{r}
+ plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA, xlab = "HS GPA", ylab = "College GPA",
+      main = expression(hat(Y) == hat(beta)[0] + hat(beta)[1]*x),
+      xlim = c(0,4.5), ylim = c(0,4.5), col = "red", pch = 1, cex = 1.0, panel.first=grid(col = "gray", lty = "dotted"))
+
+  #Draw a line from (x0, y0) to (x1, y1)
+  segments(x0 = min(gpacsv$HSGPA), y0 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*min(gpacsv$HSGPA),
+           x1 = max(gpacsv$HSGPA), y1 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*max(gpacsv$HSGPA),
+           lty = 1, col = "blue", lwd = 2)
+
+  plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA, xlab = "HS GPA", ylab = "College GPA",
+      main = expression(paste("College GPA vs. HS GPA and ", widehat(CollegeGPA) == hat(beta)[0] + hat(beta)[1]*HSGPA)),
+      xlim = c(0,4.5), ylim = c(0,4.5), col = "red", pch = 1, cex = 1.0, panel.first=grid(col = "gray", lty = "dotted"))
+  
+  #Draw a line from (x0, y0) to (x1, y1)
+  segments(x0 = min(gpacsv$HSGPA), y0 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*min(gpacsv$HSGPA),
+           x1 = max(gpacsv$HSGPA), y1 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*max(gpacsv$HSGPA),
+           lty = 1, col = "blue", lwd = 2)
+
+
+
+```
+
+```{r}
+demo(plotmath) #Run this to see examples
 ```
 
 ## Object-Oriented Language

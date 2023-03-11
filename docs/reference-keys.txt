@@ -14,6 +14,8 @@ exm:unlabeled-div-13
 exm:unlabeled-div-14
 exm:unlabeled-div-15
 exm:unlabeled-div-18
+exm:unlabeled-div-19
+exm:unlabeled-div-20
 about
 introduction-to-r
 basic-operation
@@ -41,3 +43,4 @@ estimation-and-inference-for-measures-of-dependence
 sample-mean-function
 sample-autocovariance-function
 sample-autocorrelation-function-acf
+sampling-distribution

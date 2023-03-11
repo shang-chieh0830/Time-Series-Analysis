@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="shang-chieh0830" />
 
 
-<meta name="date" content="2023-03-10" />
+<meta name="date" content="2023-03-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -182,6 +182,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.1" data-path="estimation-and-inference-for-measures-of-dependence.html"><a href="estimation-and-inference-for-measures-of-dependence.html#sample-mean-function"><i class="fa fa-check"></i><b>7.1</b> Sample mean function</a></li>
 <li class="chapter" data-level="7.2" data-path="estimation-and-inference-for-measures-of-dependence.html"><a href="estimation-and-inference-for-measures-of-dependence.html#sample-autocovariance-function"><i class="fa fa-check"></i><b>7.2</b> Sample autocovariance function</a></li>
 <li class="chapter" data-level="7.3" data-path="estimation-and-inference-for-measures-of-dependence.html"><a href="estimation-and-inference-for-measures-of-dependence.html#sample-autocorrelation-function-acf"><i class="fa fa-check"></i><b>7.3</b> Sample autocorrelation function (ACF)</a></li>
+<li class="chapter" data-level="7.4" data-path="estimation-and-inference-for-measures-of-dependence.html"><a href="estimation-and-inference-for-measures-of-dependence.html#sampling-distribution"><i class="fa fa-check"></i><b>7.4</b> Sampling distribution</a></li>
 </ul></li>
 </ul>
 
@@ -281,7 +282,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb18-1"><a href="introduction-to-r.html#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="fu">getwd</span>()</span>
 <span id="cb18-2"><a href="introduction-to-r.html#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;/Users/weishangjie/Documents/GitHub/Time-Series-Analysis&quot;</span></span></code></pre></div>
 <div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="introduction-to-r.html#cb19-1" aria-hidden="true" tabindex="-1"></a>gpatxt <span class="ot">&lt;-</span> <span class="fu">read.table</span>(<span class="st">&quot;gpa.txt&quot;</span>, <span class="at">header=</span><span class="cn">TRUE</span>, <span class="at">sep=</span><span class="st">&quot;&quot;</span>)</span>
-<span id="cb19-2"><a href="introduction-to-r.html#cb19-2" aria-hidden="true" tabindex="-1"></a>gpacsv <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;gpa.csv&quot;</span>)</span></code></pre></div>
+<span id="cb19-2"><a href="introduction-to-r.html#cb19-2" aria-hidden="true" tabindex="-1"></a>gpacsv <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;gpa.csv&quot;</span>)</span>
+<span id="cb19-3"><a href="introduction-to-r.html#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="introduction-to-r.html#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="co">#write.table(x = gpacsv, file = &quot;gpa-out1.csv&quot;, quote = FALSE, row.names =</span></span>
+<span id="cb19-5"><a href="introduction-to-r.html#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co">#  FALSE, sep  =&quot;,&quot;)</span></span>
+<span id="cb19-6"><a href="introduction-to-r.html#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co">#write.csv(x = gpacsv, file = &quot;gpa-out2.csv&quot;)</span></span></code></pre></div>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="introduction-to-r.html#cb20-1" aria-hidden="true" tabindex="-1"></a>gpacsv<span class="sc">$</span>HSGPA</span>
 <span id="cb20-2"><a href="introduction-to-r.html#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] 3.04 2.35 2.70 2.55 2.83 4.32 3.39 2.32 2.69 2.83 2.39</span></span>
 <span id="cb20-3"><a href="introduction-to-r.html#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [12] 3.65 2.85 3.83 2.22 1.98 2.88 4.00 2.28 2.88</span></span></code></pre></div>
@@ -305,7 +310,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb26-5"><a href="introduction-to-r.html#cb26-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Median :2.830   Median :2.800  </span></span>
 <span id="cb26-6"><a href="introduction-to-r.html#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Mean   :2.899   Mean   :2.862  </span></span>
 <span id="cb26-7"><a href="introduction-to-r.html#cb26-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  3rd Qu.:3.127   3rd Qu.:3.225  </span></span>
-<span id="cb26-8"><a href="introduction-to-r.html#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :4.320   Max.   :3.800</span></span></code></pre></div>
+<span id="cb26-8"><a href="introduction-to-r.html#cb26-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  Max.   :4.320   Max.   :3.800</span></span>
+<span id="cb26-9"><a href="introduction-to-r.html#cb26-9" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(gpacsv)</span>
+<span id="cb26-10"><a href="introduction-to-r.html#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;HSGPA&quot;      &quot;CollegeGPA&quot;</span></span></code></pre></div>
 <div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="introduction-to-r.html#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA,</span>
 <span id="cb27-2"><a href="introduction-to-r.html#cb27-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;HS GPA&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>, </span>
 <span id="cb27-3"><a href="introduction-to-r.html#cb27-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;College GPA vs. HS GPA&quot;</span>, </span>
@@ -403,7 +410,9 @@ These line type specifications can be used in other functions.<br />
 <span id="cb33-17"><a href="introduction-to-r.html#cb33-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb33-18"><a href="introduction-to-r.html#cb33-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 0.3437 on 18 degrees of freedom</span></span>
 <span id="cb33-19"><a href="introduction-to-r.html#cb33-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.5768, Adjusted R-squared:  0.5533 </span></span>
-<span id="cb33-20"><a href="introduction-to-r.html#cb33-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 24.54 on 1 and 18 DF,  p-value: 0.0001027</span></span></code></pre></div>
+<span id="cb33-20"><a href="introduction-to-r.html#cb33-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic: 24.54 on 1 and 18 DF,  p-value: 0.0001027</span></span>
+<span id="cb33-21"><a href="introduction-to-r.html#cb33-21" aria-hidden="true" tabindex="-1"></a><span class="fu">class</span>(mod.fit)</span>
+<span id="cb33-22"><a href="introduction-to-r.html#cb33-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;lm&quot;</span></span></code></pre></div>
 <p>Hence, our estimated regression model is<span class="math display">\[ \hat{collge.GPA}=\hat{\beta_0}+\hat{\beta_1}HS.GPA
 =1.0869+0.6125HS.GPA\]</span></p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="introduction-to-r.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Open a new graphics window </span></span>
@@ -427,65 +436,67 @@ These line type specifications can be used in other functions.<br />
 <span id="cb34-19"><a href="introduction-to-r.html#cb34-19" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>], <span class="at">b =</span> </span>
 <span id="cb34-20"><a href="introduction-to-r.html#cb34-20" aria-hidden="true" tabindex="-1"></a>    mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>], <span class="at">lty =</span> <span class="st">&quot;solid&quot;</span>, <span class="at">col =</span> </span>
 <span id="cb34-21"><a href="introduction-to-r.html#cb34-21" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
-<span id="cb34-22"><a href="introduction-to-r.html#cb34-22" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb34-23"><a href="introduction-to-r.html#cb34-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-24"><a href="introduction-to-r.html#cb34-24" aria-hidden="true" tabindex="-1"></a><span class="co"># Same scatter plot as before</span></span>
-<span id="cb34-25"><a href="introduction-to-r.html#cb34-25" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">xlab =</span> <span class="st">&quot;HS </span></span>
-<span id="cb34-26"><a href="introduction-to-r.html#cb34-26" aria-hidden="true" tabindex="-1"></a><span class="st">    GPA&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>, <span class="at">main =</span> <span class="st">&quot;College GPA vs. </span></span>
-<span id="cb34-27"><a href="introduction-to-r.html#cb34-27" aria-hidden="true" tabindex="-1"></a><span class="st">    HS GPA&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="at">col =</span> </span>
-<span id="cb34-28"><a href="introduction-to-r.html#cb34-28" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">1.0</span>, <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> </span>
-<span id="cb34-29"><a href="introduction-to-r.html#cb34-29" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
-<span id="cb34-30"><a href="introduction-to-r.html#cb34-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-31"><a href="introduction-to-r.html#cb34-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb34-32"><a href="introduction-to-r.html#cb34-32" aria-hidden="true" tabindex="-1"></a><span class="co"># Add line</span></span>
-<span id="cb34-33"><a href="introduction-to-r.html#cb34-33" aria-hidden="true" tabindex="-1"></a><span class="co"># expr= math expression</span></span>
-<span id="cb34-34"><a href="introduction-to-r.html#cb34-34" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="at">expr =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> </span>
-<span id="cb34-35"><a href="introduction-to-r.html#cb34-35" aria-hidden="true" tabindex="-1"></a>    mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span>x, </span>
-<span id="cb34-36"><a href="introduction-to-r.html#cb34-36" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fu">min</span>(gpacsv<span class="sc">$</span>HSGPA),<span class="fu">max</span>(gpacsv<span class="sc">$</span>HSGPA)), </span>
-<span id="cb34-37"><a href="introduction-to-r.html#cb34-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">col=</span> <span class="st">&quot;blue&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<span id="cb34-22"><a href="introduction-to-r.html#cb34-22" aria-hidden="true" tabindex="-1"></a>    </span></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="introduction-to-r.html#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Same scatter plot as before</span></span>
+<span id="cb35-2"><a href="introduction-to-r.html#cb35-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">xlab =</span> <span class="st">&quot;HS </span></span>
+<span id="cb35-3"><a href="introduction-to-r.html#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="st">    GPA&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>, <span class="at">main =</span> <span class="st">&quot;College GPA vs. </span></span>
+<span id="cb35-4"><a href="introduction-to-r.html#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="st">    HS GPA&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="at">col =</span> </span>
+<span id="cb35-5"><a href="introduction-to-r.html#cb35-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">1.0</span>, <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> </span>
+<span id="cb35-6"><a href="introduction-to-r.html#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb35-7"><a href="introduction-to-r.html#cb35-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-8"><a href="introduction-to-r.html#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-9"><a href="introduction-to-r.html#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co"># Add line</span></span>
+<span id="cb35-10"><a href="introduction-to-r.html#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="co"># expr= math expression</span></span>
+<span id="cb35-11"><a href="introduction-to-r.html#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="fu">curve</span>(<span class="at">expr =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> </span>
+<span id="cb35-12"><a href="introduction-to-r.html#cb35-12" aria-hidden="true" tabindex="-1"></a>    mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span>x, </span>
+<span id="cb35-13"><a href="introduction-to-r.html#cb35-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fu">min</span>(gpacsv<span class="sc">$</span>HSGPA),<span class="fu">max</span>(gpacsv<span class="sc">$</span>HSGPA)), </span>
+<span id="cb35-14"><a href="introduction-to-r.html#cb35-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">col=</span> <span class="st">&quot;blue&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb35-15"><a href="introduction-to-r.html#cb35-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-16"><a href="introduction-to-r.html#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-17"><a href="introduction-to-r.html#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="co"># Draw a line from (x0, y0) to (x1, y1)</span></span>
+<span id="cb35-18"><a href="introduction-to-r.html#cb35-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">segments</span>(<span class="at">x0 =</span> <span class="fu">min</span>(gpacsv<span class="sc">$</span>HSGPA), <span class="at">y0 =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span><span class="fu">min</span>(gpacsv<span class="sc">$</span>HSGPA),</span>
+<span id="cb35-19"><a href="introduction-to-r.html#cb35-19" aria-hidden="true" tabindex="-1"></a>           <span class="at">x1 =</span> <span class="fu">max</span>(gpacsv<span class="sc">$</span>HSGPA), <span class="at">y1 =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span><span class="fu">max</span>(gpacsv<span class="sc">$</span>HSGPA),</span>
+<span id="cb35-20"><a href="introduction-to-r.html#cb35-20" aria-hidden="true" tabindex="-1"></a>           <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-35-1.png" width="672" /></p>
 <ul>
 <li><p>The <code>dev.new()</code> function can be used to open a new plotting window.</p></li>
 <li><p>The <code>abline()</code> function can be used to draw straight lines on a plot. In the format used here, the line y = a + bx was drawn where a was the (intercept) and b was the (slope).</p></li>
 <li><p>In the second plot, the curve() function was used to draw the line on the plot. This was done to have the line within the range of the high school GPA values.</p></li>
 </ul>
 <p>Let’s use function to automate what we have done.</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="introduction-to-r.html#cb35-1" aria-hidden="true" tabindex="-1"></a>my.reg.func <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, data) {</span>
-<span id="cb35-2"><a href="introduction-to-r.html#cb35-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-3"><a href="introduction-to-r.html#cb35-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fit the simple linear regression model and save the results in mod.fit</span></span>
-<span id="cb35-4"><a href="introduction-to-r.html#cb35-4" aria-hidden="true" tabindex="-1"></a>    mod.fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">data =</span> data)</span>
-<span id="cb35-5"><a href="introduction-to-r.html#cb35-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-6"><a href="introduction-to-r.html#cb35-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Open a new graphics window - do not need to</span></span>
-<span id="cb35-7"><a href="introduction-to-r.html#cb35-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dev.new</span>(<span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">pointsize =</span> <span class="dv">10</span>)</span>
-<span id="cb35-8"><a href="introduction-to-r.html#cb35-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-9"><a href="introduction-to-r.html#cb35-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Same scatter plot as before</span></span>
-<span id="cb35-10"><a href="introduction-to-r.html#cb35-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">main =</span> <span class="st">&quot;y vs. x&quot;</span>, <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> </span>
-<span id="cb35-11"><a href="introduction-to-r.html#cb35-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;dotted&quot;</span>))</span>
-<span id="cb35-12"><a href="introduction-to-r.html#cb35-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-13"><a href="introduction-to-r.html#cb35-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot model</span></span>
-<span id="cb35-14"><a href="introduction-to-r.html#cb35-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">curve</span>(<span class="at">expr =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> </span>
-<span id="cb35-15"><a href="introduction-to-r.html#cb35-15" aria-hidden="true" tabindex="-1"></a>      mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span>x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fu">min</span>(x),<span class="fu">max</span>(x)), </span>
-<span id="cb35-16"><a href="introduction-to-r.html#cb35-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb35-17"><a href="introduction-to-r.html#cb35-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-18"><a href="introduction-to-r.html#cb35-18" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This is the object returned</span></span>
-<span id="cb35-19"><a href="introduction-to-r.html#cb35-19" aria-hidden="true" tabindex="-1"></a>    mod.fit</span>
-<span id="cb35-20"><a href="introduction-to-r.html#cb35-20" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="introduction-to-r.html#cb36-1" aria-hidden="true" tabindex="-1"></a>save.it <span class="ot">&lt;-</span> <span class="fu">my.reg.func</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> </span>
-<span id="cb36-2"><a href="introduction-to-r.html#cb36-2" aria-hidden="true" tabindex="-1"></a>    gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">data =</span> gpacsv)</span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="introduction-to-r.html#cb36-1" aria-hidden="true" tabindex="-1"></a>my.reg.func <span class="ot">&lt;-</span> <span class="cf">function</span>(x, y, data) {</span>
+<span id="cb36-2"><a href="introduction-to-r.html#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="introduction-to-r.html#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Fit the simple linear regression model and save the results in mod.fit</span></span>
+<span id="cb36-4"><a href="introduction-to-r.html#cb36-4" aria-hidden="true" tabindex="-1"></a>    mod.fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(<span class="at">formula =</span> y <span class="sc">~</span> x, <span class="at">data =</span> data)</span>
+<span id="cb36-5"><a href="introduction-to-r.html#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="introduction-to-r.html#cb36-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">#Open a new graphics window - do not need to</span></span>
+<span id="cb36-7"><a href="introduction-to-r.html#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">dev.new</span>(<span class="at">width =</span> <span class="dv">6</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">pointsize =</span> <span class="dv">10</span>)</span>
+<span id="cb36-8"><a href="introduction-to-r.html#cb36-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-9"><a href="introduction-to-r.html#cb36-9" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Same scatter plot as before</span></span>
+<span id="cb36-10"><a href="introduction-to-r.html#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">y =</span> y, <span class="at">xlab =</span> <span class="st">&quot;x&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;y&quot;</span>, <span class="at">main =</span> <span class="st">&quot;y vs. x&quot;</span>, <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> </span>
+<span id="cb36-11"><a href="introduction-to-r.html#cb36-11" aria-hidden="true" tabindex="-1"></a>      <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb36-12"><a href="introduction-to-r.html#cb36-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-13"><a href="introduction-to-r.html#cb36-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Plot model</span></span>
+<span id="cb36-14"><a href="introduction-to-r.html#cb36-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">curve</span>(<span class="at">expr =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> </span>
+<span id="cb36-15"><a href="introduction-to-r.html#cb36-15" aria-hidden="true" tabindex="-1"></a>      mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span>x, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="fu">min</span>(x),<span class="fu">max</span>(x)), </span>
+<span id="cb36-16"><a href="introduction-to-r.html#cb36-16" aria-hidden="true" tabindex="-1"></a>      <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">add =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb36-17"><a href="introduction-to-r.html#cb36-17" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb36-18"><a href="introduction-to-r.html#cb36-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">segments</span>(<span class="at">x0 =</span> <span class="fu">min</span>(x), <span class="at">y0 =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span><span class="fu">min</span>(x),</span>
+<span id="cb36-19"><a href="introduction-to-r.html#cb36-19" aria-hidden="true" tabindex="-1"></a>             <span class="at">x1 =</span> <span class="fu">max</span>(x), <span class="at">y1 =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span><span class="fu">max</span>(x),</span>
+<span id="cb36-20"><a href="introduction-to-r.html#cb36-20" aria-hidden="true" tabindex="-1"></a>             <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span>
+<span id="cb36-21"><a href="introduction-to-r.html#cb36-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-22"><a href="introduction-to-r.html#cb36-22" aria-hidden="true" tabindex="-1"></a>    <span class="co"># This is the object returned</span></span>
+<span id="cb36-23"><a href="introduction-to-r.html#cb36-23" aria-hidden="true" tabindex="-1"></a>    mod.fit</span>
+<span id="cb36-24"><a href="introduction-to-r.html#cb36-24" aria-hidden="true" tabindex="-1"></a>  }</span></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="introduction-to-r.html#cb37-1" aria-hidden="true" tabindex="-1"></a>save.it <span class="ot">&lt;-</span> <span class="fu">my.reg.func</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> </span>
+<span id="cb37-2"><a href="introduction-to-r.html#cb37-2" aria-hidden="true" tabindex="-1"></a>    gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">data =</span> gpacsv)</span></code></pre></div>
 <p>To get specific x-axis or y-axis tick marks on a plot, use the <code>axis()</code> function. For example,</p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="introduction-to-r.html#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Note that xaxt = &quot;n&quot; tells R to not give any labels on the </span></span>
-<span id="cb37-2"><a href="introduction-to-r.html#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  x-axis (yaxt = &quot;n&quot; works for y-axis)</span></span>
-<span id="cb37-3"><a href="introduction-to-r.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">xlab =</span> <span class="st">&quot;HS GPA&quot;</span>, </span>
-<span id="cb37-4"><a href="introduction-to-r.html#cb37-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>, <span class="at">main =</span> <span class="st">&quot;College GPA vs. HS GPA&quot;</span>, </span>
-<span id="cb37-5"><a href="introduction-to-r.html#cb37-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.5</span>), <span class="at">col =</span> </span>
-<span id="cb37-6"><a href="introduction-to-r.html#cb37-6" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-37-1.png" width="672" /></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="introduction-to-r.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">xlab =</span> <span class="st">&quot;HS GPA&quot;</span>, </span>
-<span id="cb38-2"><a href="introduction-to-r.html#cb38-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>, <span class="at">main =</span> <span class="st">&quot;College GPA vs. HS GPA&quot;</span>, </span>
-<span id="cb38-3"><a href="introduction-to-r.html#cb38-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.5</span>), <span class="at">col =</span> </span>
-<span id="cb38-4"><a href="introduction-to-r.html#cb38-4" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>)</span>
-<span id="cb38-5"><a href="introduction-to-r.html#cb38-5" aria-hidden="true" tabindex="-1"></a>     </span>
-<span id="cb38-6"><a href="introduction-to-r.html#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Major tick marks</span></span>
-<span id="cb38-7"><a href="introduction-to-r.html#cb38-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="fl">4.5</span>, <span class="at">by =</span> <span class="fl">0.5</span>)) </span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="introduction-to-r.html#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Note that xaxt = &quot;n&quot; tells R to not give any labels on the </span></span>
+<span id="cb38-2"><a href="introduction-to-r.html#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co">#  x-axis (yaxt = &quot;n&quot; works for y-axis)</span></span>
+<span id="cb38-3"><a href="introduction-to-r.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">xlab =</span> <span class="st">&quot;HS GPA&quot;</span>, </span>
+<span id="cb38-4"><a href="introduction-to-r.html#cb38-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>, <span class="at">main =</span> <span class="st">&quot;College GPA vs. HS GPA&quot;</span>, </span>
+<span id="cb38-5"><a href="introduction-to-r.html#cb38-5" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.5</span>), <span class="at">col =</span> </span>
+<span id="cb38-6"><a href="introduction-to-r.html#cb38-6" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-38-1.png" width="672" /></p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="introduction-to-r.html#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">xlab =</span> <span class="st">&quot;HS GPA&quot;</span>, </span>
 <span id="cb39-2"><a href="introduction-to-r.html#cb39-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>, <span class="at">main =</span> <span class="st">&quot;College GPA vs. HS GPA&quot;</span>, </span>
@@ -493,12 +504,412 @@ These line type specifications can be used in other functions.<br />
 <span id="cb39-4"><a href="introduction-to-r.html#cb39-4" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>)</span>
 <span id="cb39-5"><a href="introduction-to-r.html#cb39-5" aria-hidden="true" tabindex="-1"></a>     </span>
 <span id="cb39-6"><a href="introduction-to-r.html#cb39-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Major tick marks</span></span>
-<span id="cb39-7"><a href="introduction-to-r.html#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="fl">4.5</span>, <span class="at">by =</span> <span class="fl">0.5</span>)) </span>
-<span id="cb39-8"><a href="introduction-to-r.html#cb39-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb39-9"><a href="introduction-to-r.html#cb39-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Minor tick marks</span></span>
-<span id="cb39-10"><a href="introduction-to-r.html#cb39-10" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="fl">4.5</span>, <span class="at">by =</span> <span class="fl">0.1</span>), tck </span>
-<span id="cb39-11"><a href="introduction-to-r.html#cb39-11" aria-hidden="true" tabindex="-1"></a>      <span class="ot">=</span> <span class="fl">0.01</span>, <span class="at">labels =</span> <span class="cn">FALSE</span>) </span></code></pre></div>
+<span id="cb39-7"><a href="introduction-to-r.html#cb39-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="fl">4.5</span>, <span class="at">by =</span> <span class="fl">0.5</span>)) </span></code></pre></div>
 <p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-39-1.png" width="672" /></p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="introduction-to-r.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">xlab =</span> <span class="st">&quot;HS GPA&quot;</span>, </span>
+<span id="cb40-2"><a href="introduction-to-r.html#cb40-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>, <span class="at">main =</span> <span class="st">&quot;College GPA vs. HS GPA&quot;</span>, </span>
+<span id="cb40-3"><a href="introduction-to-r.html#cb40-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xaxt =</span> <span class="st">&quot;n&quot;</span>, <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">4.5</span>), <span class="at">col =</span> </span>
+<span id="cb40-4"><a href="introduction-to-r.html#cb40-4" aria-hidden="true" tabindex="-1"></a>     <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>)</span>
+<span id="cb40-5"><a href="introduction-to-r.html#cb40-5" aria-hidden="true" tabindex="-1"></a>     </span>
+<span id="cb40-6"><a href="introduction-to-r.html#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co">#Major tick marks</span></span>
+<span id="cb40-7"><a href="introduction-to-r.html#cb40-7" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="fl">4.5</span>, <span class="at">by =</span> <span class="fl">0.5</span>)) </span>
+<span id="cb40-8"><a href="introduction-to-r.html#cb40-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-9"><a href="introduction-to-r.html#cb40-9" aria-hidden="true" tabindex="-1"></a><span class="co">#Minor tick marks</span></span>
+<span id="cb40-10"><a href="introduction-to-r.html#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="fu">axis</span>(<span class="at">side =</span> <span class="dv">1</span>, <span class="at">at =</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">0</span>, <span class="at">to =</span> <span class="fl">4.5</span>, <span class="at">by =</span> <span class="fl">0.1</span>), tck </span>
+<span id="cb40-11"><a href="introduction-to-r.html#cb40-11" aria-hidden="true" tabindex="-1"></a>      <span class="ot">=</span> <span class="fl">0.01</span>, <span class="at">labels =</span> <span class="cn">FALSE</span>) </span></code></pre></div>
+<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-1.png" width="672" /></p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="introduction-to-r.html#cb41-1" aria-hidden="true" tabindex="-1"></a> <span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">xlab =</span> <span class="st">&quot;HS GPA&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>,</span>
+<span id="cb41-2"><a href="introduction-to-r.html#cb41-2" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">hat</span>(Y) <span class="sc">==</span> <span class="fu">hat</span>(beta)[<span class="dv">0</span>] <span class="sc">+</span> <span class="fu">hat</span>(beta)[<span class="dv">1</span>]<span class="sc">*</span>x),</span>
+<span id="cb41-3"><a href="introduction-to-r.html#cb41-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">1.0</span>, <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb41-4"><a href="introduction-to-r.html#cb41-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb41-5"><a href="introduction-to-r.html#cb41-5" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Draw a line from (x0, y0) to (x1, y1)</span></span>
+<span id="cb41-6"><a href="introduction-to-r.html#cb41-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">segments</span>(<span class="at">x0 =</span> <span class="fu">min</span>(gpacsv<span class="sc">$</span>HSGPA), <span class="at">y0 =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span><span class="fu">min</span>(gpacsv<span class="sc">$</span>HSGPA),</span>
+<span id="cb41-7"><a href="introduction-to-r.html#cb41-7" aria-hidden="true" tabindex="-1"></a>           <span class="at">x1 =</span> <span class="fu">max</span>(gpacsv<span class="sc">$</span>HSGPA), <span class="at">y1 =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span><span class="fu">max</span>(gpacsv<span class="sc">$</span>HSGPA),</span>
+<span id="cb41-8"><a href="introduction-to-r.html#cb41-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-41-1.png" width="672" /></p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="introduction-to-r.html#cb42-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb42-2"><a href="introduction-to-r.html#cb42-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">x =</span> gpacsv<span class="sc">$</span>HSGPA, <span class="at">y =</span> gpacsv<span class="sc">$</span>CollegeGPA, <span class="at">xlab =</span> <span class="st">&quot;HS GPA&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;College GPA&quot;</span>,</span>
+<span id="cb42-3"><a href="introduction-to-r.html#cb42-3" aria-hidden="true" tabindex="-1"></a>      <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;College GPA vs. HS GPA and &quot;</span>, <span class="fu">widehat</span>(CollegeGPA) <span class="sc">==</span> <span class="fu">hat</span>(beta)[<span class="dv">0</span>] <span class="sc">+</span> <span class="fu">hat</span>(beta)[<span class="dv">1</span>]<span class="sc">*</span>HSGPA)),</span>
+<span id="cb42-4"><a href="introduction-to-r.html#cb42-4" aria-hidden="true" tabindex="-1"></a>      <span class="at">xlim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="fl">4.5</span>), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">pch =</span> <span class="dv">1</span>, <span class="at">cex =</span> <span class="fl">1.0</span>, <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb42-5"><a href="introduction-to-r.html#cb42-5" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb42-6"><a href="introduction-to-r.html#cb42-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#Draw a line from (x0, y0) to (x1, y1)</span></span>
+<span id="cb42-7"><a href="introduction-to-r.html#cb42-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">segments</span>(<span class="at">x0 =</span> <span class="fu">min</span>(gpacsv<span class="sc">$</span>HSGPA), <span class="at">y0 =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span><span class="fu">min</span>(gpacsv<span class="sc">$</span>HSGPA),</span>
+<span id="cb42-8"><a href="introduction-to-r.html#cb42-8" aria-hidden="true" tabindex="-1"></a>           <span class="at">x1 =</span> <span class="fu">max</span>(gpacsv<span class="sc">$</span>HSGPA), <span class="at">y1 =</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">1</span>] <span class="sc">+</span> mod.fit<span class="sc">$</span>coefficients[<span class="dv">2</span>]<span class="sc">*</span><span class="fu">max</span>(gpacsv<span class="sc">$</span>HSGPA),</span>
+<span id="cb42-9"><a href="introduction-to-r.html#cb42-9" aria-hidden="true" tabindex="-1"></a>           <span class="at">lty =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-41-2.png" width="672" /></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="introduction-to-r.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="fu">demo</span>(plotmath) <span class="co">#Run this to see examples</span></span>
+<span id="cb43-2"><a href="introduction-to-r.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb43-3"><a href="introduction-to-r.html#cb43-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb43-4"><a href="introduction-to-r.html#cb43-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  demo(plotmath)</span></span>
+<span id="cb43-5"><a href="introduction-to-r.html#cb43-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  ---- ~~~~~~~~</span></span>
+<span id="cb43-6"><a href="introduction-to-r.html#cb43-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb43-7"><a href="introduction-to-r.html#cb43-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; #  Copyright (C) 2002-2016 The R Core Team</span></span>
+<span id="cb43-8"><a href="introduction-to-r.html#cb43-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; </span></span>
+<span id="cb43-9"><a href="introduction-to-r.html#cb43-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; require(datasets)</span></span>
+<span id="cb43-10"><a href="introduction-to-r.html#cb43-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb43-11"><a href="introduction-to-r.html#cb43-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; require(grDevices); require(graphics)</span></span>
+<span id="cb43-12"><a href="introduction-to-r.html#cb43-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb43-13"><a href="introduction-to-r.html#cb43-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; ## --- &quot;math annotation&quot; in plots :</span></span>
+<span id="cb43-14"><a href="introduction-to-r.html#cb43-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; </span></span>
+<span id="cb43-15"><a href="introduction-to-r.html#cb43-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; ######</span></span>
+<span id="cb43-16"><a href="introduction-to-r.html#cb43-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; # create tables of mathematical annotation functionality</span></span>
+<span id="cb43-17"><a href="introduction-to-r.html#cb43-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; ######</span></span>
+<span id="cb43-18"><a href="introduction-to-r.html#cb43-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; make.table &lt;- function(nr, nc) {</span></span>
+<span id="cb43-19"><a href="introduction-to-r.html#cb43-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     savepar &lt;- par(mar=rep(0, 4), pty=&quot;s&quot;)</span></span>
+<span id="cb43-20"><a href="introduction-to-r.html#cb43-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     plot(c(0, nc*2 + 1), c(0, -(nr + 1)),</span></span>
+<span id="cb43-21"><a href="introduction-to-r.html#cb43-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +          type=&quot;n&quot;, xlab=&quot;&quot;, ylab=&quot;&quot;, axes=FALSE)</span></span>
+<span id="cb43-22"><a href="introduction-to-r.html#cb43-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     savepar</span></span>
+<span id="cb43-23"><a href="introduction-to-r.html#cb43-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + }</span></span>
+<span id="cb43-24"><a href="introduction-to-r.html#cb43-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb43-25"><a href="introduction-to-r.html#cb43-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; get.r &lt;- function(i, nr) {</span></span>
+<span id="cb43-26"><a href="introduction-to-r.html#cb43-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     i %% nr + 1</span></span>
+<span id="cb43-27"><a href="introduction-to-r.html#cb43-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + }</span></span>
+<span id="cb43-28"><a href="introduction-to-r.html#cb43-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb43-29"><a href="introduction-to-r.html#cb43-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; get.c &lt;- function(i, nr) {</span></span>
+<span id="cb43-30"><a href="introduction-to-r.html#cb43-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     i %/% nr + 1</span></span>
+<span id="cb43-31"><a href="introduction-to-r.html#cb43-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + }</span></span>
+<span id="cb43-32"><a href="introduction-to-r.html#cb43-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb43-33"><a href="introduction-to-r.html#cb43-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; draw.title.cell &lt;- function(title, i, nr) {</span></span>
+<span id="cb43-34"><a href="introduction-to-r.html#cb43-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     r &lt;- get.r(i, nr)</span></span>
+<span id="cb43-35"><a href="introduction-to-r.html#cb43-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     c &lt;- get.c(i, nr)</span></span>
+<span id="cb43-36"><a href="introduction-to-r.html#cb43-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     text(2*c - .5, -r, title)</span></span>
+<span id="cb43-37"><a href="introduction-to-r.html#cb43-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     rect((2*(c - 1) + .5), -(r - .5), (2*c + .5), -(r + .5))</span></span>
+<span id="cb43-38"><a href="introduction-to-r.html#cb43-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + }</span></span>
+<span id="cb43-39"><a href="introduction-to-r.html#cb43-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb43-40"><a href="introduction-to-r.html#cb43-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; draw.plotmath.cell &lt;- function(expr, i, nr, string = NULL) {</span></span>
+<span id="cb43-41"><a href="introduction-to-r.html#cb43-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     r &lt;- get.r(i, nr)</span></span>
+<span id="cb43-42"><a href="introduction-to-r.html#cb43-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     c &lt;- get.c(i, nr)</span></span>
+<span id="cb43-43"><a href="introduction-to-r.html#cb43-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     if (is.null(string)) {</span></span>
+<span id="cb43-44"><a href="introduction-to-r.html#cb43-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +         string &lt;- deparse(expr)</span></span>
+<span id="cb43-45"><a href="introduction-to-r.html#cb43-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +         string &lt;- substr(string, 12, nchar(string) - 1)</span></span>
+<span id="cb43-46"><a href="introduction-to-r.html#cb43-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     }</span></span>
+<span id="cb43-47"><a href="introduction-to-r.html#cb43-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     text((2*(c - 1) + 1), -r, string, col=&quot;grey50&quot;)</span></span>
+<span id="cb43-48"><a href="introduction-to-r.html#cb43-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     text((2*c), -r, expr, adj=c(.5,.5))</span></span>
+<span id="cb43-49"><a href="introduction-to-r.html#cb43-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; +     rect((2*(c - 1) + .5), -(r - .5), (2*c + .5), -(r + .5), border=&quot;grey&quot;)</span></span>
+<span id="cb43-50"><a href="introduction-to-r.html#cb43-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; + }</span></span>
+<span id="cb43-51"><a href="introduction-to-r.html#cb43-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb43-52"><a href="introduction-to-r.html#cb43-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; nr &lt;- 20</span></span>
+<span id="cb43-53"><a href="introduction-to-r.html#cb43-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb43-54"><a href="introduction-to-r.html#cb43-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; nc &lt;- 2</span></span>
+<span id="cb43-55"><a href="introduction-to-r.html#cb43-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb43-56"><a href="introduction-to-r.html#cb43-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; &gt; oldpar &lt;- make.table(nr, nc)</span></span></code></pre></div>
+<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-42-1.png" width="672" /></p>
+<pre><code>#&gt; 
+#&gt; &gt; i &lt;- 0
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Arithmetic Operators&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x + y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x - y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x * y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x / y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %+-% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %/% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %*% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %.% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(-x), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(+x), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Sub/Superscripts&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x[i]), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x^2), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Juxtaposition&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x * y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(paste(x, y, z)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Radicals&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(sqrt(x)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(sqrt(x, y)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Lists&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(list(x, y, z)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Relations&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x == y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x != y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x &lt; y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x &lt;= y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x &gt; y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x &gt;= y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %~~% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %=~% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %==% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %prop% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %~% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Typeface&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(plain(x)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(italic(x)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(bold(x)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(bolditalic(x)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(underline(x)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; # Need fewer, wider columns for ellipsis ...
+#&gt; &gt; nr &lt;- 20
+#&gt; 
+#&gt; &gt; nc &lt;- 2
+#&gt; 
+#&gt; &gt; make.table(nr, nc)</code></pre>
+<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-42-2.png" width="672" /></p>
+<pre><code>#&gt; $mar
+#&gt; [1] 0 0 0 0
+#&gt; 
+#&gt; $pty
+#&gt; [1] &quot;s&quot;
+#&gt; 
+#&gt; 
+#&gt; &gt; i &lt;- 0
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Ellipsis&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(list(x[1], ..., x[n])), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x[1] + ... + x[n]), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(list(x[1], cdots, x[n])), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x[1] + ldots + x[n]), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Set Relations&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %subset% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %subseteq% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %supset% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %supseteq% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %notsubset% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %in% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %notin% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Accents&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(hat(x)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(tilde(x)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(ring(x)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(bar(xy)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(widehat(xy)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(widetilde(xy)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Arrows&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %&lt;-&gt;% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %-&gt;% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %&lt;-% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %up% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %down% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %&lt;=&gt;% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %=&gt;% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %&lt;=% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %dblup% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x %dbldown% y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Symbolic Names&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(Alpha - Omega), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(alpha - omega), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(phi1 + sigma1), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(Upsilon1), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(infinity), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(32 * degree), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(60 * minute), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(30 * second), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; # Need even fewer, wider columns for typeface and style ...
+#&gt; &gt; nr &lt;- 20
+#&gt; 
+#&gt; &gt; nc &lt;- 1
+#&gt; 
+#&gt; &gt; make.table(nr, nc)
+#&gt; $mar
+#&gt; [1] 0 0 0 0
+#&gt; 
+#&gt; $pty
+#&gt; [1] &quot;s&quot;
+#&gt; 
+#&gt; 
+#&gt; &gt; i &lt;- 0
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Style&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(displaystyle(x)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(textstyle(x)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(scriptstyle(x)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(scriptscriptstyle(x)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Spacing&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x ~~ y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; # Need fewer, taller rows for fractions ...
+#&gt; &gt; # cheat a bit to save pages
+#&gt; &gt; par(new = TRUE)
+#&gt; 
+#&gt; &gt; nr &lt;- 10
+#&gt; 
+#&gt; &gt; nc &lt;- 1
+#&gt; 
+#&gt; &gt; make.table(nr, nc)</code></pre>
+<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-42-3.png" width="672" /></p>
+<pre><code>#&gt; $mar
+#&gt; [1] 0 0 0 0
+#&gt; 
+#&gt; $pty
+#&gt; [1] &quot;s&quot;
+#&gt; 
+#&gt; 
+#&gt; &gt; i &lt;- 4
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x + phantom(0) + y), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x + over(1, phantom(0))), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Fractions&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(frac(x, y)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(over(x, y)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(atop(x, y)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; # Need fewer, taller rows and fewer, wider columns for big operators ...
+#&gt; &gt; nr &lt;- 10
+#&gt; 
+#&gt; &gt; nc &lt;- 1
+#&gt; 
+#&gt; &gt; make.table(nr, nc)</code></pre>
+<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-42-4.png" width="672" /></p>
+<pre><code>#&gt; $mar
+#&gt; [1] 0 0 0 0
+#&gt; 
+#&gt; $pty
+#&gt; [1] &quot;s&quot;
+#&gt; 
+#&gt; 
+#&gt; &gt; i &lt;- 0
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Big Operators&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(sum(x[i], i=1, n)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(prod(plain(P)(X == x), x)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(integral(f(x) * dx, a, b)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(union(A[i], i==1, n)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(intersect(A[i], i==1, n)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(lim(f(x), x %-&gt;% 0)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(min(g(x), x &gt;= 0)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(inf(S)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(sup(S)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; nr &lt;- 12
+#&gt; 
+#&gt; &gt; nc &lt;- 1
+#&gt; 
+#&gt; &gt; make.table(nr, nc)</code></pre>
+<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-42-5.png" width="672" /></p>
+<pre><code>#&gt; $mar
+#&gt; [1] 0 0 0 0
+#&gt; 
+#&gt; $pty
+#&gt; [1] &quot;s&quot;
+#&gt; 
+#&gt; 
+#&gt; &gt; i &lt;- 0
+#&gt; 
+#&gt; &gt; draw.title.cell(&quot;Grouping&quot;, i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; # Those involving &#39;{ . }&#39; have to be done &quot;by hand&quot;
+#&gt; &gt; draw.plotmath.cell(expression({}(x , y)), i, nr, string=&quot;{}(x, y)&quot;); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression((x + y)*z), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x^y + z),   i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x^(y + z)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(x^{y + z}), i, nr, string=&quot;x^{y + z}&quot;); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(group(&quot;(&quot;, list(a, b), &quot;]&quot;)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(bgroup(&quot;(&quot;, atop(x, y), &quot;)&quot;)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(group(lceil, x, rceil)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(group(lfloor, x, rfloor)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(group(langle, list(x, y), rangle)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; draw.plotmath.cell(expression(group(&quot;|&quot;, x, &quot;|&quot;)), i, nr); i &lt;- i + 1
+#&gt; 
+#&gt; &gt; par(oldpar)</code></pre>
 </div>
 <div id="object-oriented-language" class="section level2 hasAnchor" number="2.5">
 <h2><span class="header-section-number">2.5</span> Object-Oriented Language<a href="introduction-to-r.html#object-oriented-language" class="anchor-section" aria-label="Anchor link to header"></a></h2>
@@ -510,22 +921,22 @@ These line type specifications can be used in other functions.<br />
 <li>summary.default() – R attempts to run this function if there is no method function for a class</li>
 </ul>
 <p>There are many generic functions! For example, <code>plot()</code> is a generic function (try<code>plot(mod.fit)</code> to see what happens!). We will also see other generic functions like <code>predict()</code> later in the notes.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="introduction-to-r.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod.fit)</span></code></pre></div>
-<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-1.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-2.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-3.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-4.png" width="672" /></p>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="introduction-to-r.html#cb49-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(mod.fit)</span></code></pre></div>
+<p><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-43-1.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-43-2.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-43-3.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-43-4.png" width="672" /></p>
 <p>The purpose of generic functions is to use a familiar language set with any object. So it is convenient to use the same language set no matter the application. This is why R is referred to as an object-oriented language.</p>
 <p>To see a list of all method functions associated with a class, use <code>methods(class = &lt;class name&gt;)</code>. For the regression example, the method functions associated with the <code>lm</code> class are:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="introduction-to-r.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class=</span><span class="st">&quot;lm&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span>
-<span id="cb41-2"><a href="introduction-to-r.html#cb41-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;add1.lm&quot;                   &quot;alias.lm&quot;                 </span></span>
-<span id="cb41-3"><a href="introduction-to-r.html#cb41-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;anova.lm&quot;                  &quot;case.names.lm&quot;            </span></span>
-<span id="cb41-4"><a href="introduction-to-r.html#cb41-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;coerce,oldClass,S3-method&quot; &quot;confint.lm&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb50"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb50-1"><a href="introduction-to-r.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">class=</span><span class="st">&quot;lm&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span>
+<span id="cb50-2"><a href="introduction-to-r.html#cb50-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;add1.lm&quot;                   &quot;alias.lm&quot;                 </span></span>
+<span id="cb50-3"><a href="introduction-to-r.html#cb50-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;anova.lm&quot;                  &quot;case.names.lm&quot;            </span></span>
+<span id="cb50-4"><a href="introduction-to-r.html#cb50-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;coerce,oldClass,S3-method&quot; &quot;confint.lm&quot;</span></span></code></pre></div>
 <p>To see a list of all method functions for a generic function, use <code>methods(generic.function = &lt;generic function name&gt;)</code></p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="introduction-to-r.html#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">generic.function =</span> <span class="st">&quot;summary&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span>
-<span id="cb42-2"><a href="introduction-to-r.html#cb42-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;summary,ANY-method&quot;           </span></span>
-<span id="cb42-3"><a href="introduction-to-r.html#cb42-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &quot;summary,DBIObject-method&quot;     </span></span>
-<span id="cb42-4"><a href="introduction-to-r.html#cb42-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;summary.aov&quot;                  </span></span>
-<span id="cb42-5"><a href="introduction-to-r.html#cb42-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;summary.aovlist&quot;              </span></span>
-<span id="cb42-6"><a href="introduction-to-r.html#cb42-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;summary.aspell&quot;               </span></span>
-<span id="cb42-7"><a href="introduction-to-r.html#cb42-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6] &quot;summary.check_packages_in_dir&quot;</span></span></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="introduction-to-r.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">methods</span>(<span class="at">generic.function =</span> <span class="st">&quot;summary&quot;</span>) <span class="sc">%&gt;%</span> <span class="fu">head</span>()</span>
+<span id="cb51-2"><a href="introduction-to-r.html#cb51-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;summary,ANY-method&quot;           </span></span>
+<span id="cb51-3"><a href="introduction-to-r.html#cb51-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2] &quot;summary,DBIObject-method&quot;     </span></span>
+<span id="cb51-4"><a href="introduction-to-r.html#cb51-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3] &quot;summary.aov&quot;                  </span></span>
+<span id="cb51-5"><a href="introduction-to-r.html#cb51-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4] &quot;summary.aovlist&quot;              </span></span>
+<span id="cb51-6"><a href="introduction-to-r.html#cb51-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5] &quot;summary.aspell&quot;               </span></span>
+<span id="cb51-7"><a href="introduction-to-r.html#cb51-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6] &quot;summary.check_packages_in_dir&quot;</span></span></code></pre></div>
 <p>Knowing what a name of a particular method function can be helpful to find help on it. For example, the help for <code>summary()</code> alone is not very helpful! However, the help for <code>summary.lm()</code>provides a lot of useful information about what is summarized for a regression model.</p>
 
 </div>

@@ -79,6 +79,7 @@ head(w.new)
 
 
 ```r
+par(mfrow=c(1,1))
 plot(x = w, 
      ylab = expression(w[t]), xlab = "t", 
      type = "l", col = "red",
@@ -99,6 +100,7 @@ We could also plot the two time series separately.
 
 
 ```r
+dev.new(width = 8, height = 6, pointsize = 10) #Open a new plot window
 #make frame by row 2 rows 1 cols
 par(mfrow = c(2,1))
 plot(x = w, ylab = expression(w[t]), xlab = "t", type = 
@@ -112,9 +114,24 @@ plot(x = w.new, ylab = expression(w.new[t]), xlab =
       expression(paste("White noise where ", w[t], " ~ ind.N(0, 1)")), panel.first=grid(col = "gray", lty = 
       "dotted"))
 points(x = w.new, pch = 20, col = "orange")
+
 ```
 
-<img src="03-Basic-Model_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+
+```r
+# What if used plot.ts()?
+dev.new(width = 8, height = 6, pointsize = 10) #Open a new plot window
+
+plot.ts(x = cbind(w, w.new), ylab = expression(w[t]), xlab = "t", type = "o", col = "red", main = expression(paste("White noise where ", w[t], " ~ ind. N(0, 1)")), panel.first=grid(col = "gray", lty = "dotted"))
+
+#Problem: gridlines do not extend to second plot
+  
+plot.ts(x = cbind(w, w.new), ylab = expression(w[t]), xlab = "t", type = "o", col = "red", main = expression(paste("White noise where ", w[t], " ~ ind. N(0, 1)")))
+
+grid(col = "gray", lty = "dotted")
+#Problem: gridlines do not appear correctly on plots (could fix by specifying where to draw them using abline)
+```
+
 
 ## Moving Average
 
@@ -134,6 +151,14 @@ w <- rnorm(n=100,mean=0, sd=1)
 head(w)
 #> [1] -0.10528941  0.25548490  0.82065388  0.04070997
 #> [5] -0.66722880 -1.54502793
+```
+
+
+```r
+dev.new(width = 8, height = 6, pointsize = 10) #Open a new plot window
+plot(x = w, ylab = expression(paste(m[t], " or ", w[t])), xlab = "t", type = "l", col = "red",
+        panel.first = grid(col = "gray", lty = "dotted"), lty = "dotted")
+  points(x = w, pch = 20, col = "blue")
 ```
 
 
@@ -175,7 +200,7 @@ legend(x = "top", legend = c("MA, 3 points", "White noise"), lty = c("solid", "d
     "red"), lwd = c(4,1), bty = "n")
 ```
 
-<img src="03-Basic-Model_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+<img src="03-Basic-Model_files/figure-html/unnamed-chunk-12-1.png" width="672" />
 
 The plot below shows a 7-point moving average.
 
@@ -198,7 +223,7 @@ legend(x = "top", legend = c("MA, 3 points", "White noise", "MA 7 points"),
          lwd = c(2,1,4), bty="n")
 ```
 
-<img src="03-Basic-Model_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+<img src="03-Basic-Model_files/figure-html/unnamed-chunk-13-1.png" width="672" />
 
 ## Autoregression
 
@@ -258,6 +283,7 @@ x <- x[101:200]
 
 
 ```r
+dev.new(width = 8, height = 6, pointsize = 10)  #Opens up wider plot window than the default (good for time series plots)
 plot(x = x, ylab = expression(x[t]), xlab = "t", type = 
       "l", col = c("red"), lwd = 1 , main = 
       expression(paste("AR(1): ", x[t] == 0.7*x[t-1] + 
@@ -266,7 +292,23 @@ plot(x = x, ylab = expression(x[t]), xlab = "t", type =
 points(x = x, pch = 20, col = "blue")
 ```
 
-<img src="03-Basic-Model_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+
+```r
+ #Show first few observations after removal of first 100
+  head(data.frame(c(NA, NA, x), w[99:200]))
+#>   c.NA..NA..x.  w.99.200.
+#> 1           NA  0.3918531
+#> 2           NA -0.1980565
+#> 3     1.429572  0.7508375
+#> 4    -1.878239 -2.8789389
+#> 5    -1.470250 -0.1554829
+#> 6    -3.464078 -2.4349033
+  
+
+  #Correlation between x_t and x_t-1 
+  cor(x[2:100], x[1:99])
+#> [1] 0.7270483
+```
 
 
 Here is an easier way to simulate observations from an AR(1). Note that this uses an Autoregressive Integrated Moving Average (ARIMA) structure that we will discuss later in the course. In this case, I use $\sigma_w$= 10.  
@@ -283,5 +325,5 @@ plot(x = x, ylab = expression(x[t]), xlab = "t", type =
 points(x = x, pch = 20, col = "blue")
 ```
 
-<img src="03-Basic-Model_files/figure-html/unnamed-chunk-17-1.png" width="672" />
+<img src="03-Basic-Model_files/figure-html/unnamed-chunk-20-1.png" width="672" />
 

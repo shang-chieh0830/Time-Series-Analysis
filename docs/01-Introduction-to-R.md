@@ -158,6 +158,10 @@ getwd()
 ```r
 gpatxt <- read.table("gpa.txt", header=TRUE, sep="")
 gpacsv <- read.csv("gpa.csv")
+
+#write.table(x = gpacsv, file = "gpa-out1.csv", quote = FALSE, row.names =
+#  FALSE, sep  =",")
+#write.csv(x = gpacsv, file = "gpa-out2.csv")
 ```
 
 
@@ -210,7 +214,10 @@ summary(gpacsv)
 #>  Mean   :2.899   Mean   :2.862  
 #>  3rd Qu.:3.127   3rd Qu.:3.225  
 #>  Max.   :4.320   Max.   :3.800
+names(gpacsv)
+#> [1] "HSGPA"      "CollegeGPA"
 ```
+
 
 ```r
 plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA,
@@ -341,7 +348,10 @@ summary(mod.fit)
 #> Residual standard error: 0.3437 on 18 degrees of freedom
 #> Multiple R-squared:  0.5768,	Adjusted R-squared:  0.5533 
 #> F-statistic: 24.54 on 1 and 18 DF,  p-value: 0.0001027
+class(mod.fit)
+#> [1] "lm"
 ```
+
 
 Hence, our estimated regression model is$$ \hat{collge.GPA}=\hat{\beta_0}+\hat{\beta_1}HS.GPA
 =1.0869+0.6125HS.GPA$$
@@ -370,7 +380,10 @@ abline(a = mod.fit$coefficients[1], b =
     mod.fit$coefficients[2], lty = "solid", col = 
     "blue", lwd = 2)
     
+```
 
+
+```r
 # Same scatter plot as before
 plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA, xlab = "HS 
     GPA", ylab = "College GPA", main = "College GPA vs. 
@@ -386,7 +399,15 @@ curve(expr = mod.fit$coefficients[1] +
     xlim = c(min(gpacsv$HSGPA),max(gpacsv$HSGPA)), 
     col= "blue", add = TRUE, lwd = 2)
 
+
+# Draw a line from (x0, y0) to (x1, y1)
+  segments(x0 = min(gpacsv$HSGPA), y0 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*min(gpacsv$HSGPA),
+           x1 = max(gpacsv$HSGPA), y1 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*max(gpacsv$HSGPA),
+           lty = 1, col = "blue", lwd = 2)
 ```
+
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-35-1.png" width="672" />
+
 
 - The `dev.new()` function can be used to open a new plotting window. 
 - The `abline()` function can be used to draw straight lines on a plot. In the format used here, the line y = a + bx was drawn where a was the (intercept) and b was the (slope).  
@@ -413,6 +434,10 @@ my.reg.func <- function(x, y, data) {
     curve(expr = mod.fit$coefficients[1] + 
       mod.fit$coefficients[2]*x, xlim = c(min(x),max(x)), 
       col = "blue", add = TRUE)
+    
+    segments(x0 = min(x), y0 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*min(x),
+             x1 = max(x), y1 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*max(x),
+             lty = 1, col = "blue", lwd = 2)
 
     # This is the object returned
     mod.fit
@@ -423,6 +448,7 @@ my.reg.func <- function(x, y, data) {
 ```r
 save.it <- my.reg.func(x = gpacsv$HSGPA, y = 
     gpacsv$CollegeGPA, data = gpacsv)
+
 ```
 To get specific x-axis or y-axis tick marks on a plot, use the `axis()` function. For example, 
 
@@ -435,7 +461,7 @@ plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA, xlab = "HS GPA",
      "red", pch = 1)
 ```
 
-<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-37-1.png" width="672" />
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-38-1.png" width="672" />
 
 
 ```r
@@ -448,7 +474,7 @@ plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA, xlab = "HS GPA",
 axis(side = 1, at = seq(from = 0, to = 4.5, by = 0.5)) 
 ```
 
-<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-38-1.png" width="672" />
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-39-1.png" width="672" />
 
 
 ```r
@@ -465,7 +491,432 @@ axis(side = 1, at = seq(from = 0, to = 4.5, by = 0.1), tck
       = 0.01, labels = FALSE) 
 ```
 
-<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-39-1.png" width="672" />
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-1.png" width="672" />
+
+
+```r
+ plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA, xlab = "HS GPA", ylab = "College GPA",
+      main = expression(hat(Y) == hat(beta)[0] + hat(beta)[1]*x),
+      xlim = c(0,4.5), ylim = c(0,4.5), col = "red", pch = 1, cex = 1.0, panel.first=grid(col = "gray", lty = "dotted"))
+
+  #Draw a line from (x0, y0) to (x1, y1)
+  segments(x0 = min(gpacsv$HSGPA), y0 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*min(gpacsv$HSGPA),
+           x1 = max(gpacsv$HSGPA), y1 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*max(gpacsv$HSGPA),
+           lty = 1, col = "blue", lwd = 2)
+```
+
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-41-1.png" width="672" />
+
+```r
+
+  plot(x = gpacsv$HSGPA, y = gpacsv$CollegeGPA, xlab = "HS GPA", ylab = "College GPA",
+      main = expression(paste("College GPA vs. HS GPA and ", widehat(CollegeGPA) == hat(beta)[0] + hat(beta)[1]*HSGPA)),
+      xlim = c(0,4.5), ylim = c(0,4.5), col = "red", pch = 1, cex = 1.0, panel.first=grid(col = "gray", lty = "dotted"))
+  
+  #Draw a line from (x0, y0) to (x1, y1)
+  segments(x0 = min(gpacsv$HSGPA), y0 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*min(gpacsv$HSGPA),
+           x1 = max(gpacsv$HSGPA), y1 = mod.fit$coefficients[1] + mod.fit$coefficients[2]*max(gpacsv$HSGPA),
+           lty = 1, col = "blue", lwd = 2)
+```
+
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-41-2.png" width="672" />
+
+
+```r
+demo(plotmath) #Run this to see examples
+#> 
+#> 
+#> 	demo(plotmath)
+#> 	---- ~~~~~~~~
+#> 
+#> > #  Copyright (C) 2002-2016 The R Core Team
+#> > 
+#> > require(datasets)
+#> 
+#> > require(grDevices); require(graphics)
+#> 
+#> > ## --- "math annotation" in plots :
+#> > 
+#> > ######
+#> > # create tables of mathematical annotation functionality
+#> > ######
+#> > make.table <- function(nr, nc) {
+#> +     savepar <- par(mar=rep(0, 4), pty="s")
+#> +     plot(c(0, nc*2 + 1), c(0, -(nr + 1)),
+#> +          type="n", xlab="", ylab="", axes=FALSE)
+#> +     savepar
+#> + }
+#> 
+#> > get.r <- function(i, nr) {
+#> +     i %% nr + 1
+#> + }
+#> 
+#> > get.c <- function(i, nr) {
+#> +     i %/% nr + 1
+#> + }
+#> 
+#> > draw.title.cell <- function(title, i, nr) {
+#> +     r <- get.r(i, nr)
+#> +     c <- get.c(i, nr)
+#> +     text(2*c - .5, -r, title)
+#> +     rect((2*(c - 1) + .5), -(r - .5), (2*c + .5), -(r + .5))
+#> + }
+#> 
+#> > draw.plotmath.cell <- function(expr, i, nr, string = NULL) {
+#> +     r <- get.r(i, nr)
+#> +     c <- get.c(i, nr)
+#> +     if (is.null(string)) {
+#> +         string <- deparse(expr)
+#> +         string <- substr(string, 12, nchar(string) - 1)
+#> +     }
+#> +     text((2*(c - 1) + 1), -r, string, col="grey50")
+#> +     text((2*c), -r, expr, adj=c(.5,.5))
+#> +     rect((2*(c - 1) + .5), -(r - .5), (2*c + .5), -(r + .5), border="grey")
+#> + }
+#> 
+#> > nr <- 20
+#> 
+#> > nc <- 2
+#> 
+#> > oldpar <- make.table(nr, nc)
+```
+
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-42-1.png" width="672" />
+
+```
+#> 
+#> > i <- 0
+#> 
+#> > draw.title.cell("Arithmetic Operators", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x + y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x - y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x * y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x / y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %+-% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %/% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %*% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %.% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(-x), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(+x), i, nr); i <- i + 1
+#> 
+#> > draw.title.cell("Sub/Superscripts", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x[i]), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x^2), i, nr); i <- i + 1
+#> 
+#> > draw.title.cell("Juxtaposition", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x * y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(paste(x, y, z)), i, nr); i <- i + 1
+#> 
+#> > draw.title.cell("Radicals", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(sqrt(x)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(sqrt(x, y)), i, nr); i <- i + 1
+#> 
+#> > draw.title.cell("Lists", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(list(x, y, z)), i, nr); i <- i + 1
+#> 
+#> > draw.title.cell("Relations", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x == y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x != y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x < y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x <= y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x > y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x >= y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %~~% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %=~% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %==% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %prop% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %~% y), i, nr); i <- i + 1
+#> 
+#> > draw.title.cell("Typeface", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(plain(x)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(italic(x)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(bold(x)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(bolditalic(x)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(underline(x)), i, nr); i <- i + 1
+#> 
+#> > # Need fewer, wider columns for ellipsis ...
+#> > nr <- 20
+#> 
+#> > nc <- 2
+#> 
+#> > make.table(nr, nc)
+```
+
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-42-2.png" width="672" />
+
+```
+#> $mar
+#> [1] 0 0 0 0
+#> 
+#> $pty
+#> [1] "s"
+#> 
+#> 
+#> > i <- 0
+#> 
+#> > draw.title.cell("Ellipsis", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(list(x[1], ..., x[n])), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x[1] + ... + x[n]), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(list(x[1], cdots, x[n])), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x[1] + ldots + x[n]), i, nr); i <- i + 1
+#> 
+#> > draw.title.cell("Set Relations", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %subset% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %subseteq% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %supset% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %supseteq% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %notsubset% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %in% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %notin% y), i, nr); i <- i + 1
+#> 
+#> > draw.title.cell("Accents", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(hat(x)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(tilde(x)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(ring(x)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(bar(xy)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(widehat(xy)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(widetilde(xy)), i, nr); i <- i + 1
+#> 
+#> > draw.title.cell("Arrows", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %<->% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %->% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %<-% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %up% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %down% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %<=>% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %=>% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %<=% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %dblup% y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x %dbldown% y), i, nr); i <- i + 1
+#> 
+#> > draw.title.cell("Symbolic Names", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(Alpha - Omega), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(alpha - omega), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(phi1 + sigma1), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(Upsilon1), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(infinity), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(32 * degree), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(60 * minute), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(30 * second), i, nr); i <- i + 1
+#> 
+#> > # Need even fewer, wider columns for typeface and style ...
+#> > nr <- 20
+#> 
+#> > nc <- 1
+#> 
+#> > make.table(nr, nc)
+#> $mar
+#> [1] 0 0 0 0
+#> 
+#> $pty
+#> [1] "s"
+#> 
+#> 
+#> > i <- 0
+#> 
+#> > draw.title.cell("Style", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(displaystyle(x)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(textstyle(x)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(scriptstyle(x)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(scriptscriptstyle(x)), i, nr); i <- i + 1
+#> 
+#> > draw.title.cell("Spacing", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x ~~ y), i, nr); i <- i + 1
+#> 
+#> > # Need fewer, taller rows for fractions ...
+#> > # cheat a bit to save pages
+#> > par(new = TRUE)
+#> 
+#> > nr <- 10
+#> 
+#> > nc <- 1
+#> 
+#> > make.table(nr, nc)
+```
+
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-42-3.png" width="672" />
+
+```
+#> $mar
+#> [1] 0 0 0 0
+#> 
+#> $pty
+#> [1] "s"
+#> 
+#> 
+#> > i <- 4
+#> 
+#> > draw.plotmath.cell(expression(x + phantom(0) + y), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x + over(1, phantom(0))), i, nr); i <- i + 1
+#> 
+#> > draw.title.cell("Fractions", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(frac(x, y)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(over(x, y)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(atop(x, y)), i, nr); i <- i + 1
+#> 
+#> > # Need fewer, taller rows and fewer, wider columns for big operators ...
+#> > nr <- 10
+#> 
+#> > nc <- 1
+#> 
+#> > make.table(nr, nc)
+```
+
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-42-4.png" width="672" />
+
+```
+#> $mar
+#> [1] 0 0 0 0
+#> 
+#> $pty
+#> [1] "s"
+#> 
+#> 
+#> > i <- 0
+#> 
+#> > draw.title.cell("Big Operators", i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(sum(x[i], i=1, n)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(prod(plain(P)(X == x), x)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(integral(f(x) * dx, a, b)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(union(A[i], i==1, n)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(intersect(A[i], i==1, n)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(lim(f(x), x %->% 0)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(min(g(x), x >= 0)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(inf(S)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(sup(S)), i, nr); i <- i + 1
+#> 
+#> > nr <- 12
+#> 
+#> > nc <- 1
+#> 
+#> > make.table(nr, nc)
+```
+
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-42-5.png" width="672" />
+
+```
+#> $mar
+#> [1] 0 0 0 0
+#> 
+#> $pty
+#> [1] "s"
+#> 
+#> 
+#> > i <- 0
+#> 
+#> > draw.title.cell("Grouping", i, nr); i <- i + 1
+#> 
+#> > # Those involving '{ . }' have to be done "by hand"
+#> > draw.plotmath.cell(expression({}(x , y)), i, nr, string="{}(x, y)"); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression((x + y)*z), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x^y + z),   i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x^(y + z)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(x^{y + z}), i, nr, string="x^{y + z}"); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(group("(", list(a, b), "]")), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(bgroup("(", atop(x, y), ")")), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(group(lceil, x, rceil)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(group(lfloor, x, rfloor)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(group(langle, list(x, y), rangle)), i, nr); i <- i + 1
+#> 
+#> > draw.plotmath.cell(expression(group("|", x, "|")), i, nr); i <- i + 1
+#> 
+#> > par(oldpar)
+```
 
 ## Object-Oriented Language
 
@@ -484,7 +935,7 @@ There are many generic functions! For example, `plot()` is a generic function (t
 plot(mod.fit)
 ```
 
-<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-1.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-2.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-3.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-40-4.png" width="672" />
+<img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-43-1.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-43-2.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-43-3.png" width="672" /><img src="01-Introduction-to-R_files/figure-html/unnamed-chunk-43-4.png" width="672" />
 
 The purpose of generic functions is to use a familiar language set with any object. So it is convenient to use the same language set no matter the application. This is why R is referred to as an object-oriented language.
 

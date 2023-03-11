@@ -24,4 +24,194 @@ $$\hat{\rho}(h)=\frac{\hat{\gamma}(h)}{\hat{\gamma}(0)}$$
 
 Question: What does $\rho(h) = 0$ mean and why would this be important to detect?  
 
-Because this is important, we conduct hypothesis tests for $\rho(h)$ for all h $\ne$ 0! To do the hypothesis test, we need to find the sampling distribution for \hat{\rho}(h) under the null hypothesis of $\rho(h)$ = 0.  
+Because this is important, we conduct hypothesis tests for $\rho(h)$ for all h $\ne$ 0! To do the hypothesis test, we need to find the sampling distribution for \hat{\rho}(h) under the null hypothesis of $\rho(h)$ = 0.
+
+
+## Sampling distribution
+
+In summary, if $\rho(h)$ = 0, $x_t$ is stationary, and the sample size is “large”, then $\hat{\rho}(h)$ has an approximate normal distribution with mean 0 and standard deviation $\sigma_{\hat{\rho}(h)}=\frac{1}{\sqrt{n}}$ .  
+A proof is available in Shumway and Stoffer’s textbook and requires an understanding asymptotics (PhD level statistics course).  
+
+For a hypothesis test, we could check if $\hat{\rho}(h)$ is within  the bounds of 0 $\pm \frac{Z_{1-\frac{\alpha}{2}}}{\sqrt{n}}$ or not where P(Z < $Z_{1-\frac{\alpha}{2}}$) = 1 – $\frac{\alpha}{2}$ for a standard normal random variable Z. If it is not, then there is sufficient evidence to conclude that $\rho(h) \ne$ 0. We will be using this result a lot for the rest of this course!
+
+:::{.example }
+$x_t=0.7x_{t-1}+w_t, w_t\sim\mathrm{ind.}N(0,1), n=100$ 
+
+Click [here](http://www.chrisbilder.com/stat878/sections/2/AR1.0.7.txt) to download data.
+```{r}
+ar1 <- read.table(file = "AR1.0.7.txt", header = TRUE, sep = "")
+
+head(ar1)
+
+x <- ar1$x
+
+```
+
+```{r}
+dev.new(width = 8, height = 6, pointsize = 10)  
+#Opens up wider plot window than the default (good for time series plots)
+plot(x = x, ylab = expression(x[t]), xlab = "t", type = "l", col = "red", lwd = 1 , 
+     main = expression(paste("Data simulated from AR(1): ", x[t] == 0.7*x[t-1] + w[t], " where ", w[t], "~N(0,1)")) , 
+      panel.first=grid(col = "gray", lty = "dotted"))
+points(x = x, pch = 20, col = "blue")
+```
+ 
+The easiest way to find the autocorrelations in R is to use the `acf()` function.  
+
+```{r}
+rho.x <- acf(x = x, type = "correlation", main =
+             expression(paste("Data simulated from AR(1): ", x[t] == 0.7*x[t-1] + w[t], " where ", w[t], "~N(0,1)")))
+  # ci argument can be used to change 1 - alpha for plot
+  # lag.max argument can be used to change the maximum number of lags
+
+```
+
+The horizontal lines on the plot are drawn at 0  where $Z_{1-\frac{0.05}{2}} = 1.96$. The location of the lines can be changed by using the `ci` argument. The default is ci = 0.95.  
+
+
+```{r}
+rho.x
+```
+```{r}
+names(rho.x)
+```
+
+
+```{r}
+rho.x$acf
+```
+
+```{r}
+rho.x$acf[1:2]
+```
+
+
+:::
+
+
+Questions:
+
+- What happens to the autocorrelations over time? Why do you think this happens?  
+- Is there a positive or negative correlation?
+- At what lags is $\rho(h) \ne  $0?  
+
+
+R plots $\hat{\rho}(0)=1$ by default. This is unnecessary because $\hat{\rho}(0)$  will be 1 for all time series data sets! To remove  $\hat{\rho}(0)$ from the plot, one can specify the x-axis limit to start at 1. Below is one way this can be done and also illustrates how to use the `lag.max` argument. 
+
+```{r}
+par(xaxs = "i") 
+# Remove default 4% extra space around  min and max of x-axis
+rho.x2 <- acf(x = x, type = "correlation", xlim = 
+    c(0,30), lag.max = 30, main = expression(paste("Data 
+    simulated from AR(1): ", x[t] == 0.7*x[t-1] + w[t], " 
+    where ", w[t], "~N(0,1)")))
+par(xaxs = "r") # Return to the default
+
+```
+
+Note that $\hat{\rho}(0)=1$ is still present but the y-axis at x = 0 hides it. 
+
+While displaying $\hat{\rho}(0)=1$ may seem minor, we will examine these autocorrelations later in the course to determine an appropriate model for a data set. Often, one will forget to ignore the line drawn at lag = 0 and choose an incorrect model. 
+
+The autocovariances can also be found using `acf()`.  
+
+```{r}
+acf(x = x, type = "covariance", main = 
+     expression(paste("Data simulated from AR(1): ", x[t] 
+     == 0.7*x[t-1] + w[t], " where ", w[t], "~N(0,1)")))
+
+```
+
+To help understand autocorrelations and their relationship with the correlation coefficient better, I decided to look at the “usual” estimated Pearson correlation coefficients between $x_t, x_{t-1}, x_{t-2},$ and $x_{t-3}$.
+
+  
+```{r}
+ # Examine usual ways to check correlation
+  x.ts <- ts(x)
+  set1 <- ts.intersect(x.ts, x.ts1 = lag(x = x.ts, k = -1), x.ts2 = lag(x = x.ts, k = -2), x.ts3 = lag(x = x.ts, k = -3))
+  set1
+```
+
+```{r}
+ cor(set1)
+```
+
+
+```{r}
+library(car) #scatterplot.matrix is in this package 
+
+scatterplotMatrix(formula = ~x.ts + x.ts1 + x.ts2 + x.ts3, data = set1,
+    diagonal = list(method = "histogram"), col = "red")
+
+set2 <- ts.intersect(x.ts, x.ts1 = lag(x = x.ts, k = 1), x.ts2 = lag(x = x.ts, k = 2), x.ts3 = lag(x = x.ts, k = 3))
+
+set2
+```
+
+
+```{r}
+cor(set2)
+```
+
+```{r}
+#Another way to see dependence
+  lag.plot(x = x, lags = 4, layout = c(2,2), main = "x vs. lagged x",
+    do.lines = FALSE)
+```
+
+
+- The `ts()` function converts the time series data to an object that R recognizes as a time series.  
+- The `lag()` function is used to find xt-1, xt-2, and xt-3. The k argument specifies how many time periods to go back. Run `lag(x.ts, k = -1)` and `lag(x.ts, k = 1) `to see what happens. To get everything lined up as I wanted with `ts.intersect()`, I chose to use k = -1. 
+```{r}
+lag(x.ts, k = -1)
+```
+
+```{r}
+lag(x.ts, k = 1)
+```
+
+
+- The `ts.intersect()` function finds the intersection of the four different “variables”.  
+- The` cor() `function finds the estimated Pearson correlation coefficients between all variable pairs. Notice how close these correlations are to the autocorrelations!      
+- The `scatterplotMatrix()` function finds a scatter plot matrix. The function is in the car package.  
+
+
+```{r}
+#Used for estimation later in course
+
+  gamma.x <- acf(x = x, type = "covariance", main =
+    expression(paste("Data simulated from AR(1): ", x[t] == 0.7*x[t-1] + w[t], " where ", w[t], "~N(0,1)")))
+  gamma.x
+  mean(x)
+```
+
+:::{.example }
+
+**OSU enrollment data**
+
+Click [here](http://www.chrisbilder.com/stat878/sections/2/OSU_enroll.csv) to download data.
+
+```{r}
+  osu.enroll <- read.csv(file = "OSU_enroll.csv", stringsAsFactors = TRUE)
+  head(osu.enroll)
+  tail(osu.enroll)
+
+  x <- osu.enroll$Enrollment
+```
+
+```{r}
+  rho.x <- acf(x = x, type = "correlation", main = "OSU Enrollment series")
+  rho.x
+  rho.x$acf[1:9]
+  
+```
+
+
+:::
+
+
+Notes: 
+
+- There are some large autocorrelations. This is a characteristic of a nonstationary series. We will examine this more later.
+- Because the series is not stationary, the hypothesis test for $\rho(h)$ = 0 should not be done here using the methods discussed earlier.  
+- There is a pattern among the autocorrelations. What does this correspond to? 

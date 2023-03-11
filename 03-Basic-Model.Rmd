@@ -64,10 +64,10 @@ Suppose another white noise process is simulated. Below is a plot overlaying the
 set.seed(1298)
 w.new <- rnorm(n = 100, mean = 0, sd = 1)
 head(w.new)
-
 ```
 
 ```{r}
+par(mfrow=c(1,1))
 plot(x = w, 
      ylab = expression(w[t]), xlab = "t", 
      type = "l", col = "red",
@@ -86,6 +86,7 @@ legend(x ="top",legend=c("Time series 1", "Time series 2"), lty=c(1,1), col=c("r
 We could also plot the two time series separately.
 
 ```{r}
+dev.new(width = 8, height = 6, pointsize = 10) #Open a new plot window
 #make frame by row 2 rows 1 cols
 par(mfrow = c(2,1))
 plot(x = w, ylab = expression(w[t]), xlab = "t", type = 
@@ -103,6 +104,21 @@ points(x = w.new, pch = 20, col = "orange")
 
 ```
 
+```{r}
+# What if used plot.ts()?
+dev.new(width = 8, height = 6, pointsize = 10) #Open a new plot window
+
+plot.ts(x = cbind(w, w.new), ylab = expression(w[t]), xlab = "t", type = "o", col = "red", main = expression(paste("White noise where ", w[t], " ~ ind. N(0, 1)")), panel.first=grid(col = "gray", lty = "dotted"))
+
+#Problem: gridlines do not extend to second plot
+  
+plot.ts(x = cbind(w, w.new), ylab = expression(w[t]), xlab = "t", type = "o", col = "red", main = expression(paste("White noise where ", w[t], " ~ ind. N(0, 1)")))
+
+grid(col = "gray", lty = "dotted")
+#Problem: gridlines do not appear correctly on plots (could fix by specifying where to draw them using abline)
+```
+
+
 ## Moving Average
 
 :::{.example }
@@ -118,6 +134,13 @@ Let $m_t = \frac{w_t+w_{t-1}+w_{t-2}}{3}$. This can be done in R using the follo
 set.seed(8128)
 w <- rnorm(n=100,mean=0, sd=1)
 head(w)
+```
+
+```{r}
+dev.new(width = 8, height = 6, pointsize = 10) #Open a new plot window
+plot(x = w, ylab = expression(paste(m[t], " or ", w[t])), xlab = "t", type = "l", col = "red",
+        panel.first = grid(col = "gray", lty = "dotted"), lty = "dotted")
+  points(x = w, pch = 20, col = "blue")
 ```
 
 ```{r}
@@ -219,6 +242,7 @@ x <- x[101:200]
 ```
 
 ```{r}
+dev.new(width = 8, height = 6, pointsize = 10)  #Opens up wider plot window than the default (good for time series plots)
 plot(x = x, ylab = expression(x[t]), xlab = "t", type = 
       "l", col = c("red"), lwd = 1 , main = 
       expression(paste("AR(1): ", x[t] == 0.7*x[t-1] + 
@@ -226,6 +250,15 @@ plot(x = x, ylab = expression(x[t]), xlab = "t", type =
       "dotted"))
 points(x = x, pch = 20, col = "blue")
 
+```
+
+```{r}
+ #Show first few observations after removal of first 100
+  head(data.frame(c(NA, NA, x), w[99:200]))
+  
+
+  #Correlation between x_t and x_t-1 
+  cor(x[2:100], x[1:99])
 ```
 
 

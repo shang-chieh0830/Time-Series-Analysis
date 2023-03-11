@@ -35,10 +35,18 @@ plot(x = x, ylab = "OSU Enrollment",
        xlab = "t (time)", type="l", col = "red", 
        main = "OSU Enrollment from Fall 1989 to Fall 2002", 
        panel.first = grid(col = "gray", lty = "dotted"))
+points(x = x, pch = 20, col = "blue")
 
 
 
 ```
+
+```{r}
+# A little different version of the plot
+  plot(x = x, ylab = "OSU Enrollment", type = "o", xlab = "t (time)", col = "red",
+    main = "OSU enrollment data", panel.first = grid(col = "gray", lty = "dotted"))
+```
+
 
 ```{r}
 dev.new(width = 8, height = 6, pointsize = 10) 
@@ -120,6 +128,16 @@ points(y = osu.enroll$Enrollment,
     "lightgray")
      
 ```
+
+```{r}
+# Autocorrelation
+
+rho.x <- acf(x = x, type = "correlation", main = "OSU Enrollment series")
+rho.x
+rho.x$acf[1:9]
+  
+```
+
 
 ## S&P500 Index
 
@@ -260,5 +278,13 @@ plot() is a generic function - uses the plot.ts() method function
 plot(x = x, ylab = expression(paste(x[t], " (Number of 
    sunspots)")), xlab = "Year", type = "o", col = "red", main 
    = "Sunspots per year from 1700 to 2020")
+```
+
+```{r}
+plot.ts(x = x, ylab = expression(paste(x[t], " (Number of sunspots)")),
+  xlab = "Year", type = "o", col = "red", main = "Sunspots per year from 1700 to 2020")
+
+
+#type = "b" also works for "both" points and lines, but it leaves spaces between the points and lines
 ```
 

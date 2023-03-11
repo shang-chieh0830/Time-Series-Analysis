@@ -54,8 +54,19 @@ plot(x = x, ylab = "OSU Enrollment",
        xlab = "t (time)", type="l", col = "red", 
        main = "OSU Enrollment from Fall 1989 to Fall 2002", 
        panel.first = grid(col = "gray", lty = "dotted"))
+points(x = x, pch = 20, col = "blue")
 
 ```
+
+
+```r
+# A little different version of the plot
+  plot(x = x, ylab = "OSU Enrollment", type = "o", xlab = "t (time)", col = "red",
+    main = "OSU enrollment data", panel.first = grid(col = "gray", lty = "dotted"))
+```
+
+<img src="02-Plotting_files/figure-html/unnamed-chunk-6-1.png" width="672" />
+
 
 
 ```r
@@ -90,7 +101,7 @@ ggplot(df, aes(x = t, y = Enrollment)) +
   theme(panel.grid.major = element_line(colour = "gray", linetype = "dotted"))  # Add gray dotted lines to the plot
 ```
 
-<img src="02-Plotting_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+<img src="02-Plotting_files/figure-html/unnamed-chunk-8-1.png" width="672" />
 
 When only x is specified in the `plot()` function, R puts this on the y-axis and uses the observation number on the x-axis.
 
@@ -119,7 +130,7 @@ lines(y = summer$Enrollment, x = summer$t, col =
 legend(x="center", legend= c("Fall","Spring","Summer"), pch=c(1,2,3), lty=c(1,1,1), col=c("blue","red","darkgreen"), bty="n")
 ```
 
-<img src="02-Plotting_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+<img src="02-Plotting_files/figure-html/unnamed-chunk-9-1.png" width="672" />
 
 
 ```r
@@ -143,7 +154,33 @@ points(y = osu.enroll$Enrollment,
     "lightgray")
 ```
 
-<img src="02-Plotting_files/figure-html/unnamed-chunk-9-1.png" width="672" />
+<img src="02-Plotting_files/figure-html/unnamed-chunk-10-1.png" width="672" />
+
+
+```r
+# Autocorrelation
+
+rho.x <- acf(x = x, type = "correlation", main = "OSU Enrollment series")
+```
+
+<img src="02-Plotting_files/figure-html/unnamed-chunk-11-1.png" width="672" />
+
+```r
+rho.x
+#> 
+#> Autocorrelations of series 'x', by lag
+#> 
+#>      0      1      2      3      4      5      6      7 
+#>  1.000 -0.470 -0.425  0.909 -0.438 -0.395  0.822 -0.403 
+#>      8      9     10     11     12     13     14     15 
+#> -0.358  0.739 -0.367 -0.327  0.655 -0.337 -0.297  0.581 
+#>     16 
+#> -0.309
+rho.x$acf[1:9]
+#> [1]  1.0000000 -0.4702315 -0.4253427  0.9087421 -0.4377336
+#> [6] -0.3946048  0.8224660 -0.4025871 -0.3584216
+```
+
 
 ## S&P500 Index
 
@@ -218,7 +255,7 @@ abline(h = seq(from = 0, to = 5000, by = 1000), lty =
     "dotted", col = "lightgray")
 ```
 
-<img src="02-Plotting_files/figure-html/unnamed-chunk-15-1.png" width="672" />
+<img src="02-Plotting_files/figure-html/unnamed-chunk-17-1.png" width="672" />
 
 
 ```r
@@ -242,7 +279,7 @@ abline(h = seq(from = 0, to = 5000, by = 1000), lty =
     "dotted", col = "lightgray")
 ```
 
-<img src="02-Plotting_files/figure-html/unnamed-chunk-16-1.png" width="672" />
+<img src="02-Plotting_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
 ## Sunspots
 
@@ -319,7 +356,7 @@ points(y = sunspots$Mean.total, x = sunspots$Mid.year,
     pch = 20, col = "blue")
 ```
 
-<img src="02-Plotting_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+<img src="02-Plotting_files/figure-html/unnamed-chunk-23-1.png" width="672" />
 
 
 ```r
@@ -392,5 +429,19 @@ plot(x = x, ylab = expression(paste(x[t], " (Number of
    = "Sunspots per year from 1700 to 2020")
 ```
 
-<img src="02-Plotting_files/figure-html/unnamed-chunk-24-1.png" width="672" />
+<img src="02-Plotting_files/figure-html/unnamed-chunk-26-1.png" width="672" />
+
+
+```r
+plot.ts(x = x, ylab = expression(paste(x[t], " (Number of sunspots)")),
+  xlab = "Year", type = "o", col = "red", main = "Sunspots per year from 1700 to 2020")
+```
+
+<img src="02-Plotting_files/figure-html/unnamed-chunk-27-1.png" width="672" />
+
+```r
+
+
+#type = "b" also works for "both" points and lines, but it leaves spaces between the points and lines
+```
 
