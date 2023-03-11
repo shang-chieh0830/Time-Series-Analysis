@@ -13,9 +13,9 @@ Again with the weakly stationarity assumption, we only need to worry about the l
 
 - $\hat{\gamma}(h)=\hat{\gamma}(-h)$
 - What is this quantity if h = 0?
-  - $\hat{\gamma}(h)=\sum_{t=1}^{n}(X_t-\bar{X})(X_t-\bar{X})$, which is essentially the sample variance.(when n is large n$\approx$n-1)
+  - $\hat{\gamma}(h)=\frac{1}{n}\sum_{t=1}^{n}(X_t-\bar{X})(X_t-\bar{X})$, which is essentially the sample variance.(when n is large n$\approx$n-1)
 - What is this quantity if h =1?
-  - $\hat{\gamma}(h)=\sum_{t=1}^{n-1}(X_{t+1}-\bar{X})(X_t-\bar{X})$
+  - $\hat{\gamma}(h)=\frac{1}{n}\sum_{t=1}^{n-1}(X_{t+1}-\bar{X})(X_t-\bar{X})$
 - This is similar to the formula often used to estimate the covariance between two random variables x and y: $\hat{Cov}(X,Y)=\frac{1}{n}\sum_{i=1}^{n}(X_i-\bar{X})(Y_i-\bar{Y})$.
 - The sum goes up to n - h to avoid having negative subscripts in the x’s.
 - This is NOT an unbiased estimate of $\gamma(h)$! However, as n gets larger, the bias will go to 0. 
@@ -94,7 +94,7 @@ rho.x <- acf(x = x, type = "correlation", main =
   # lag.max argument can be used to change the maximum number of lags
 ```
 
-In our language, lag=h, ACF=$\hat{\rho}(h)$
+In our language, the horizontal axis: lag=h, the verical axis:  ACF=$\hat{\rho}(h)$
 
 The horizontal lines on the plot are drawn at 0 $\pm \frac{Z_{1-\frac{0.05}{2}}}{\sqrt{n}}$ where $Z_{1-\frac{0.05}{2}} = 1.96$.
 i.e., outside the blue dashed line, we reject $H_0$
@@ -174,11 +174,11 @@ Questions:
 - Is there a positive or negative correlation?
   - A positive correlation, again from our model $x_t=0.7x_{t-1}+w_t$, 0.7>0
 
-- At what lags is $\rho(h) \ne$0?  
-  - h=0,1,2. But we don't care h=0, it's just sample variance.
+- At what lags is $\rho(h)\ne$0?  
+  - h=0,1,2. But we don't care h=0, it's 1 just by definition.
 
 
-R plots $\hat{\rho}(0)=1$ by default. This is unnecessary because $\hat{\rho}(0)$  will be 1 for all time series data sets (again, it's just sample covariance)! To remove  $\hat{\rho}(0)$ from the plot, one can specify the x-axis limit to start at 1. Below is one way this can be done and also illustrates how to use the `lag.max` argument. 
+R plots $\hat{\rho}(0)=1$ by default. This is unnecessary because $\hat{\rho}(0)$  will be 1 for all time series data sets (again, it's just by definition)! To remove  $\hat{\rho}(0)$ from the plot, one can specify the x-axis limit to start at 1. Below is one way this can be done and also illustrates how to use the `lag.max` argument. 
 
 
 ```r
@@ -202,7 +202,7 @@ Note that $\hat{\rho}(0)=1$ is still present but the y-axis at x = 0 hides it.
 
 While displaying $\hat{\rho}(0)=1$ may seem minor, we will examine these autocorrelations later in the course to determine an appropriate model for a data set. Often, one will forget to ignore the line drawn at lag = 0 and choose an incorrect model. 
 
-**You should always ignore the line drawn at lag=0!!! b/c it's just sample variance.**
+**You should always ignore the line drawn at lag=0!!! b/c it's 1 just by definition.**
 
 
 The autocovariances can also be found using `acf()`.  

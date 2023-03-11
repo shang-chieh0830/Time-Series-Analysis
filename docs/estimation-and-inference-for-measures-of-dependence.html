@@ -217,11 +217,11 @@ Note that this would not make sense to do if the weakly stationarity assumption 
 <li><span class="math inline">\(\hat{\gamma}(h)=\hat{\gamma}(-h)\)</span></li>
 <li>What is this quantity if h = 0?
 <ul>
-<li><span class="math inline">\(\hat{\gamma}(h)=\sum_{t=1}^{n}(X_t-\bar{X})(X_t-\bar{X})\)</span>, which is essentially the sample variance.(when n is large n<span class="math inline">\(\approx\)</span>n-1)</li>
+<li><span class="math inline">\(\hat{\gamma}(h)=\frac{1}{n}\sum_{t=1}^{n}(X_t-\bar{X})(X_t-\bar{X})\)</span>, which is essentially the sample variance.(when n is large n<span class="math inline">\(\approx\)</span>n-1)</li>
 </ul></li>
 <li>What is this quantity if h =1?
 <ul>
-<li><span class="math inline">\(\hat{\gamma}(h)=\sum_{t=1}^{n-1}(X_{t+1}-\bar{X})(X_t-\bar{X})\)</span></li>
+<li><span class="math inline">\(\hat{\gamma}(h)=\frac{1}{n}\sum_{t=1}^{n-1}(X_{t+1}-\bar{X})(X_t-\bar{X})\)</span></li>
 </ul></li>
 <li>This is similar to the formula often used to estimate the covariance between two random variables x and y: <span class="math inline">\(\hat{Cov}(X,Y)=\frac{1}{n}\sum_{i=1}^{n}(X_i-\bar{X})(Y_i-\bar{Y})\)</span>.</li>
 <li>The sum goes up to n - h to avoid having negative subscripts in the x’s.</li>
@@ -271,7 +271,7 @@ Note that this would not make sense to do if the weakly stationarity assumption 
 <p><img src="06-Estimation-and-Inference_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <div class="sourceCode" id="cb110"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb110-1"><a href="estimation-and-inference-for-measures-of-dependence.html#cb110-1" aria-hidden="true" tabindex="-1"></a>  <span class="co"># ci argument can be used to change 1 - alpha for plot</span></span>
 <span id="cb110-2"><a href="estimation-and-inference-for-measures-of-dependence.html#cb110-2" aria-hidden="true" tabindex="-1"></a>  <span class="co"># lag.max argument can be used to change the maximum number of lags</span></span></code></pre></div>
-<p>In our language, lag=h, ACF=<span class="math inline">\(\hat{\rho}(h)\)</span></p>
+<p>In our language, the horizontal axis: lag=h, the verical axis: ACF=<span class="math inline">\(\hat{\rho}(h)\)</span></p>
 <p>The horizontal lines on the plot are drawn at 0 <span class="math inline">\(\pm \frac{Z_{1-\frac{0.05}{2}}}{\sqrt{n}}\)</span> where <span class="math inline">\(Z_{1-\frac{0.05}{2}} = 1.96\)</span>.
 i.e., outside the blue dashed line, we reject <span class="math inline">\(H_0\)</span></p>
 <p>The location of the lines can be changed by using the <code>ci</code> (confidence interval )argument. The default is ci = 0.95. i.e., <span class="math inline">\(\alpha=0.05\)</span></p>
@@ -329,12 +329,12 @@ i.e., outside the blue dashed line, we reject <span class="math inline">\(H_0\)<
 <ul>
 <li>A positive correlation, again from our model <span class="math inline">\(x_t=0.7x_{t-1}+w_t\)</span>, 0.7&gt;0</li>
 </ul></li>
-<li>At what lags is $(h) $0?
+<li>At what lags is $(h)$0?
 <ul>
-<li>h=0,1,2. But we don’t care h=0, it’s just sample variance.</li>
+<li>h=0,1,2. But we don’t care h=0, it’s 1 just by definition.</li>
 </ul></li>
 </ul>
-<p>R plots <span class="math inline">\(\hat{\rho}(0)=1\)</span> by default. This is unnecessary because <span class="math inline">\(\hat{\rho}(0)\)</span> will be 1 for all time series data sets (again, it’s just sample covariance)! To remove <span class="math inline">\(\hat{\rho}(0)\)</span> from the plot, one can specify the x-axis limit to start at 1. Below is one way this can be done and also illustrates how to use the <code>lag.max</code> argument.</p>
+<p>R plots <span class="math inline">\(\hat{\rho}(0)=1\)</span> by default. This is unnecessary because <span class="math inline">\(\hat{\rho}(0)\)</span> will be 1 for all time series data sets (again, it’s just by definition)! To remove <span class="math inline">\(\hat{\rho}(0)\)</span> from the plot, one can specify the x-axis limit to start at 1. Below is one way this can be done and also illustrates how to use the <code>lag.max</code> argument.</p>
 <div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="estimation-and-inference-for-measures-of-dependence.html#cb115-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">xaxs =</span> <span class="st">&quot;i&quot;</span>) </span>
 <span id="cb115-2"><a href="estimation-and-inference-for-measures-of-dependence.html#cb115-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Remove default 4% extra space around  min and max of x-axis</span></span>
 <span id="cb115-3"><a href="estimation-and-inference-for-measures-of-dependence.html#cb115-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -347,7 +347,7 @@ i.e., outside the blue dashed line, we reject <span class="math inline">\(H_0\)<
 <span id="cb116-2"><a href="estimation-and-inference-for-measures-of-dependence.html#cb116-2" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">xaxs =</span> <span class="st">&quot;r&quot;</span>) <span class="co"># Return to the default: regular pattern</span></span></code></pre></div>
 <p>Note that <span class="math inline">\(\hat{\rho}(0)=1\)</span> is still present but the y-axis at x = 0 hides it.</p>
 <p>While displaying <span class="math inline">\(\hat{\rho}(0)=1\)</span> may seem minor, we will examine these autocorrelations later in the course to determine an appropriate model for a data set. Often, one will forget to ignore the line drawn at lag = 0 and choose an incorrect model.</p>
-<p><strong>You should always ignore the line drawn at lag=0!!! b/c it’s just sample variance.</strong></p>
+<p><strong>You should always ignore the line drawn at lag=0!!! b/c it’s 1 just by definition.</strong></p>
 <p>The autocovariances can also be found using <code>acf()</code>.</p>
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="estimation-and-inference-for-measures-of-dependence.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(<span class="at">x =</span> x, <span class="at">type =</span> <span class="st">&quot;covariance&quot;</span>, <span class="at">main =</span> </span>
 <span id="cb117-2"><a href="estimation-and-inference-for-measures-of-dependence.html#cb117-2" aria-hidden="true" tabindex="-1"></a>     <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Data simulated from AR(1): &quot;</span>, x[t] </span>
