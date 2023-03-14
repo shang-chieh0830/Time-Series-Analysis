@@ -4,13 +4,13 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Time Series Analysis</title>
+  <title>Chapter 9 Autoregressive Models | Time Series Analysis</title>
   <meta name="description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::bs4_book,
 set in the _output.yml file.</p>" />
   <meta name="generator" content="bookdown 0.32 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Time Series Analysis" />
+  <meta property="og:title" content="Chapter 9 Autoregressive Models | Time Series Analysis" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="<p>This is a minimal example of using the bookdown package to write a book.
@@ -19,7 +19,7 @@ set in the _output.yml file.</p>" />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Time Series Analysis" />
+  <meta name="twitter:title" content="Chapter 9 Autoregressive Models | Time Series Analysis" />
   
   <meta name="twitter:description" content="<p>This is a minimal example of using the bookdown package to write a book.
 The HTML output format for this example is bookdown::bs4_book,
@@ -36,7 +36,7 @@ set in the _output.yml file.</p>" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
+<link rel="prev" href="resolving-non-stationarity-problems.html"/>
 
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -213,18 +213,131 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="autoregressive-models" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Chapter 9</span> Autoregressive Models<a href="autoregressive-models.html#autoregressive-models" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="ar-models" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> AR Models<a href="autoregressive-models.html#ar-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Suppose we have a time series <span class="math inline">\(x_t\)</span> for <span class="math inline">\(t = 1, …, n.\)</span> Could we use the regression model of</p>
+<p><span class="math display">\[x_t = \beta_0 + \beta_1t + \epsilon_t, \]</span></p>
+<p>where <span class="math inline">\(\epsilon_t \sim \mathrm{ind} N(0,\sigma^2)\)</span> for it? Yes, but stated confidence levels and type I error rates will likely be incorrect. Thus, inferences can be incorrect. The reason is the likely dependence in the time series.</p>
+<p>While one may be able to find a set of explanatory variables that help to de-trend a response variable series so it appears that white noise is leftover (i.e., it looks like the error terms are independent), this is often not possible.</p>
+<p>Instead, <em>autoregressive integrated moving average models (ARIMA)</em> are used for time series data. These models were first developed by Box and Jenkins (1970). We have already touched on all parts of this type of model:</p>
+<ul>
+<li>AR: Autoregressive</li>
+<li>MA: Moving average</li>
+<li>I: Integrated (closely related to differencing)</li>
+</ul>
+<p>Often, people will refer to ARIMA models as an ARIMA process as well. This refers to how <span class="math inline">\(x_t\)</span> comes about through a linear process. Both “model” and “process” will be used interchangeably.</p>
+</div>
+<div id="autoregressive-models-arp" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Autoregressive models – AR(p)<a href="autoregressive-models.html#autoregressive-models-arp" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>An autoregressive model uses past observations of <span class="math inline">\(x_t\)</span> to predict future observations. Specifically, the present value of <span class="math inline">\(x_t\)</span> is explained by a linear function of p past values of <span class="math inline">\(x_{t-1}, …, x_{t-p}.\)</span></p>
+<div class="example">
+<p><span id="exm:unlabeled-div-26" class="example"><strong>Example 9.1  </strong></span><strong>AR(1) from earlier</strong></p>
+<p><span class="math inline">\(x_t=0.7x_{t-1}+w_t\)</span>, where <span class="math inline">\(w_t \sim \mathrm{ind}N(0,1)\forall t=1,...,n\)</span></p>
+<p>Therefore, <span class="math inline">\(x_2=0.7x_1+w_2\)</span>, <span class="math inline">\(x_3=0.7x_2+w_3,...\)</span></p>
+<p>Future values may be “forecasted” by past values using</p>
+<p><span class="math inline">\(x_{n+1} = 0.7x_n\)</span></p>
+<p>More on this later in the section.</p>
+</div>
+<p>An autoregressive model of order p, denoted as AR(p), is</p>
+<p><span class="math inline">\(x_t = \phi_1x_{t-1} + \phi_2x_{t-2} + … + \phi_px_{t-p} + w_t\)</span></p>
+<p>where</p>
+<p><span class="math inline">\(\phi_1, \phi_2, …, \phi_p\)</span> are parameters and
+<span class="math inline">\(w_t \sim \mathrm{ind}N(0,\sigma^2_w)\forall t=1,...,n\)</span> (i.e., white noise)</p>
+<p>Notes:</p>
+<ul>
+<li>To find parameter estimates later in this section, we will assume <span class="math inline">\(w_t \sim \mathrm{ind}N(0,\sigma^2_w)\)</span></li>
+<li>WLOG, the mean of <span class="math inline">\(x_t, \mu,\)</span> will be assumed to be 0 when we write out a general model. HOWEVER, $$0 in most applications! The WLOG part is here because one can simply replace <span class="math inline">\(x_t\)</span> with <span class="math inline">\(x_t – \mu\)</span>. The end result is an autoregressive model of</li>
+</ul>
+<p><span class="math display">\[x_t - \mu = \phi_1(x_{t-1}-\mu) + \phi_2(x_{t-2}-\mu) + … + \phi_p(x_{t-p}-\mu) + w_t \\
+\iff x_t = \mu(1-\phi_1-\phi_2-…-\phi_p) + \phi_1x_{t-1} + \phi_2x_{t-2}+ … + \phi_px_{t-p} + w_t\\
+\iff x_t = \alpha + \phi_1x_{t-1} + \phi_2x_{t-2}+ … + \phi_px_{t-p} + w_t\]</span></p>
+<p>where <span class="math inline">\(\alpha = \mu(1-\phi_1-\phi_2-…-\phi_p).\)</span> The <span class="math inline">\(\alpha\)</span> does not affect the dependence structure among the <span class="math inline">\(x_t\)</span>. This is why the common convention is to exclude the parameter when introducing these models.</p>
+<p><strong>When we estimate the model, we will almost always include an estimate of <span class="math inline">\(\alpha.\)</span></strong></p>
+<ul>
+<li>The AR(p) model written in vector form is</li>
+</ul>
+<p><span class="math inline">\(x_t = \boldsymbol{\phi&#39;x_{t-1}} + w_t\)</span></p>
+<p>where</p>
+<p><span class="math inline">\(\boldsymbol{\phi} = (\phi_1, \phi_2, …, \phi_p)&#39;\)</span></p>
+<p><span class="math inline">\(\boldsymbol{x_{t-1}} = (x_{t-1}, x_{t-2}, …, x_{t-p})&#39;\)</span></p>
+<ul>
+<li>The AR(p) model written in backshift notation is</li>
+</ul>
+<p><span class="math inline">\((1-\phi_1B-\phi_2B^2-…-\phi_pB^p)x_t = w_t\)</span></p>
+<p>and <span class="math inline">\(\phi(B)x_t = w_t\)</span></p>
+<p>where <span class="math inline">\(\phi(B) = (1-\phi_1B-\phi_2B^2-…-\phi_pB^p)\)</span> is called the autoregressive operator. We will be using this notation throughout the course.</p>
+<ul>
+<li>The model can be re-expressed as a linear combination of <span class="math inline">\(w_t\)</span>’s by “iterating backwards”. For example, an AR(1) model can be represented as:</li>
+</ul>
+<p><span class="math display">\[x_t=\phi x_{t-1}+w_t\\
+=\phi(\phi x_{t-2}+w_{t-1})+w_t\\
+=\phi^2x_{t-2}+\phi w_{t-1}+w_t\\
+=\phi^2(\phi w_{t-3}+w{t-2})+\phi w_{t-1}+w_t\\
+=\phi^3x_{t-3}+\phi^2w_{t-2}+\phi w_{t-1}+w_t\\
+=\dots\\
+=\sum_{j=0}^{\infty}\phi^jw_{t-j}\]</span>,</p>
+<p>provided that <span class="math inline">\(|\phi|&lt;1\)</span> and variance of <span class="math inline">\(x_t\)</span> is bounded.</p>
+<p>To see this, note that the model can be rewritten as</p>
+<p><span class="math display">\[(1-\phi B)x_t = w_t \\
+\implies x_t=\frac{1}{1-\phi B}w_t\\
+\implies x_t = (1+\phi B+\phi^2B^2+…)w_t \\
+=\sum_{j=0}^{\infty}\phi^jB^jw_t\\
+=\sum_{j=0}^{\infty}\phi^jw_{t-j}\]</span></p>
+<p>using the sum of an infinite series. Remember that <span class="math inline">\(\sum_{i=0}^{\infty}a^i=\frac{1}{1-a},|a|&lt;1\)</span> . Writing the model as a linear combination of the <span class="math inline">\(w_t\)</span>’s is going to be VERY useful for future work!</p>
+<ul>
+<li>The mean and autocovariance function for an AR(1) stationary model can be found easily by using the above representation.</li>
+</ul>
+<p><span class="math display">\[E(x_t)=E(\sum_{j=0}^{\infty}\phi^jw_{t-j})\\
+=\sum_{j=0}^{\infty}\phi^jE(w_{t-j})=0\]</span></p>
+<p><span class="math display">\[\gamma(h)=Cov(x_t,x_{t+h})\\
+=E(x_tx_{t+h})-E(x_tE(x_{t+h}))\\
+=E(x_tx_{t+h})-0=E(x_tx_{t+h})\]</span>, assuming <span class="math inline">\(\mu=0\)</span></p>
+<p>Then <span class="math display">\[\gamma(h)=\\
+E[(\sum_{j=0}^{\infty}\phi^jw_{t-j})(\sum_{k=0}^{\infty}\phi^kw_{t+h-k})]\\=E[(w_t+\phi w_{t-1}+\phi^2w_{t-2}+...)(w_{t+h}+\phi w_{t+h-1}+\phi^2 w_{t+h-2}+...)]\]</span></p>
+<p>if h=0, <span class="math display">\[\gamma(0)=E[(w_t+\phi w_{t-1}+\phi^2w_{t-2}+...)^2]\\
+=Var(\sum_{j=0}^{\infty}\phi^jw_{t-j})+[E(\sum_{j=0}^{\infty}\phi^jw_{t-j})]^2\\
+=\sum_{j=0}^{\infty}\phi^{2j}Var(w_{t-j})+0\\
+=\sigma_w^2\sum_{j=0}^{\infty}\phi^{2j}\\
+=\sigma_w^2\frac{1}{1-\phi^2}\]</span></p>
+<p>I used these general results that are taught in a mathematical statistics course:</p>
+<ul>
+<li><span class="math inline">\(E(Y_1^2) = Var(Y_1) + E(Y_1)^2\)</span></li>
+<li><span class="math inline">\(Var(a_1Y_1 + a_2Y_2) = a_1^2Var(Y_1)+a_2^2Var(Y_2)\)</span>
+for independent random variables Y1 and Y2 and constants a1 and a2.</li>
+</ul>
+<p>if h=1, <span class="math display">\[\gamma(1)=E[(w_t+\phi w_{t-1}+\phi^2w_{t-2}+...)(w_{t+1}+\phi w_{t}+\phi^2w_{t-1}+...)]\\
+=E[w_{t+1}(w_t+\phi w_{t-1}+\phi^2w_{t-2}+...)]+
+E[\phi(w_t+\phi w_{t-1}+\phi^2w_{t-2}+...)]\\
+=E[w_{t+1}]E[w_t+\phi w_{t-1}+\phi^2w_{t-2}+...]+\phi \frac{\sigma^2_w}{1-\phi^2}\\
+=0+\phi \frac{\sigma^2_w}{1-\phi^2}=\phi \frac{\sigma^2_w}{1-\phi^2}\]</span></p>
+<p>I used <span class="math inline">\(w_{t+1}\)</span> being independent of all of the w’s in <span class="math inline">\(E[w_t+\phi w_{t-1}+\phi^2w_{t-2}+...]\)</span> in the above result.</p>
+<p>In general, for h$$0, <span class="math inline">\(\gamma(h)=\frac{\phi^h\sigma^2_w}{1-\phi^2}\)</span></p>
+<p>Also, the ACF is <span class="math inline">\(\rho(h) = \frac{\gamma(h)}{\gamma(0)} = \phi^h\)</span>.</p>
+<p>One can also go back to in the notes and use the results of a linear process there. Below is part of this page restated,</p>
+<p>In general, a linear process can be defined as</p>
+<p><span class="math display">\[x_t=\mu+\sum_{j=-\infty}^{\infty}\psi_jw_{t-j}\]</span> with <span class="math display">\[\sum_{j=-\infty}^{\infty}|\psi_j|&lt;\infty\]</span> and <span class="math display">\[w_t\sim\mathrm{ind.}N(0,\sigma_w^2)\]</span>
+It can be shown that <span class="math inline">\(\gamma(h)=\sigma_w^2\sum_{j=-\infty}^{\infty} \psi_{j+h}\psi_j\)</span> for h <span class="math inline">\(\ge\)</span> 0.</p>
+<p>In our case, we have <span class="math inline">\(\psi_0 = 1, \psi_1 = \phi, \psi_2 = \phi^2, \psi_3 = \phi^3, … .\)</span> Therefore, <span class="math inline">\(x_t=\mu+\sum_{j=-\infty}^{\infty}\psi_jw_{t-j}=0+\sum_{j=0}^{\infty}\phi^jB^jw_t.\)</span> This results in <span class="math display">\[\gamma(h)=\sigma^2_w\sum_{j=-\infty}^{\infty}\psi_{j+h}\psi_j\\
+=\sigma^2_w\sum_{j=0}^{\infty}\psi_{j+h}\psi_j\\
+=\sigma^2_w\sum_{j=0}^{\infty}\phi^{j+h}\phi^j\\
+=\sigma^2_w\sum_{j=0}^{\infty}\phi^{2j+h}\\
+=\sigma^2_w\phi^h\sum_{j=0}^{\infty}\phi^{2j}\\
+=\sigma^2_w\phi^h\frac{1}{1-\phi^2}\]</span></p>
+<p>Question: What if <span class="math inline">\(\mu\ne\)</span> 0? How would this change <span class="math inline">\(E(x_t)\)</span> and <span class="math inline">\(\gamma(h)\)</span>?</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-27" class="example"><strong>Example 9.2  </strong></span><strong>AR(1)with <span class="math inline">\(\phi\)</span> = 0.7 and <span class="math inline">\(\phi\)</span> =- 0.7</strong></p>
+</div>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
+<a href="resolving-non-stationarity-problems.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>

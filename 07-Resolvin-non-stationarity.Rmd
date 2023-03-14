@@ -10,7 +10,7 @@ Differencing helps to create the constant mean needed for stationarity. We will 
 
 Taking “differences” between successive data values in the time series helps to remove trend. Specifically, 1st differences help remove linear trend and 2nd differences help remove quadratic trend.  
 
-Why does this work? Consider the linear trend model $x_t = \beta_0 + \beta_1t$ where t = time and $\beta_1 \ne$ 0. Then 
+Why does this work? Consider the linear trend model $x_t = \beta_0 + \beta_1t$ where t = time and $\beta_1\ne$0. Then 
 
 $$x_t – x_{t-1} =  \beta_0 + \beta_1t – [\beta_0 + \beta_1(t – 1)] = \beta_1$$
 which is not dependent on t.    

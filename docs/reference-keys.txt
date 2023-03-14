@@ -21,6 +21,8 @@ exm:unlabeled-div-22
 exm:unlabeled-div-23
 exm:unlabeled-div-24
 exm:unlabeled-div-25
+exm:unlabeled-div-26
+exm:unlabeled-div-27
 about
 introduction-to-r
 basic-operation
@@ -54,3 +56,6 @@ differencing
 backshift-operator
 fractional-differencing
 transformations
+autoregressive-models
+ar-models
+autoregressive-models-arp
