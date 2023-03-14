@@ -23,6 +23,9 @@ exm:unlabeled-div-24
 exm:unlabeled-div-25
 exm:unlabeled-div-26
 exm:unlabeled-div-27
+exm:unlabeled-div-28
+exm:unlabeled-div-29
+exm:unlabeled-div-30
 about
 introduction-to-r
 basic-operation
@@ -59,3 +62,5 @@ transformations
 autoregressive-models
 ar-models
 autoregressive-models-arp
+causal-process
+writing-higher-order-casual-models-as-x_tsum_j0inftypsi_jbjw_t

@@ -195,6 +195,8 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li class="chapter" data-level="9.1" data-path="autoregressive-models.html"><a href="autoregressive-models.html#ar-models"><i class="fa fa-check"></i><b>9.1</b> AR Models</a></li>
 <li class="chapter" data-level="9.2" data-path="autoregressive-models.html"><a href="autoregressive-models.html#autoregressive-models-arp"><i class="fa fa-check"></i><b>9.2</b> Autoregressive models – AR(p)</a></li>
+<li class="chapter" data-level="9.3" data-path="autoregressive-models.html"><a href="autoregressive-models.html#causal-process"><i class="fa fa-check"></i><b>9.3</b> Causal Process</a></li>
+<li class="chapter" data-level="9.4" data-path="autoregressive-models.html"><a href="autoregressive-models.html#writing-higher-order-casual-models-as-x_tsum_j0inftypsi_jbjw_t"><i class="fa fa-check"></i><b>9.4</b> Writing higher-order casual models as <span class="math inline">\(x_t=\sum_{j=0}^{\infty}\psi_jB^jw_t\)</span></a></li>
 </ul></li>
 </ul>
 
@@ -271,6 +273,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <ul>
 <li>The model can be re-expressed as a linear combination of <span class="math inline">\(w_t\)</span>’s by “iterating backwards”. For example, an AR(1) model can be represented as:</li>
 </ul>
+<p>(Note: the 1 on <span class="math inline">\(\phi_1\)</span> was dropped)</p>
 <p><span class="math display">\[x_t=\phi x_{t-1}+w_t\\
 =\phi(\phi x_{t-2}+w_{t-1})+w_t\\
 =\phi^2x_{t-2}+\phi w_{t-1}+w_t\\
@@ -325,10 +328,239 @@ It can be shown that <span class="math inline">\(\gamma(h)=\sigma_w^2\sum_{j=-\i
 =\sigma^2_w\sum_{j=0}^{\infty}\phi^{2j+h}\\
 =\sigma^2_w\phi^h\sum_{j=0}^{\infty}\phi^{2j}\\
 =\sigma^2_w\phi^h\frac{1}{1-\phi^2}\]</span></p>
+<p>Note that <span class="math inline">\(\psi_j=0\)</span> for j&lt;0</p>
 <p>Question: What if <span class="math inline">\(\mu\ne\)</span> 0? How would this change <span class="math inline">\(E(x_t)\)</span> and <span class="math inline">\(\gamma(h)\)</span>?</p>
 <div class="example">
 <p><span id="exm:unlabeled-div-27" class="example"><strong>Example 9.2  </strong></span><strong>AR(1)with <span class="math inline">\(\phi\)</span> = 0.7 and <span class="math inline">\(\phi\)</span> =- 0.7</strong></p>
+<p>The purpose of this example is to show what observed values from an AR(1) process look like for t = 1, …, 100 using <span class="math inline">\(\sigma_w^2 = 100\)</span>. Pay close attention to the differences between <span class="math inline">\(\phi = 0.7\)</span> and <span class="math inline">\(\phi = -0.7\)</span>. Questions to think about are:</p>
+<ul>
+<li>Why are some plots more or less “choppy” (“jagged”)?<br />
+</li>
+<li>What would happen to the plots if <span class="math inline">\(|\phi|\)</span> was closer to 0 or 1?</li>
+</ul>
+<p>Note that <span class="math inline">\(\rho(h) = \gamma(h)/\gamma(0) = \phi^h\)</span>, which leads to autocorrelations of</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">h</th>
+<th align="center"><span class="math inline">\(\phi=0.7\)</span></th>
+<th align="center"><span class="math inline">\(\phi=-0.7\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">0.7</td>
+<td align="center">-0.7</td>
+</tr>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">0.49</td>
+<td align="center">0.49</td>
+</tr>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">0.34</td>
+<td align="center">-0.43</td>
+</tr>
+</tbody>
+</table>
+<p>For the plot below, the model is <span class="math inline">\(x_t = 0.7x_{t-1} + w_t\)</span> and
+<span class="math inline">\((1 – 0.7B)x_t = w_t.\)</span></p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="autoregressive-models.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7181</span>)</span>
+<span id="cb161-2"><a href="autoregressive-models.html#cb161-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">ar =</span> <span class="fu">c</span>(<span class="fl">0.7</span>)), <span class="at">n =</span> <span class="dv">100</span>, rand.gen </span>
+<span id="cb161-3"><a href="autoregressive-models.html#cb161-3" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> rnorm, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb161-4"><a href="autoregressive-models.html#cb161-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">ylab =</span> <span class="fu">expression</span>(x[t]), <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> </span>
+<span id="cb161-5"><a href="autoregressive-models.html#cb161-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>), <span class="at">main =</span> </span>
+<span id="cb161-6"><a href="autoregressive-models.html#cb161-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expression</span>(<span class="fu">paste</span>(x[t] <span class="sc">==</span> <span class="fl">0.7</span><span class="sc">*</span>x[t<span class="dv">-1</span>] <span class="sc">+</span> w[t], <span class="st">&quot; where &quot;</span>, </span>
+<span id="cb161-7"><a href="autoregressive-models.html#cb161-7" aria-hidden="true" tabindex="-1"></a>  w[t], <span class="st">&quot;~ ind. N(0,100)&quot;</span>)), <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col =</span> </span>
+<span id="cb161-8"><a href="autoregressive-models.html#cb161-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb161-9"><a href="autoregressive-models.html#cb161-9" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> x, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="08-Autogressive_models_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+<p>For the plot below, the model is <span class="math inline">\(x_t = -0.7x_{t-1} + w_t\)</span> and
+<span class="math inline">\((1 – 0.7B)x_t = w_t.\)</span></p>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="autoregressive-models.html#cb162-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7181</span>)</span>
+<span id="cb162-2"><a href="autoregressive-models.html#cb162-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">arima.sim</span>(<span class="at">model =</span> <span class="fu">list</span>(<span class="at">ar =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.7</span>)), <span class="at">n =</span> <span class="dv">100</span>, rand.gen </span>
+<span id="cb162-3"><a href="autoregressive-models.html#cb162-3" aria-hidden="true" tabindex="-1"></a>  <span class="ot">=</span> rnorm, <span class="at">sd =</span> <span class="dv">10</span>)</span>
+<span id="cb162-4"><a href="autoregressive-models.html#cb162-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">ylab =</span> <span class="fu">expression</span>(x[t]), <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> </span>
+<span id="cb162-5"><a href="autoregressive-models.html#cb162-5" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>), <span class="at">main =</span> </span>
+<span id="cb162-6"><a href="autoregressive-models.html#cb162-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expression</span>(<span class="fu">paste</span>(x[t] <span class="sc">==</span> <span class="fl">0.7</span><span class="sc">*</span>x[t<span class="dv">-1</span>] <span class="sc">+</span> w[t], <span class="st">&quot; where &quot;</span>, </span>
+<span id="cb162-7"><a href="autoregressive-models.html#cb162-7" aria-hidden="true" tabindex="-1"></a>  w[t], <span class="st">&quot;~ ind. N(0,100)&quot;</span>)), <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col =</span> </span>
+<span id="cb162-8"><a href="autoregressive-models.html#cb162-8" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb162-9"><a href="autoregressive-models.html#cb162-9" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> x, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="08-Autogressive_models_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>I could just use ar = 0.7, but included <code>c()</code> because it will be needed when we have p &gt; 1.</p>
+<p><strong>Be very careful in specifying these models in R!</strong></p>
 </div>
+<ul>
+<li><p>The model can be written as <span class="math inline">\(x_t = \phi x_{t-1} + w_t\)</span> and <span class="math inline">\((1 – \phi B)x_t = w_t\)</span>. Notice that the first plot uses <span class="math inline">\(\phi = +0.7\)</span> and the second plot uses <span class="math inline">\(\phi = -0.7\)</span>. The autoregressive operator can confuse matters in deciding whether the numerical value of <span class="math inline">\(\phi\)</span> is positive or negative.</p></li>
+<li><p>Software packages and textbooks are not consistent in their definitions of the positive and negative values. For example, some books may denote the AR operator to be <span class="math inline">\((1 + \phi B)\)</span> instead of <span class="math inline">\((1 – \phi B)\)</span>.</p></li>
+</ul>
+<p>To simulate data from a higher order AR(p), use the following type of syntax in the model option: <code>list(ar = c(0.7, -0.4))</code></p>
+<p>This specifies <span class="math inline">\(\phi_1 = 0.7\)</span> and <span class="math inline">\(\phi_2 = -0.4\)</span>.</p>
+<p>R has a nice function that allows you to see the ACF for an AR (or ARMA) process better. The <code>ARMAacf()</code>allows one to plot the actual ACF for an AR (and ARMA) model.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-28" class="example"><strong>Example 9.3  </strong></span><strong>AR(1)with <span class="math inline">\(\phi\)</span> = 0.7 and <span class="math inline">\(\phi\)</span> =- 0.7</strong></p>
+<p>When <span class="math inline">\(\phi_1\)</span> = 0.7, here are the results of the <code>ARMAacf()</code> function. Notice the use of <code>phi1</code> instead of just <code>phi</code> in the main argument of the <code>plot()</code> function. Using <code>phi</code> produces <span class="math inline">\(\phi\)</span> instead of <span class="math inline">\(\varphi\)</span>. (In our context, it doesn’t matter which <code>phi</code> you want to write with)</p>
+<div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="autoregressive-models.html#cb163-1" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">ARMAacf</span>(<span class="at">ar=</span><span class="fu">c</span>(<span class="fl">0.7</span>), <span class="at">lag.max=</span><span class="dv">20</span>) ,<span class="dv">4</span>)</span>
+<span id="cb163-2"><a href="autoregressive-models.html#cb163-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      0      1      2      3      4      5      6      7 </span></span>
+<span id="cb163-3"><a href="autoregressive-models.html#cb163-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1.0000 0.7000 0.4900 0.3430 0.2401 0.1681 0.1176 0.0824 </span></span>
+<span id="cb163-4"><a href="autoregressive-models.html#cb163-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      8      9     10     11     12     13     14     15 </span></span>
+<span id="cb163-5"><a href="autoregressive-models.html#cb163-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 0.0576 0.0404 0.0282 0.0198 0.0138 0.0097 0.0068 0.0047 </span></span>
+<span id="cb163-6"><a href="autoregressive-models.html#cb163-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     16     17     18     19     20 </span></span>
+<span id="cb163-7"><a href="autoregressive-models.html#cb163-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 0.0033 0.0023 0.0016 0.0011 0.0008</span></span></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="autoregressive-models.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">y=</span><span class="fu">ARMAacf</span>(<span class="at">ar=</span><span class="fu">c</span>(<span class="fl">0.7</span>), <span class="at">lag.max =</span> <span class="dv">20</span>), <span class="at">x=</span><span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">type=</span><span class="st">&quot;h&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>), <span class="at">xlab=</span><span class="st">&quot;h&quot;</span>, <span class="at">ylab=</span><span class="fu">expression</span>(<span class="fu">rho</span>(h)), <span class="at">main=</span><span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;ACF for AR(1) with&quot;</span>, phi1[<span class="dv">1</span>]<span class="sc">==</span><span class="fl">0.7</span>)))</span>
+<span id="cb164-2"><a href="autoregressive-models.html#cb164-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-3"><a href="autoregressive-models.html#cb164-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>)</span></code></pre></div>
+<p><img src="08-Autogressive_models_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p>Using <span class="math inline">\(\phi_1\)</span> = -0.7.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb165-1"><a href="autoregressive-models.html#cb165-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">y=</span><span class="fu">ARMAacf</span>(<span class="at">ar=</span><span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.7</span>), <span class="at">lag.max =</span> <span class="dv">20</span>), <span class="at">x=</span><span class="dv">0</span><span class="sc">:</span><span class="dv">20</span>, <span class="at">type=</span><span class="st">&quot;h&quot;</span>, <span class="at">ylim=</span><span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>), <span class="at">xlab=</span><span class="st">&quot;h&quot;</span>, <span class="at">ylab=</span><span class="fu">expression</span>(<span class="fu">rho</span>(h)), <span class="at">main=</span><span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;ACF for AR(1) with &quot;</span>, phi1[<span class="dv">1</span>]<span class="sc">==</span><span class="fl">0.7</span>)))</span>
+<span id="cb165-2"><a href="autoregressive-models.html#cb165-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb165-3"><a href="autoregressive-models.html#cb165-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h=</span><span class="dv">0</span>)</span></code></pre></div>
+<p><img src="08-Autogressive_models_files/figure-html/unnamed-chunk-5-1.png" width="672" />
+The <code>type = "h"</code> argument in the <code>plot()</code> tells R to plot vertical lines from a y-axis value of 0 value up to the autocorrelations.</p>
+</div>
+<p>Be careful with the plotting of the ACF, suppose the following code was used instead:</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="autoregressive-models.html#cb166-1" aria-hidden="true" tabindex="-1"></a><span class="co"># wrong graph</span></span>
+<span id="cb166-2"><a href="autoregressive-models.html#cb166-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-3"><a href="autoregressive-models.html#cb166-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> <span class="fu">ARMAacf</span>(<span class="at">ar =</span> <span class="fu">c</span>(<span class="fl">0.7</span>), <span class="at">lag.max =</span> <span class="dv">20</span>), <span class="at">type =</span> </span>
+<span id="cb166-4"><a href="autoregressive-models.html#cb166-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;h&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;h&quot;</span>, <span class="at">ylab =</span> </span>
+<span id="cb166-5"><a href="autoregressive-models.html#cb166-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expression</span>(<span class="fu">rho</span>(h)), <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;ACF </span></span>
+<span id="cb166-6"><a href="autoregressive-models.html#cb166-6" aria-hidden="true" tabindex="-1"></a><span class="st">    for AR(1) with &quot;</span>, phi1[<span class="dv">1</span>] <span class="sc">==</span> <span class="fl">0.7</span>)))</span>
+<span id="cb166-7"><a href="autoregressive-models.html#cb166-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb166-8"><a href="autoregressive-models.html#cb166-8" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="08-Autogressive_models_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>In this case, there is no <code>y =</code> part and the plot above is drawn incorrectly with <span class="math inline">\(\rho(1) = 1\)</span>, <span class="math inline">\(\rho(2) = 0.7\)</span> (everything is shifted one lag). The reason why this happens is that <code>ARMAacf()</code> gives output that starts at h = 0, but R does not have a way to adjust the x-axis scale to adjust for it.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-29" class="example"><strong>Example 9.4  </strong></span><strong>AR(1) with <span class="math inline">\(\phi_1\)</span> = 1</strong></p>
+<p>For the AR(1) process to be stationary, the following condition must be satisfied: |<span class="math inline">\(\phi_1\)</span>| &lt; 1. To see what happens when it is not satisfied, consider a sample generated from an AR(1) process with <span class="math inline">\(\phi_1\)</span>=1. Below is a plot.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb167-1"><a href="autoregressive-models.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7181</span>)  </span>
+<span id="cb167-2"><a href="autoregressive-models.html#cb167-2" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb167-3"><a href="autoregressive-models.html#cb167-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb167-4"><a href="autoregressive-models.html#cb167-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="at">length =</span> <span class="dv">200</span>)</span>
+<span id="cb167-5"><a href="autoregressive-models.html#cb167-5" aria-hidden="true" tabindex="-1"></a>x<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb167-6"><a href="autoregressive-models.html#cb167-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
+<span id="cb167-7"><a href="autoregressive-models.html#cb167-7" aria-hidden="true" tabindex="-1"></a>  x[i] <span class="ot">&lt;-</span> x<span class="fl">.1</span>  <span class="sc">+</span> w[i] </span>
+<span id="cb167-8"><a href="autoregressive-models.html#cb167-8" aria-hidden="true" tabindex="-1"></a>  x<span class="fl">.1</span> <span class="ot">&lt;-</span> x[i] </span>
+<span id="cb167-9"><a href="autoregressive-models.html#cb167-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb167-10"><a href="autoregressive-models.html#cb167-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">ylab =</span> <span class="fu">expression</span>(x[t]), <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> </span>
+<span id="cb167-11"><a href="autoregressive-models.html#cb167-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>), <span class="at">main =</span> </span>
+<span id="cb167-12"><a href="autoregressive-models.html#cb167-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expression</span>(<span class="fu">paste</span>(x[t] <span class="sc">==</span> x[t<span class="dv">-1</span>] <span class="sc">+</span> w[t], <span class="st">&quot; where &quot;</span>, </span>
+<span id="cb167-13"><a href="autoregressive-models.html#cb167-13" aria-hidden="true" tabindex="-1"></a>  w[t], <span class="st">&quot;~ ind. N(0,1)&quot;</span> )), <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col =</span> </span>
+<span id="cb167-14"><a href="autoregressive-models.html#cb167-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb167-15"><a href="autoregressive-models.html#cb167-15" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> x, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="08-Autogressive_models_files/figure-html/unnamed-chunk-7-1.png" width="672" />
+The process no longer appears to be stationary in the mean.</p>
+<p>Below is another set of observations generated from an AR(1) process.</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="autoregressive-models.html#cb168-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">6234</span>)  </span>
+<span id="cb168-2"><a href="autoregressive-models.html#cb168-2" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb168-3"><a href="autoregressive-models.html#cb168-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb168-4"><a href="autoregressive-models.html#cb168-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="at">length =</span> <span class="dv">200</span>)</span>
+<span id="cb168-5"><a href="autoregressive-models.html#cb168-5" aria-hidden="true" tabindex="-1"></a>x<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb168-6"><a href="autoregressive-models.html#cb168-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
+<span id="cb168-7"><a href="autoregressive-models.html#cb168-7" aria-hidden="true" tabindex="-1"></a>  x[i] <span class="ot">&lt;-</span> x<span class="fl">.1</span>  <span class="sc">+</span> w[i] </span>
+<span id="cb168-8"><a href="autoregressive-models.html#cb168-8" aria-hidden="true" tabindex="-1"></a>  x<span class="fl">.1</span> <span class="ot">&lt;-</span> x[i] </span>
+<span id="cb168-9"><a href="autoregressive-models.html#cb168-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb168-10"><a href="autoregressive-models.html#cb168-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">ylab =</span> <span class="fu">expression</span>(x[t]), <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> </span>
+<span id="cb168-11"><a href="autoregressive-models.html#cb168-11" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="st">&quot;red&quot;</span>), <span class="at">main =</span> </span>
+<span id="cb168-12"><a href="autoregressive-models.html#cb168-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">expression</span>(<span class="fu">paste</span>(x[t] <span class="sc">==</span> x[t<span class="dv">-1</span>] <span class="sc">+</span> w[t], <span class="st">&quot; where &quot;</span>, </span>
+<span id="cb168-13"><a href="autoregressive-models.html#cb168-13" aria-hidden="true" tabindex="-1"></a>  w[t], <span class="st">&quot;~ ind. N(0,1)&quot;</span> )), <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col =</span> </span>
+<span id="cb168-14"><a href="autoregressive-models.html#cb168-14" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb168-15"><a href="autoregressive-models.html#cb168-15" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> x, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="08-Autogressive_models_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>This series also appears come from a non-stationary process.</p>
+<p>Other examples can be constructed for <span class="math inline">\(|\phi_1|\ge\)</span> 1</p>
+</div>
+</div>
+<div id="causal-process" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Causal Process<a href="autoregressive-models.html#causal-process" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Note that the AR(1) process with <span class="math inline">\(|\phi_1|\ge\)</span> 1 can be rewritten as a stationary “future-dependent” series. See Shumway and Stoffer’s “Explosive AR Models and Causality” example. Because we will not know the “future” values in actual applications, this representation will not help us!</p>
+<p>When a process is stationary AND does not depend on the future, the process is “causal”. These are the type of processes that we will be interested in.</p>
+<p>A more formal definition of a causal process will be given later.</p>
+</div>
+<div id="writing-higher-order-casual-models-as-x_tsum_j0inftypsi_jbjw_t" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Writing higher-order casual models as <span class="math inline">\(x_t=\sum_{j=0}^{\infty}\psi_jB^jw_t\)</span><a href="autoregressive-models.html#writing-higher-order-casual-models-as-x_tsum_j0inftypsi_jbjw_t" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Higher-order models will have constraints on <span class="math inline">\(\phi_1, \phi_2, … , \phi_p\)</span> to insure a model is causal. We will examine these constraints later. For now, assume we have a causal model.</p>
+<p>In a previous example, the AR(1) process was rewritten as
+<span class="math display">\[(1-\phi B)x_t=w_t\\
+\implies x_t=\frac{1}{1-\phi B}w_t\\
+\iff x_t=(x+\phi B+ \phi^2B^2+...)w_t\\
+=\sum_{j=0}^{\infty}\phi^jB^jw_t=\sum_{j=0}^{\infty}\phi^jw_{t-j}\]</span></p>
+<p>When the process is a higher order AR(p), we can do the same thing! In general, consider the AR(p) process below:
+<span class="math display">\[(1-\phi_1B-\phi_2B^2-…-\phi_pB^p)x_t = w_t\\
+\iff \phi(B)x_t=w_t\\
+\iff x_t=\frac{1}{\phi(B)}w_t=\psi(B)w_t\]</span></p>
+<p>where <span class="math inline">\(\psi(B) = 1+B\psi_1+B^2\psi_2+…,\)</span> and <span class="math inline">\(1/\phi(B) = \psi(B)\)</span>. Be careful with this definition of <span class="math inline">\(\psi(B)\)</span> because there are +, not –, values separating the terms. Also, note that <span class="math inline">\(\psi(B)\)</span> is an infinite series.</p>
+<p>Then <span class="math display">\[1=\phi(B)\times\psi(B)\\
+=(1-\phi_1B-\phi_2B^2-...-\phi_pB^p)(1+\psi_1B+\psi_2B^2+...)\]</span></p>
+<p>To find the values of the <span class="math inline">\(\psi_j\)</span>’s in terms of the <span class="math inline">\(\phi_i\)</span>’s, we can equate the coefficients of the B’s on both sides of the equality (note the left side has <span class="math inline">\(1\times B^0 + 0\times B^1 + 0\times B^2 +…\)</span>)</p>
+<p><span class="math display">\[1=\phi(B)\times\psi(B)\\
+=(1-\phi_1B-\phi_2B^2-...-\phi_pB^p)(1+\psi_1B+\psi_2B^2+...)\\
+\iff 1=1-\phi_1B-\phi_2B^2-...\\
++\psi_1B-\psi_1\phi_1B^2-\psi_1\phi_2B^3-\psi_1\phi_3B^4-...\\
++\psi_2B^2-\psi_2\phi_1B^3-\psi_2\phi_2B^4-\psi_2\phi_3B^5-...\\
++\psi_3B^3-\psi_3\phi_1B^4-\psi_3\phi_2B^5-\psi_3\phi_3B^6-...\\
+\iff 1=1+(\psi_1-\phi_1)B+(\psi_2-\psi_1\phi_1-\phi_2)B^2\\
++(\psi_3-\psi_2\phi_1-\psi_1\phi_2)B^3+...\]</span></p>
+<p>Then equating coefficients:</p>
+<p><span class="math inline">\(B^0: 1=1\)</span>
+<span class="math inline">\(B^1: \psi_1-\phi_1 = 0 \implies \phi_1=\psi_1\)</span>
+<span class="math inline">\(B^2: \psi_2 - \psi_1\phi_1-\phi_2 = 0 \implies \psi_2=\phi_1^2\)</span><br />
+<span class="math inline">\(B^3: \psi_3 - \psi_2\phi_1 - \psi_1\phi_2 - \phi_3 = 0 \implies \psi_3=(\phi_1^2+\phi_2)\phi_1+\phi_1\phi_2+\phi_3=\phi_1^3+2\phi_1\phi_2+\phi_3\)</span></p>
+<p>In general, <span class="math inline">\(\psi_j=\phi_j+\sum_{i=1}^{j-1}\phi_i\psi_{j-i}\)</span>.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-30" class="example"><strong>Example 9.5  </strong></span><strong>AR(2) process</strong></p>
+<p>For an AR(2) process, this means that <span class="math display">\[x_t=\frac{1}{1-\phi_1B-\phi_2B^2}w_t\\
+=(1+\psi_1B+\psi_2B^2+\psi_3B^3+...)w_t\]</span></p>
+<p>Then writing the <span class="math inline">\(\psi\)</span>’s in terms of the <span class="math inline">\(\phi\)</span>’s:
+<span class="math display">\[(1+\psi_1B+\psi_2B^2+\psi_3B^3+...)(1-\phi_1B-\phi_2B^2)=1\\
+\implies 1+\psi_1B+\psi_2B^2+\psi_3B^3+...\\
+-\phi_1B-\phi_1\psi_1B^2-\phi_1\psi_2B^3-...\\
+-\phi_2B^2-\phi_2\psi_1B^3-\phi_2\psi_2B^4-...=1\]</span></p>
+<p>Equating powers of B implies that</p>
+<p><span class="math inline">\(B^1=(\psi_1-\phi_1)=0 \implies \psi_1=\phi_1\)</span>
+<span class="math inline">\(B^2=(\psi_2-\phi_1\psi_1-\phi_2)=0 \implies \psi_2=\phi_1\psi_1+\phi_2=\phi_1^2+\phi_2\)</span>
+<span class="math inline">\(B^3=(\psi_3-\phi_1\psi_2-\phi_2\psi_1)=0 \implies \psi_3=\phi_1\psi_2+\phi_2\psi_1=\phi_1(\phi_1^2+\phi_2)+\phi_2\psi_1\)</span></p>
+<p>In general, <span class="math inline">\(\psi_j = \psi_{j-1}\phi_1 + \psi_{j-2}\phi_2\)</span> for <span class="math inline">\(j \ge\)</span> 2 where <span class="math inline">\(\psi_0\)</span> = 1.</p>
+<p>For the special case of <span class="math inline">\(\phi_2 = 0\)</span> (i.e., AR(1)), <span class="math inline">\(\psi_j = \phi_1^j\)</span> and
+<span class="math inline">\(x_t=\frac{1}{(1-\phi_1B)}w_t=(1+\phi_1B+\phi_1^2B^2+...)w_t\)</span> for |<span class="math inline">\(\phi_1\)</span>|&lt;1</p>
+</div>
+<p>R has a nice function that allows you to make this conversion a little easier. The <code>ARMAtoMA()</code> converts an ARMA model to a “MA model”. For now, one can think of this like how we converted the AR(1) or AR(2) model to a model with an infinite number of <span class="math inline">\(w_t\)</span> random variables.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb169-1"><a href="autoregressive-models.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="co"># AR(1) with \phi_1 = 0.7</span></span>
+<span id="cb169-2"><a href="autoregressive-models.html#cb169-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">ARMAtoMA</span>(<span class="at">ar =</span> <span class="fu">c</span>(<span class="fl">0.7</span>), <span class="at">lag.max =</span> <span class="dv">20</span>), <span class="dv">4</span>)</span>
+<span id="cb169-3"><a href="autoregressive-models.html#cb169-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] 0.7000 0.4900 0.3430 0.2401 0.1681 0.1176 0.0824 0.0576</span></span>
+<span id="cb169-4"><a href="autoregressive-models.html#cb169-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] 0.0404 0.0282 0.0198 0.0138 0.0097 0.0068 0.0047 0.0033</span></span>
+<span id="cb169-5"><a href="autoregressive-models.html#cb169-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [17] 0.0023 0.0016 0.0011 0.0008</span></span></code></pre></div>
+<p>These are the <span class="math inline">\(\psi_1, \psi_2, …, \psi_{20}\)</span> values when <span class="math inline">\(\phi_1 = 0.7.\)</span></p>
+<p>One could also use this function for higher order AR models.For example,</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="autoregressive-models.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Example for AR(2)</span></span>
+<span id="cb170-2"><a href="autoregressive-models.html#cb170-2" aria-hidden="true" tabindex="-1"></a><span class="fu">round</span>(<span class="fu">ARMAtoMA</span>(<span class="at">ar =</span> <span class="fu">c</span>(<span class="fl">0.7</span>, <span class="sc">-</span><span class="fl">0.4</span>), <span class="at">lag.max =</span> <span class="dv">20</span>), <span class="dv">4</span>)</span>
+<span id="cb170-3"><a href="autoregressive-models.html#cb170-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]  0.7000  0.0900 -0.2170 -0.1879 -0.0447  0.0438  0.0486</span></span>
+<span id="cb170-4"><a href="autoregressive-models.html#cb170-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [8]  0.0165 -0.0079 -0.0121 -0.0053  0.0011  0.0029  0.0016</span></span>
+<span id="cb170-5"><a href="autoregressive-models.html#cb170-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [15] -0.0001 -0.0007 -0.0005  0.0000  0.0001  0.0001</span></span></code></pre></div>
+<p>Remember that</p>
+<p><span class="math inline">\(\psi_1 = \phi_1 = 0.7\)</span>
+<span class="math inline">\(\psi_2 = \phi_1\psi_1+\phi_2 = \phi_1^2 + \phi_2 = 0.7^2 – 0.4 = 0.09.\)</span></p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="autoregressive-models.html#cb171-1" aria-hidden="true" tabindex="-1"></a><span class="co"># PACF</span></span>
+<span id="cb171-2"><a href="autoregressive-models.html#cb171-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-3"><a href="autoregressive-models.html#cb171-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">round</span>(<span class="fu">ARMAacf</span>(<span class="at">ar =</span> <span class="fu">c</span>(<span class="fl">0.7</span>), <span class="at">lag.max =</span> <span class="dv">20</span>, <span class="at">pacf =</span> <span class="cn">TRUE</span>),<span class="dv">4</span>)</span>
+<span id="cb171-4"><a href="autoregressive-models.html#cb171-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] 0.7 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0 0.0</span></span>
+<span id="cb171-5"><a href="autoregressive-models.html#cb171-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [15] 0.0 0.0 0.0 0.0 0.0 0.0</span></span>
+<span id="cb171-6"><a href="autoregressive-models.html#cb171-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">plot</span>(<span class="at">x =</span> <span class="fu">ARMAacf</span>(<span class="at">ar =</span> <span class="fu">c</span>(<span class="fl">0.7</span>), <span class="at">lag.max =</span> <span class="dv">20</span>, <span class="at">pacf =</span> <span class="cn">TRUE</span>), <span class="at">type =</span> <span class="st">&quot;h&quot;</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;h&quot;</span>, <span class="at">ylab =</span> <span class="fu">expression</span>(phi1[hh]),</span>
+<span id="cb171-7"><a href="autoregressive-models.html#cb171-7" aria-hidden="true" tabindex="-1"></a>       <span class="at">main =</span> <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;PACF for AR(1) with &quot;</span>, phi1[<span class="dv">1</span>] <span class="sc">==</span> <span class="fl">0.7</span>)))</span>
+<span id="cb171-8"><a href="autoregressive-models.html#cb171-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>)</span></code></pre></div>
+<p><img src="08-Autogressive_models_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb172-1"><a href="autoregressive-models.html#cb172-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Estimated ACF and PACF</span></span>
+<span id="cb172-2"><a href="autoregressive-models.html#cb172-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb172-3"><a href="autoregressive-models.html#cb172-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dev.new</span>(<span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">pointsize =</span> <span class="dv">10</span>)</span>
+<span id="cb172-4"><a href="autoregressive-models.html#cb172-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>,<span class="dv">2</span>))</span>
+<span id="cb172-5"><a href="autoregressive-models.html#cb172-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb172-6"><a href="autoregressive-models.html#cb172-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">acf</span>(<span class="at">x =</span> x, <span class="at">type =</span> <span class="st">&quot;correlation&quot;</span>, <span class="at">lag.max =</span> <span class="dv">20</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;h&quot;</span>,</span>
+<span id="cb172-7"><a href="autoregressive-models.html#cb172-7" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">&quot;Estimated ACF&quot;</span>)</span>
+<span id="cb172-8"><a href="autoregressive-models.html#cb172-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>)</span>
+<span id="cb172-9"><a href="autoregressive-models.html#cb172-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pacf</span>(<span class="at">x =</span> x, <span class="at">lag.max =</span> <span class="dv">20</span>, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="dv">1</span>,<span class="dv">1</span>), <span class="at">xlab =</span> <span class="st">&quot;h&quot;</span>,</span>
+<span id="cb172-10"><a href="autoregressive-models.html#cb172-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">main =</span> <span class="st">&quot;Estimated PACF&quot;</span>)</span>
+<span id="cb172-11"><a href="autoregressive-models.html#cb172-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">abline</span>(<span class="at">h =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>, <span class="at">col =</span> <span class="st">&quot;gray&quot;</span>)</span></code></pre></div>
 
 </div>
 </div>

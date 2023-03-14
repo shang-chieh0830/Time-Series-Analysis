@@ -42,6 +42,7 @@ points(x=nonstat.mean$x, col="blue", pch=20)
 ```{r}
 acf(x=nonstat.mean$x, type="correlation", main="Plot of the ACF")
 ```
+Whenever you see a ACF plot like this(high correlation), it's highly likely that there's a non-stationarity in mean.
 
 ```{r}
 # scatter plot of x_t vs. x_t-1
@@ -58,12 +59,15 @@ cor(set1)
 # Need as.numeric() so that plot.ts() is not run, want plot.default()
 
 plot(y=as.numeric(set1[,1]), x=as.numeric(set1[,2]), ylab=expression(x[t]), type="p", xlab=expression(x[t-1]))
+
+# you can see from the graph there's a positive linear relationship, this is why the correlation is so high.
 ```
 
 :::
 
 - This data is said to have “nonstationarity in the mean” because the mean of $x_t, \mu_t,$ appears to be changing as a function of time.
 - Why is there large positive autocorrelation at lag = 1, 2, … ? 
+  - This is b/c we have a positive linear relationship btw $x_t$ and $x_{t-1}$.
 
 
 Below is the code to find the first differences:
@@ -83,6 +87,8 @@ plot(x= first.diff, ylab=expression(x[t]-x[t-1]), xlab="t (time)", type="l", col
 
 points(x=first.diff, col="blue", pch=20)
 ```
+The linear relationship just disappears after first differencing!
+
 
 ```{r}
 acf(x=first.diff, type="correlation", main="Plot of the ACF for first differences")
@@ -210,6 +216,8 @@ plot(x = X, ylab = expression(x[t]), xlab = "t", type =
     panel.first=grid(col = "gray", lty = "dotted"))
 points(x = X, pch = 20, col = "blue")
 
+# from the graph there's nonstationarity in mean
+
 ```
 ```{r}
 acf(x=X, type="correlation", main="Plot of the ACF")
@@ -274,6 +282,10 @@ plot(x = x, ylab = expression(x[t]), xlab = "t", type =
     
 points(x = x, pch = 20, col = "blue")
 
+
+# an upward trend in mean
+# and the variance is increasing as well
+# both non-stationarity in mean and variance
 ```
 
 ```{r}
@@ -281,6 +293,8 @@ plot(x = log(x), ylab = expression(log(x[t])), xlab = "t", type = "l", col = "re
      main = "Johnson and Johnson quarterly earnings per share - log transformed", 
      panel.first = grid(col = "gray", lty = "dotted"))
 points(x = log(x), pch = 20, col = "blue")
+
+#we deal with non-stationarity in variance
 ```
 
 ```{r}

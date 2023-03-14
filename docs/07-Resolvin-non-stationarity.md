@@ -60,6 +60,7 @@ acf(x=nonstat.mean$x, type="correlation", main="Plot of the ACF")
 ```
 
 <img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-3-1.png" width="672" />
+Whenever you see a ACF plot like this(high correlation), it's highly likely that there's a non-stationarity in mean.
 
 
 ```r
@@ -92,10 +93,16 @@ plot(y=as.numeric(set1[,1]), x=as.numeric(set1[,2]), ylab=expression(x[t]), type
 
 <img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-6-1.png" width="672" />
 
+```r
+
+# you can see from the graph there's a positive linear relationship, this is why the correlation is so high.
+```
+
 :::
 
 - This data is said to have “nonstationarity in the mean” because the mean of $x_t, \mu_t,$ appears to be changing as a function of time.
 - Why is there large positive autocorrelation at lag = 1, 2, … ? 
+  - This is b/c we have a positive linear relationship btw $x_t$ and $x_{t-1}$.
 
 
 Below is the code to find the first differences:
@@ -122,6 +129,8 @@ points(x=first.diff, col="blue", pch=20)
 ```
 
 <img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-8-1.png" width="672" />
+The linear relationship just disappears after first differencing!
+
 
 
 ```r
@@ -396,6 +405,8 @@ plot(x = X, ylab = expression(x[t]), xlab = "t", type =
     B)*x[t] == w[t], " where ", w[t], "~N(0,1)")), 
     panel.first=grid(col = "gray", lty = "dotted"))
 points(x = X, pch = 20, col = "blue")
+
+# from the graph there's nonstationarity in mean
 ```
 
 ```r
@@ -490,6 +501,11 @@ plot(x = x, ylab = expression(x[t]), xlab = "t", type =
     "gray", lty = "dotted"))
     
 points(x = x, pch = 20, col = "blue")
+
+
+# an upward trend in mean
+# and the variance is increasing as well
+# both non-stationarity in mean and variance
 ```
 
 
@@ -501,6 +517,11 @@ points(x = log(x), pch = 20, col = "blue")
 ```
 
 <img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-21-1.png" width="672" />
+
+```r
+
+#we deal with non-stationarity in variance
+```
 
 
 ```r
