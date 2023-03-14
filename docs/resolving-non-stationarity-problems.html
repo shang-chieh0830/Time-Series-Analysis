@@ -29,7 +29,7 @@ set in the _output.yml file.</p>" />
 <meta name="author" content="shang-chieh0830" />
 
 
-<meta name="date" content="2023-03-11" />
+<meta name="date" content="2023-03-14" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -184,7 +184,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.3" data-path="estimation-and-inference-for-measures-of-dependence.html"><a href="estimation-and-inference-for-measures-of-dependence.html#sample-autocorrelation-function-acf"><i class="fa fa-check"></i><b>7.3</b> Sample autocorrelation function (ACF)</a></li>
 <li class="chapter" data-level="7.4" data-path="estimation-and-inference-for-measures-of-dependence.html"><a href="estimation-and-inference-for-measures-of-dependence.html#sampling-distribution"><i class="fa fa-check"></i><b>7.4</b> Sampling distribution</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="resolving-non-stationarity-problems.html"><a href="resolving-non-stationarity-problems.html"><i class="fa fa-check"></i><b>8</b> Resolving Non-Stationarity Problems</a></li>
+<li class="chapter" data-level="8" data-path="resolving-non-stationarity-problems.html"><a href="resolving-non-stationarity-problems.html"><i class="fa fa-check"></i><b>8</b> Resolving Non-Stationarity Problems</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="resolving-non-stationarity-problems.html"><a href="resolving-non-stationarity-problems.html#differencing"><i class="fa fa-check"></i><b>8.1</b> Differencing</a></li>
+<li class="chapter" data-level="8.2" data-path="resolving-non-stationarity-problems.html"><a href="resolving-non-stationarity-problems.html#backshift-operator"><i class="fa fa-check"></i><b>8.2</b> Backshift Operator</a></li>
+<li class="chapter" data-level="8.3" data-path="resolving-non-stationarity-problems.html"><a href="resolving-non-stationarity-problems.html#fractional-differencing"><i class="fa fa-check"></i><b>8.3</b> Fractional Differencing</a></li>
+<li class="chapter" data-level="8.4" data-path="resolving-non-stationarity-problems.html"><a href="resolving-non-stationarity-problems.html#transformations"><i class="fa fa-check"></i><b>8.4</b> Transformations</a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -204,7 +210,445 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="resolving-non-stationarity-problems" class="section level1 hasAnchor" number="8">
 <h1><span class="header-section-number">Chapter 8</span> Resolving Non-Stationarity Problems<a href="resolving-non-stationarity-problems.html#resolving-non-stationarity-problems" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="differencing" class="section level2 hasAnchor" number="8.1">
+<h2><span class="header-section-number">8.1</span> Differencing<a href="resolving-non-stationarity-problems.html#differencing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Differencing helps to create the constant mean needed for stationarity. We will use differencing a lot!</p>
+<p>1st differences: <span class="math inline">\(x_t – x_{t-1} = \nabla x_t\)</span></p>
+<p>2nd differences: <span class="math inline">\((x_t – x_{t-1}) – (x_{t-1} – x_{t-2}) = \nabla x_t – \nabla x_{t-1} = \nabla^2x_t\)</span></p>
+<p>Taking “differences” between successive data values in the time series helps to remove trend. Specifically, 1st differences help remove linear trend and 2nd differences help remove quadratic trend.</p>
+<p>Why does this work? Consider the linear trend model <span class="math inline">\(x_t = \beta_0 + \beta_1t\)</span> where t = time and <span class="math inline">\(\beta_1 \ne\)</span> 0. Then</p>
+<p><span class="math display">\[x_t – x_{t-1} =  \beta_0 + \beta_1t – [\beta_0 + \beta_1(t – 1)] = \beta_1\]</span>
+which is not dependent on t.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-21" class="example"><strong>Example 8.1  </strong></span><strong>Non-stationarity in the mean</strong></p>
+<p>Click <a href="http://www.chrisbilder.com/stat878/sections/2/nonstat.mean.csv">Here</a> to download data.</p>
+<p>Below is the code for a plot of xt vs. t and the ACF for xt.</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb135-1"><a href="resolving-non-stationarity-problems.html#cb135-1" aria-hidden="true" tabindex="-1"></a>nonstat.mean <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file=</span><span class="st">&quot;nonstat.mean.csv&quot;</span>)</span>
+<span id="cb135-2"><a href="resolving-non-stationarity-problems.html#cb135-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(nonstat.mean)</span>
+<span id="cb135-3"><a href="resolving-non-stationarity-problems.html#cb135-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   time     x</span></span>
+<span id="cb135-4"><a href="resolving-non-stationarity-problems.html#cb135-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1    1  1.31</span></span>
+<span id="cb135-5"><a href="resolving-non-stationarity-problems.html#cb135-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2    2 13.67</span></span>
+<span id="cb135-6"><a href="resolving-non-stationarity-problems.html#cb135-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3    3  6.29</span></span>
+<span id="cb135-7"><a href="resolving-non-stationarity-problems.html#cb135-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4    4 -0.95</span></span>
+<span id="cb135-8"><a href="resolving-non-stationarity-problems.html#cb135-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5    5  9.59</span></span>
+<span id="cb135-9"><a href="resolving-non-stationarity-problems.html#cb135-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6    6 -0.45</span></span>
+<span id="cb135-10"><a href="resolving-non-stationarity-problems.html#cb135-10" aria-hidden="true" tabindex="-1"></a><span class="fu">tail</span>(nonstat.mean)</span>
+<span id="cb135-11"><a href="resolving-non-stationarity-problems.html#cb135-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     time      x</span></span>
+<span id="cb135-12"><a href="resolving-non-stationarity-problems.html#cb135-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 95    95  92.69</span></span>
+<span id="cb135-13"><a href="resolving-non-stationarity-problems.html#cb135-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 96    96  91.22</span></span>
+<span id="cb135-14"><a href="resolving-non-stationarity-problems.html#cb135-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 97    97 100.00</span></span>
+<span id="cb135-15"><a href="resolving-non-stationarity-problems.html#cb135-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 98    98 102.80</span></span>
+<span id="cb135-16"><a href="resolving-non-stationarity-problems.html#cb135-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 99    99  93.82</span></span>
+<span id="cb135-17"><a href="resolving-non-stationarity-problems.html#cb135-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100  100 108.72</span></span></code></pre></div>
+<div class="sourceCode" id="cb136"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb136-1"><a href="resolving-non-stationarity-problems.html#cb136-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.new</span>(<span class="at">width=</span><span class="dv">8</span>, <span class="at">height=</span><span class="dv">6</span>, <span class="at">pointsize=</span><span class="dv">10</span>)</span>
+<span id="cb136-2"><a href="resolving-non-stationarity-problems.html#cb136-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-3"><a href="resolving-non-stationarity-problems.html#cb136-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span>nonstat.mean<span class="sc">$</span>x, <span class="at">ylab=</span><span class="fu">expression</span>(x[t]), <span class="at">xlab=</span><span class="st">&quot;t (time)&quot;</span>, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">main=</span><span class="st">&quot;Nonstationary time series&quot;</span>, <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col=</span><span class="st">&quot;gray&quot;</span>, <span class="at">lty=</span><span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb136-4"><a href="resolving-non-stationarity-problems.html#cb136-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-5"><a href="resolving-non-stationarity-problems.html#cb136-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>nonstat.mean<span class="sc">$</span>x, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">pch=</span><span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="resolving-non-stationarity-problems.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(<span class="at">x=</span>nonstat.mean<span class="sc">$</span>x, <span class="at">type=</span><span class="st">&quot;correlation&quot;</span>, <span class="at">main=</span><span class="st">&quot;Plot of the ACF&quot;</span>)</span></code></pre></div>
+<p><img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="resolving-non-stationarity-problems.html#cb138-1" aria-hidden="true" tabindex="-1"></a><span class="co"># scatter plot of x_t vs. x_t-1</span></span>
+<span id="cb138-2"><a href="resolving-non-stationarity-problems.html#cb138-2" aria-hidden="true" tabindex="-1"></a>x.ts <span class="ot">&lt;-</span> <span class="fu">ts</span>(nonstat.mean[,<span class="dv">2</span>])</span>
+<span id="cb138-3"><a href="resolving-non-stationarity-problems.html#cb138-3" aria-hidden="true" tabindex="-1"></a>set1 <span class="ot">&lt;-</span> <span class="fu">ts.intersect</span>(x.ts, <span class="at">x.ts1=</span><span class="fu">lag</span>(<span class="at">x=</span>x.ts, <span class="at">k=</span><span class="sc">-</span><span class="dv">1</span>))</span>
+<span id="cb138-4"><a href="resolving-non-stationarity-problems.html#cb138-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(set1)</span>
+<span id="cb138-5"><a href="resolving-non-stationarity-problems.html#cb138-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;       x.ts x.ts1</span></span>
+<span id="cb138-6"><a href="resolving-non-stationarity-problems.html#cb138-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1,] 13.67  1.31</span></span>
+<span id="cb138-7"><a href="resolving-non-stationarity-problems.html#cb138-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [2,]  6.29 13.67</span></span>
+<span id="cb138-8"><a href="resolving-non-stationarity-problems.html#cb138-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [3,] -0.95  6.29</span></span>
+<span id="cb138-9"><a href="resolving-non-stationarity-problems.html#cb138-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [4,]  9.59 -0.95</span></span>
+<span id="cb138-10"><a href="resolving-non-stationarity-problems.html#cb138-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [5,] -0.45  9.59</span></span>
+<span id="cb138-11"><a href="resolving-non-stationarity-problems.html#cb138-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [6,] 17.22 -0.45</span></span></code></pre></div>
+<div class="sourceCode" id="cb139"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb139-1"><a href="resolving-non-stationarity-problems.html#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="fu">cor</span>(set1)</span>
+<span id="cb139-2"><a href="resolving-non-stationarity-problems.html#cb139-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           x.ts    x.ts1</span></span>
+<span id="cb139-3"><a href="resolving-non-stationarity-problems.html#cb139-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x.ts  1.000000 0.857779</span></span>
+<span id="cb139-4"><a href="resolving-non-stationarity-problems.html#cb139-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x.ts1 0.857779 1.000000</span></span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="resolving-non-stationarity-problems.html#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Need as.numeric() so that plot.ts() is not run, want plot.default()</span></span>
+<span id="cb140-2"><a href="resolving-non-stationarity-problems.html#cb140-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-3"><a href="resolving-non-stationarity-problems.html#cb140-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">y=</span><span class="fu">as.numeric</span>(set1[,<span class="dv">1</span>]), <span class="at">x=</span><span class="fu">as.numeric</span>(set1[,<span class="dv">2</span>]), <span class="at">ylab=</span><span class="fu">expression</span>(x[t]), <span class="at">type=</span><span class="st">&quot;p&quot;</span>, <span class="at">xlab=</span><span class="fu">expression</span>(x[t<span class="dv">-1</span>]))</span></code></pre></div>
+<p><img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+</div>
+<ul>
+<li>This data is said to have “nonstationarity in the mean” because the mean of <span class="math inline">\(x_t, \mu_t,\)</span> appears to be changing as a function of time.</li>
+<li>Why is there large positive autocorrelation at lag = 1, 2, … ?</li>
+</ul>
+<p>Below is the code to find the first differences:</p>
+<div class="sourceCode" id="cb141"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb141-1"><a href="resolving-non-stationarity-problems.html#cb141-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Find first differences</span></span>
+<span id="cb141-2"><a href="resolving-non-stationarity-problems.html#cb141-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-3"><a href="resolving-non-stationarity-problems.html#cb141-3" aria-hidden="true" tabindex="-1"></a>first.diff <span class="ot">&lt;-</span> <span class="fu">diff</span>(<span class="at">x=</span>nonstat.mean<span class="sc">$</span>x, <span class="at">lag=</span><span class="dv">1</span>, <span class="at">differences=</span><span class="dv">1</span>)</span>
+<span id="cb141-4"><a href="resolving-non-stationarity-problems.html#cb141-4" aria-hidden="true" tabindex="-1"></a>first.diff[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]</span>
+<span id="cb141-5"><a href="resolving-non-stationarity-problems.html#cb141-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1]  12.36  -7.38  -7.24  10.54 -10.04</span></span>
+<span id="cb141-6"><a href="resolving-non-stationarity-problems.html#cb141-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb141-7"><a href="resolving-non-stationarity-problems.html#cb141-7" aria-hidden="true" tabindex="-1"></a>nonstat.mean<span class="sc">$</span>x[<span class="dv">2</span>]<span class="sc">-</span>nonstat.mean<span class="sc">$</span>x[<span class="dv">1</span>]</span>
+<span id="cb141-8"><a href="resolving-non-stationarity-problems.html#cb141-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 12.36</span></span>
+<span id="cb141-9"><a href="resolving-non-stationarity-problems.html#cb141-9" aria-hidden="true" tabindex="-1"></a>nonstat.mean<span class="sc">$</span>x[<span class="dv">3</span>]<span class="sc">-</span>nonstat.mean<span class="sc">$</span>x[<span class="dv">2</span>]</span>
+<span id="cb141-10"><a href="resolving-non-stationarity-problems.html#cb141-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -7.38</span></span></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="resolving-non-stationarity-problems.html#cb142-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span> first.diff, <span class="at">ylab=</span><span class="fu">expression</span>(x[t]<span class="sc">-</span>x[t<span class="dv">-1</span>]), <span class="at">xlab=</span><span class="st">&quot;t (time)&quot;</span>, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">main=</span><span class="st">&quot;First differences&quot;</span>, <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col=</span><span class="st">&quot;gray&quot;</span>,<span class="at">lty=</span><span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb142-2"><a href="resolving-non-stationarity-problems.html#cb142-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb142-3"><a href="resolving-non-stationarity-problems.html#cb142-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span>first.diff, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>, <span class="at">pch=</span><span class="dv">20</span>)</span></code></pre></div>
+<p><img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb143-1"><a href="resolving-non-stationarity-problems.html#cb143-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(<span class="at">x=</span>first.diff, <span class="at">type=</span><span class="st">&quot;correlation&quot;</span>, <span class="at">main=</span><span class="st">&quot;Plot of the ACF for first differences&quot;</span>)</span></code></pre></div>
+<p><img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p>If you want xt and xt - xt-1 in the same data frame, use the <code>ts.intersect()</code> function:</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="resolving-non-stationarity-problems.html#cb144-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="at">data=</span>nonstat.mean<span class="sc">$</span>x)</span>
+<span id="cb144-2"><a href="resolving-non-stationarity-problems.html#cb144-2" aria-hidden="true" tabindex="-1"></a>x.diff1 <span class="ot">&lt;-</span> <span class="fu">ts</span>(<span class="at">data=</span>first.diff, <span class="at">start=</span><span class="dv">2</span>)</span>
+<span id="cb144-3"><a href="resolving-non-stationarity-problems.html#cb144-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ts.intersect</span>(x, x.diff1)</span>
+<span id="cb144-4"><a href="resolving-non-stationarity-problems.html#cb144-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time Series:</span></span>
+<span id="cb144-5"><a href="resolving-non-stationarity-problems.html#cb144-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Start = 2 </span></span>
+<span id="cb144-6"><a href="resolving-non-stationarity-problems.html#cb144-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; End = 100 </span></span>
+<span id="cb144-7"><a href="resolving-non-stationarity-problems.html#cb144-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Frequency = 1 </span></span>
+<span id="cb144-8"><a href="resolving-non-stationarity-problems.html#cb144-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;          x x.diff1</span></span>
+<span id="cb144-9"><a href="resolving-non-stationarity-problems.html#cb144-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   2  13.67   12.36</span></span>
+<span id="cb144-10"><a href="resolving-non-stationarity-problems.html#cb144-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   3   6.29   -7.38</span></span>
+<span id="cb144-11"><a href="resolving-non-stationarity-problems.html#cb144-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   4  -0.95   -7.24</span></span>
+<span id="cb144-12"><a href="resolving-non-stationarity-problems.html#cb144-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   5   9.59   10.54</span></span>
+<span id="cb144-13"><a href="resolving-non-stationarity-problems.html#cb144-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   6  -0.45  -10.04</span></span>
+<span id="cb144-14"><a href="resolving-non-stationarity-problems.html#cb144-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   7  17.22   17.67</span></span>
+<span id="cb144-15"><a href="resolving-non-stationarity-problems.html#cb144-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   8  -6.88  -24.10</span></span>
+<span id="cb144-16"><a href="resolving-non-stationarity-problems.html#cb144-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   9  10.36   17.24</span></span>
+<span id="cb144-17"><a href="resolving-non-stationarity-problems.html#cb144-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  10  12.53    2.17</span></span>
+<span id="cb144-18"><a href="resolving-non-stationarity-problems.html#cb144-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  11   4.22   -8.31</span></span>
+<span id="cb144-19"><a href="resolving-non-stationarity-problems.html#cb144-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  12  17.19   12.97</span></span>
+<span id="cb144-20"><a href="resolving-non-stationarity-problems.html#cb144-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  13  26.02    8.83</span></span>
+<span id="cb144-21"><a href="resolving-non-stationarity-problems.html#cb144-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  14  19.14   -6.88</span></span>
+<span id="cb144-22"><a href="resolving-non-stationarity-problems.html#cb144-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  15  23.55    4.41</span></span>
+<span id="cb144-23"><a href="resolving-non-stationarity-problems.html#cb144-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  16  30.05    6.50</span></span>
+<span id="cb144-24"><a href="resolving-non-stationarity-problems.html#cb144-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  17  21.61   -8.44</span></span>
+<span id="cb144-25"><a href="resolving-non-stationarity-problems.html#cb144-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  18  26.86    5.25</span></span>
+<span id="cb144-26"><a href="resolving-non-stationarity-problems.html#cb144-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  19  36.59    9.73</span></span>
+<span id="cb144-27"><a href="resolving-non-stationarity-problems.html#cb144-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  20  10.67  -25.92</span></span>
+<span id="cb144-28"><a href="resolving-non-stationarity-problems.html#cb144-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  21  26.58   15.91</span></span>
+<span id="cb144-29"><a href="resolving-non-stationarity-problems.html#cb144-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  22  19.81   -6.77</span></span>
+<span id="cb144-30"><a href="resolving-non-stationarity-problems.html#cb144-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  23  31.54   11.73</span></span>
+<span id="cb144-31"><a href="resolving-non-stationarity-problems.html#cb144-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  24  22.74   -8.80</span></span>
+<span id="cb144-32"><a href="resolving-non-stationarity-problems.html#cb144-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  25  37.87   15.13</span></span>
+<span id="cb144-33"><a href="resolving-non-stationarity-problems.html#cb144-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  26  35.86   -2.01</span></span>
+<span id="cb144-34"><a href="resolving-non-stationarity-problems.html#cb144-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  27  48.18   12.32</span></span>
+<span id="cb144-35"><a href="resolving-non-stationarity-problems.html#cb144-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  28  36.16  -12.02</span></span>
+<span id="cb144-36"><a href="resolving-non-stationarity-problems.html#cb144-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  29  37.10    0.94</span></span>
+<span id="cb144-37"><a href="resolving-non-stationarity-problems.html#cb144-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  30  43.03    5.93</span></span>
+<span id="cb144-38"><a href="resolving-non-stationarity-problems.html#cb144-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  31  27.79  -15.24</span></span>
+<span id="cb144-39"><a href="resolving-non-stationarity-problems.html#cb144-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  32  33.05    5.26</span></span>
+<span id="cb144-40"><a href="resolving-non-stationarity-problems.html#cb144-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  33  22.76  -10.29</span></span>
+<span id="cb144-41"><a href="resolving-non-stationarity-problems.html#cb144-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  34  36.72   13.96</span></span>
+<span id="cb144-42"><a href="resolving-non-stationarity-problems.html#cb144-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  35  43.67    6.95</span></span>
+<span id="cb144-43"><a href="resolving-non-stationarity-problems.html#cb144-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  36  31.76  -11.91</span></span>
+<span id="cb144-44"><a href="resolving-non-stationarity-problems.html#cb144-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  37  37.28    5.52</span></span>
+<span id="cb144-45"><a href="resolving-non-stationarity-problems.html#cb144-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  38  46.81    9.53</span></span>
+<span id="cb144-46"><a href="resolving-non-stationarity-problems.html#cb144-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  39  37.46   -9.35</span></span>
+<span id="cb144-47"><a href="resolving-non-stationarity-problems.html#cb144-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  40  46.50    9.04</span></span>
+<span id="cb144-48"><a href="resolving-non-stationarity-problems.html#cb144-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  41  35.61  -10.89</span></span>
+<span id="cb144-49"><a href="resolving-non-stationarity-problems.html#cb144-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  42  48.56   12.95</span></span>
+<span id="cb144-50"><a href="resolving-non-stationarity-problems.html#cb144-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  43  43.68   -4.88</span></span>
+<span id="cb144-51"><a href="resolving-non-stationarity-problems.html#cb144-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  44  46.54    2.86</span></span>
+<span id="cb144-52"><a href="resolving-non-stationarity-problems.html#cb144-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  45  62.40   15.86</span></span>
+<span id="cb144-53"><a href="resolving-non-stationarity-problems.html#cb144-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  46  28.79  -33.61</span></span>
+<span id="cb144-54"><a href="resolving-non-stationarity-problems.html#cb144-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  47  47.88   19.09</span></span>
+<span id="cb144-55"><a href="resolving-non-stationarity-problems.html#cb144-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  48  49.36    1.48</span></span>
+<span id="cb144-56"><a href="resolving-non-stationarity-problems.html#cb144-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  49  77.58   28.22</span></span>
+<span id="cb144-57"><a href="resolving-non-stationarity-problems.html#cb144-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  50  41.47  -36.11</span></span>
+<span id="cb144-58"><a href="resolving-non-stationarity-problems.html#cb144-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  51  54.95   13.48</span></span>
+<span id="cb144-59"><a href="resolving-non-stationarity-problems.html#cb144-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  52  24.10  -30.85</span></span>
+<span id="cb144-60"><a href="resolving-non-stationarity-problems.html#cb144-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  53  27.68    3.58</span></span>
+<span id="cb144-61"><a href="resolving-non-stationarity-problems.html#cb144-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  54  55.36   27.68</span></span>
+<span id="cb144-62"><a href="resolving-non-stationarity-problems.html#cb144-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  55  41.44  -13.92</span></span>
+<span id="cb144-63"><a href="resolving-non-stationarity-problems.html#cb144-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  56  76.86   35.42</span></span>
+<span id="cb144-64"><a href="resolving-non-stationarity-problems.html#cb144-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  57  51.43  -25.43</span></span>
+<span id="cb144-65"><a href="resolving-non-stationarity-problems.html#cb144-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  58  41.03  -10.40</span></span>
+<span id="cb144-66"><a href="resolving-non-stationarity-problems.html#cb144-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  59  51.94   10.91</span></span>
+<span id="cb144-67"><a href="resolving-non-stationarity-problems.html#cb144-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  60  47.14   -4.80</span></span>
+<span id="cb144-68"><a href="resolving-non-stationarity-problems.html#cb144-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  61  54.05    6.91</span></span>
+<span id="cb144-69"><a href="resolving-non-stationarity-problems.html#cb144-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  62  48.72   -5.33</span></span>
+<span id="cb144-70"><a href="resolving-non-stationarity-problems.html#cb144-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  63  53.41    4.69</span></span>
+<span id="cb144-71"><a href="resolving-non-stationarity-problems.html#cb144-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  64  69.12   15.71</span></span>
+<span id="cb144-72"><a href="resolving-non-stationarity-problems.html#cb144-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  65  83.26   14.14</span></span>
+<span id="cb144-73"><a href="resolving-non-stationarity-problems.html#cb144-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  66  62.53  -20.73</span></span>
+<span id="cb144-74"><a href="resolving-non-stationarity-problems.html#cb144-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  67  76.77   14.24</span></span>
+<span id="cb144-75"><a href="resolving-non-stationarity-problems.html#cb144-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  68  52.98  -23.79</span></span>
+<span id="cb144-76"><a href="resolving-non-stationarity-problems.html#cb144-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  69  61.83    8.85</span></span>
+<span id="cb144-77"><a href="resolving-non-stationarity-problems.html#cb144-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  70  67.64    5.81</span></span>
+<span id="cb144-78"><a href="resolving-non-stationarity-problems.html#cb144-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  71  66.08   -1.56</span></span>
+<span id="cb144-79"><a href="resolving-non-stationarity-problems.html#cb144-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  72  80.28   14.20</span></span>
+<span id="cb144-80"><a href="resolving-non-stationarity-problems.html#cb144-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  73  87.40    7.12</span></span>
+<span id="cb144-81"><a href="resolving-non-stationarity-problems.html#cb144-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  74  88.11    0.71</span></span>
+<span id="cb144-82"><a href="resolving-non-stationarity-problems.html#cb144-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  75  65.85  -22.26</span></span>
+<span id="cb144-83"><a href="resolving-non-stationarity-problems.html#cb144-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  76  82.29   16.44</span></span>
+<span id="cb144-84"><a href="resolving-non-stationarity-problems.html#cb144-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  77  97.92   15.63</span></span>
+<span id="cb144-85"><a href="resolving-non-stationarity-problems.html#cb144-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  78  79.62  -18.30</span></span>
+<span id="cb144-86"><a href="resolving-non-stationarity-problems.html#cb144-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  79  81.30    1.68</span></span>
+<span id="cb144-87"><a href="resolving-non-stationarity-problems.html#cb144-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  80  58.63  -22.67</span></span>
+<span id="cb144-88"><a href="resolving-non-stationarity-problems.html#cb144-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  81  89.71   31.08</span></span>
+<span id="cb144-89"><a href="resolving-non-stationarity-problems.html#cb144-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  82  85.11   -4.60</span></span>
+<span id="cb144-90"><a href="resolving-non-stationarity-problems.html#cb144-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  83  70.66  -14.45</span></span>
+<span id="cb144-91"><a href="resolving-non-stationarity-problems.html#cb144-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  84  74.24    3.58</span></span>
+<span id="cb144-92"><a href="resolving-non-stationarity-problems.html#cb144-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  85  74.27    0.03</span></span>
+<span id="cb144-93"><a href="resolving-non-stationarity-problems.html#cb144-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  86  66.52   -7.75</span></span>
+<span id="cb144-94"><a href="resolving-non-stationarity-problems.html#cb144-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  87  85.93   19.41</span></span>
+<span id="cb144-95"><a href="resolving-non-stationarity-problems.html#cb144-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  88  95.23    9.30</span></span>
+<span id="cb144-96"><a href="resolving-non-stationarity-problems.html#cb144-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  89  87.26   -7.97</span></span>
+<span id="cb144-97"><a href="resolving-non-stationarity-problems.html#cb144-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  90  74.88  -12.38</span></span>
+<span id="cb144-98"><a href="resolving-non-stationarity-problems.html#cb144-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  91  73.44   -1.44</span></span>
+<span id="cb144-99"><a href="resolving-non-stationarity-problems.html#cb144-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  92  89.44   16.00</span></span>
+<span id="cb144-100"><a href="resolving-non-stationarity-problems.html#cb144-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  93  62.11  -27.33</span></span>
+<span id="cb144-101"><a href="resolving-non-stationarity-problems.html#cb144-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  94  90.01   27.90</span></span>
+<span id="cb144-102"><a href="resolving-non-stationarity-problems.html#cb144-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  95  92.69    2.68</span></span>
+<span id="cb144-103"><a href="resolving-non-stationarity-problems.html#cb144-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  96  91.22   -1.47</span></span>
+<span id="cb144-104"><a href="resolving-non-stationarity-problems.html#cb144-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  97 100.00    8.78</span></span>
+<span id="cb144-105"><a href="resolving-non-stationarity-problems.html#cb144-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  98 102.80    2.80</span></span>
+<span id="cb144-106"><a href="resolving-non-stationarity-problems.html#cb144-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  99  93.82   -8.98</span></span>
+<span id="cb144-107"><a href="resolving-non-stationarity-problems.html#cb144-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 100 108.72   14.90</span></span></code></pre></div>
+<p>Why does the data set start at 2?</p>
+<p>Other types of differencing:</p>
+<ul>
+<li>2nd differences: <code>diff(x, lag = 1, differences = 2)</code></li>
+<li>xt – xt-2: <code>diff(x, lag = 2, differences = 1)</code>; this can be useful when there is a “seasonal” trend</li>
+</ul>
+<div class="sourceCode" id="cb145"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb145-1"><a href="resolving-non-stationarity-problems.html#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Second differences</span></span>
+<span id="cb145-2"><a href="resolving-non-stationarity-problems.html#cb145-2" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(x, <span class="at">lag =</span> <span class="dv">1</span>, <span class="at">differences=</span><span class="dv">2</span>)</span>
+<span id="cb145-3"><a href="resolving-non-stationarity-problems.html#cb145-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time Series:</span></span>
+<span id="cb145-4"><a href="resolving-non-stationarity-problems.html#cb145-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Start = 3 </span></span>
+<span id="cb145-5"><a href="resolving-non-stationarity-problems.html#cb145-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; End = 100 </span></span>
+<span id="cb145-6"><a href="resolving-non-stationarity-problems.html#cb145-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Frequency = 1 </span></span>
+<span id="cb145-7"><a href="resolving-non-stationarity-problems.html#cb145-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1] -19.74   0.14  17.78 -20.58  27.71 -41.77  41.34 -15.07</span></span>
+<span id="cb145-8"><a href="resolving-non-stationarity-problems.html#cb145-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9] -10.48  21.28  -4.14 -15.71  11.29   2.09 -14.94  13.69</span></span>
+<span id="cb145-9"><a href="resolving-non-stationarity-problems.html#cb145-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [17]   4.48 -35.65  41.83 -22.68  18.50 -20.53  23.93 -17.14</span></span>
+<span id="cb145-10"><a href="resolving-non-stationarity-problems.html#cb145-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [25]  14.33 -24.34  12.96   4.99 -21.17  20.50 -15.55  24.25</span></span>
+<span id="cb145-11"><a href="resolving-non-stationarity-problems.html#cb145-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [33]  -7.01 -18.86  17.43   4.01 -18.88  18.39 -19.93  23.84</span></span>
+<span id="cb145-12"><a href="resolving-non-stationarity-problems.html#cb145-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [41] -17.83   7.74  13.00 -49.47  52.70 -17.61  26.74 -64.33</span></span>
+<span id="cb145-13"><a href="resolving-non-stationarity-problems.html#cb145-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [49]  49.59 -44.33  34.43  24.10 -41.60  49.34 -60.85  15.03</span></span>
+<span id="cb145-14"><a href="resolving-non-stationarity-problems.html#cb145-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [57]  21.31 -15.71  11.71 -12.24  10.02  11.02  -1.57 -34.87</span></span>
+<span id="cb145-15"><a href="resolving-non-stationarity-problems.html#cb145-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [65]  34.97 -38.03  32.64  -3.04  -7.37  15.76  -7.08  -6.41</span></span>
+<span id="cb145-16"><a href="resolving-non-stationarity-problems.html#cb145-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [73] -22.97  38.70  -0.81 -33.93  19.98 -24.35  53.75 -35.68</span></span>
+<span id="cb145-17"><a href="resolving-non-stationarity-problems.html#cb145-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [81]  -9.85  18.03  -3.55  -7.78  27.16 -10.11 -17.27  -4.41</span></span>
+<span id="cb145-18"><a href="resolving-non-stationarity-problems.html#cb145-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [89]  10.94  17.44 -43.33  55.23 -25.22  -4.15  10.25  -5.98</span></span>
+<span id="cb145-19"><a href="resolving-non-stationarity-problems.html#cb145-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [97] -11.78  23.88</span></span>
+<span id="cb145-20"><a href="resolving-non-stationarity-problems.html#cb145-20" aria-hidden="true" tabindex="-1"></a>(nonstat.mean<span class="sc">$</span>x[<span class="dv">3</span>] <span class="sc">-</span> nonstat.mean<span class="sc">$</span>x[<span class="dv">2</span>]) <span class="sc">-</span> (nonstat.mean<span class="sc">$</span>x[<span class="dv">2</span>] <span class="sc">-</span> nonstat.mean<span class="sc">$</span>x[<span class="dv">1</span>])</span>
+<span id="cb145-21"><a href="resolving-non-stationarity-problems.html#cb145-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] -19.74</span></span></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="resolving-non-stationarity-problems.html#cb146-1" aria-hidden="true" tabindex="-1"></a><span class="co"># x_t - x_t-2</span></span>
+<span id="cb146-2"><a href="resolving-non-stationarity-problems.html#cb146-2" aria-hidden="true" tabindex="-1"></a><span class="fu">diff</span>(x, <span class="at">lag =</span> <span class="dv">2</span>, <span class="at">differences =</span> <span class="dv">1</span>)</span>
+<span id="cb146-3"><a href="resolving-non-stationarity-problems.html#cb146-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Time Series:</span></span>
+<span id="cb146-4"><a href="resolving-non-stationarity-problems.html#cb146-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Start = 3 </span></span>
+<span id="cb146-5"><a href="resolving-non-stationarity-problems.html#cb146-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; End = 100 </span></span>
+<span id="cb146-6"><a href="resolving-non-stationarity-problems.html#cb146-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Frequency = 1 </span></span>
+<span id="cb146-7"><a href="resolving-non-stationarity-problems.html#cb146-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [1]   4.98 -14.62   3.30   0.50   7.63  -6.43  -6.86  19.41</span></span>
+<span id="cb146-8"><a href="resolving-non-stationarity-problems.html#cb146-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;  [9]  -6.14   4.66  21.80   1.95  -2.47  10.91  -1.94  -3.19</span></span>
+<span id="cb146-9"><a href="resolving-non-stationarity-problems.html#cb146-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [17]  14.98 -16.19 -10.01   9.14   4.96   2.93   6.33  13.12</span></span>
+<span id="cb146-10"><a href="resolving-non-stationarity-problems.html#cb146-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [25]  10.31   0.30 -11.08   6.87  -9.31  -9.98  -5.03   3.67</span></span>
+<span id="cb146-11"><a href="resolving-non-stationarity-problems.html#cb146-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [33]  20.91  -4.96  -6.39  15.05   0.18  -0.31  -1.85   2.06</span></span>
+<span id="cb146-12"><a href="resolving-non-stationarity-problems.html#cb146-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [41]   8.07  -2.02  18.72 -17.75 -14.52  20.57  29.70  -7.89</span></span>
+<span id="cb146-13"><a href="resolving-non-stationarity-problems.html#cb146-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [49] -22.63 -17.37 -27.27  31.26  13.76  21.50   9.99 -35.83</span></span>
+<span id="cb146-14"><a href="resolving-non-stationarity-problems.html#cb146-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [57]   0.51   6.11   2.11   1.58  -0.64  20.40  29.85  -6.59</span></span>
+<span id="cb146-15"><a href="resolving-non-stationarity-problems.html#cb146-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [65]  -6.49  -9.55 -14.94  14.66   4.25  12.64  21.32   7.83</span></span>
+<span id="cb146-16"><a href="resolving-non-stationarity-problems.html#cb146-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [73] -21.55  -5.82  32.07  -2.67 -16.62 -20.99   8.41  26.48</span></span>
+<span id="cb146-17"><a href="resolving-non-stationarity-problems.html#cb146-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [81] -19.05 -10.87   3.61  -7.72  11.66  28.71   1.33 -20.35</span></span>
+<span id="cb146-18"><a href="resolving-non-stationarity-problems.html#cb146-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [89] -13.82  14.56 -11.33   0.57  30.58   1.21   7.31  11.58</span></span>
+<span id="cb146-19"><a href="resolving-non-stationarity-problems.html#cb146-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [97]  -6.18   5.92</span></span>
+<span id="cb146-20"><a href="resolving-non-stationarity-problems.html#cb146-20" aria-hidden="true" tabindex="-1"></a>nonstat.mean<span class="sc">$</span>x[<span class="dv">3</span>] <span class="sc">-</span> nonstat.mean<span class="sc">$</span>x[<span class="dv">1</span>]</span>
+<span id="cb146-21"><a href="resolving-non-stationarity-problems.html#cb146-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 4.98</span></span></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="resolving-non-stationarity-problems.html#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Plot</span></span>
+<span id="cb147-2"><a href="resolving-non-stationarity-problems.html#cb147-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lag.plot</span>(x, <span class="at">lags =</span> <span class="dv">4</span>, <span class="at">layout =</span> <span class="fu">c</span>(<span class="dv">2</span>,<span class="dv">2</span>), <span class="at">do.lines =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<p><img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p>Note: There are formal hypothesis tests to determine if differencing is needed. This corresponds to an area of time series known as “unit root” testing. The name will be clear once we examine autoregressive models in detail.</p>
+</div>
+<div id="backshift-operator" class="section level2 hasAnchor" number="8.2">
+<h2><span class="header-section-number">8.2</span> Backshift Operator<a href="resolving-non-stationarity-problems.html#backshift-operator" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A convenient way to represent differencing in time series models is to use the “backshift operator”. It is denoted by “B” and defined as follows:
+<span class="math display">\[Bx_t=x_{t-1}\]</span>
+Notice that <span class="math inline">\(x_t\)</span> moved back one-time period when the backshift operator was applied to it.</p>
+<p>In general, <span class="math inline">\(B^2x_t = x_{t-2}, B^3x_t = x_{t-3}, …, and \quad B^kx_t = x_{t-k}.\)</span></p>
+<p>Notes:</p>
+<ul>
+<li>Let C be a constant not indexed by time. Then <span class="math inline">\(BC = C.\)</span><br />
+</li>
+<li><span class="math inline">\((1-B)x_t = x_t – x_{t-1} = \nabla x_t\)</span></li>
+<li><span class="math inline">\(B\times B = B^2\)</span></li>
+<li><span class="math display">\[(1-B)^2x_t = (1 - 2B + B^2)x_t = x_t – 2Bx_t + B^2x_t\\
+= x_t – 2x_{t-1} + x_{t-2}\\
+= x_t – x_{t-1} – x_{t-1} + x_{t-2}\\
+= (x_t – x_{t-1}) – (x_{t-1} – x_{t-2})\\
+= \nabla^2x_t\]</span></li>
+<li><span class="math inline">\((1-B)^0x_t = x_t\)</span></li>
+<li><span class="math inline">\((1-B)x_t\)</span> can be thought of as a “linear filter” since the linear trend is being filtered out of the time series.</li>
+</ul>
+<div class="example">
+<p><span id="exm:unlabeled-div-22" class="example"><strong>Example 8.2  </strong></span><strong>Moving Average</strong></p>
+<p><span class="math inline">\(m_t=\frac{w_t+w_{t-1}+w_{t-2}}{3}\)</span>, where <span class="math inline">\(w_t \sim \mathrm{ind}N(0,\sigma^2_w) \forall t=1,..n\)</span> can be represented by <span class="math inline">\((1+B+B^2)\frac{w_t}{3}\)</span></p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-23" class="example"><strong>Example 8.3  </strong></span><strong>Autoregression</strong></p>
+<p><span class="math inline">\(x_t=0.7x_{t-1}+w_t\)</span>, where <span class="math inline">\(w_t \sim \mathrm{ind}N(0,\sigma^2_w) \forall t=1,..n\)</span> can be represented by <span class="math inline">\((1-0.7B)x_t=w_t\)</span></p>
+</div>
+<div class="example">
+<p><span id="exm:unlabeled-div-24" class="example"><strong>Example 8.4  </strong></span><strong>first differencing needed example</strong></p>
+<p>Consider the following model:</p>
+<p><span class="math inline">\((1-0.7B)(1-B)x_t=w_t\)</span>, where <span class="math inline">\(w_t \sim \mathrm{ind}N(0,\sigma^2_w) \forall t=1,..n\)</span>. This simplifies to</p>
+<p><span class="math display">\[(1-0.7B)(x_t-x_{t-1})=w_t\\
+\iff x_t-x_{t-1}-0.7Bx_t+0.7Bx_{t-1}=w_t\\
+\iff x_t=x_{t-1}+0.7x_{t-1}-0.7x_{t-2}+w_t\\
+\iff x_t=1.7x_{t-1}-0.7x_{t-1}+w_t\]</span></p>
+<p>Later in the course, we will identify this as a ARIMA(1,1,0) model.</p>
+<p>Suppose a realization of a time series is simulated from this model. Below is a plot of the data.</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="resolving-non-stationarity-problems.html#cb148-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">7328</span>)  </span>
+<span id="cb148-2"><a href="resolving-non-stationarity-problems.html#cb148-2" aria-hidden="true" tabindex="-1"></a>w <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="at">n =</span> <span class="dv">200</span>, <span class="at">mean =</span> <span class="dv">0</span>, <span class="at">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb148-3"><a href="resolving-non-stationarity-problems.html#cb148-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-4"><a href="resolving-non-stationarity-problems.html#cb148-4" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">numeric</span>(<span class="at">length =</span> <span class="dv">200</span>)</span>
+<span id="cb148-5"><a href="resolving-non-stationarity-problems.html#cb148-5" aria-hidden="true" tabindex="-1"></a>x<span class="fl">.1</span> <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb148-6"><a href="resolving-non-stationarity-problems.html#cb148-6" aria-hidden="true" tabindex="-1"></a>x<span class="fl">.2</span> <span class="ot">&lt;-</span> <span class="dv">0</span></span>
+<span id="cb148-7"><a href="resolving-non-stationarity-problems.html#cb148-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(x)) {</span>
+<span id="cb148-8"><a href="resolving-non-stationarity-problems.html#cb148-8" aria-hidden="true" tabindex="-1"></a>  x[i] <span class="ot">&lt;-</span> <span class="fl">1.7</span><span class="sc">*</span>x<span class="fl">.1</span> <span class="sc">-</span> <span class="fl">0.7</span><span class="sc">*</span>x<span class="fl">.2</span> <span class="sc">+</span> w[i] </span>
+<span id="cb148-9"><a href="resolving-non-stationarity-problems.html#cb148-9" aria-hidden="true" tabindex="-1"></a>  x<span class="fl">.2</span> <span class="ot">&lt;-</span> x<span class="fl">.1</span></span>
+<span id="cb148-10"><a href="resolving-non-stationarity-problems.html#cb148-10" aria-hidden="true" tabindex="-1"></a>  x<span class="fl">.1</span> <span class="ot">&lt;-</span> x[i] </span>
+<span id="cb148-11"><a href="resolving-non-stationarity-problems.html#cb148-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb148-12"><a href="resolving-non-stationarity-problems.html#cb148-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb148-13"><a href="resolving-non-stationarity-problems.html#cb148-13" aria-hidden="true" tabindex="-1"></a><span class="co">#Do not use first 100</span></span>
+<span id="cb148-14"><a href="resolving-non-stationarity-problems.html#cb148-14" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> x[<span class="dv">101</span><span class="sc">:</span><span class="dv">200</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="resolving-non-stationarity-problems.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.new</span>(<span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">pointsize =</span> <span class="dv">10</span>)      </span>
+<span id="cb149-2"><a href="resolving-non-stationarity-problems.html#cb149-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> X, <span class="at">ylab =</span> <span class="fu">expression</span>(x[t]), <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> </span>
+<span id="cb149-3"><a href="resolving-non-stationarity-problems.html#cb149-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span> , <span class="at">main =</span> </span>
+<span id="cb149-4"><a href="resolving-non-stationarity-problems.html#cb149-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;Data simulated from &quot;</span>, (<span class="dv">1</span><span class="fl">-0.7</span><span class="sc">*</span>B)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span></span>
+<span id="cb149-5"><a href="resolving-non-stationarity-problems.html#cb149-5" aria-hidden="true" tabindex="-1"></a>    B)<span class="sc">*</span>x[t] <span class="sc">==</span> w[t], <span class="st">&quot; where &quot;</span>, w[t], <span class="st">&quot;~N(0,1)&quot;</span>)), </span>
+<span id="cb149-6"><a href="resolving-non-stationarity-problems.html#cb149-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb149-7"><a href="resolving-non-stationarity-problems.html#cb149-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> X, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb150"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb150-1"><a href="resolving-non-stationarity-problems.html#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(<span class="at">x=</span>X, <span class="at">type=</span><span class="st">&quot;correlation&quot;</span>, <span class="at">main=</span><span class="st">&quot;Plot of the ACF&quot;</span>)</span></code></pre></div>
+<p><img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p>After the first differences:</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="resolving-non-stationarity-problems.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Finf first differences</span></span>
+<span id="cb151-2"><a href="resolving-non-stationarity-problems.html#cb151-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-3"><a href="resolving-non-stationarity-problems.html#cb151-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x=</span><span class="fu">diff</span>(<span class="at">x=</span>X, <span class="at">lag=</span><span class="dv">1</span>, <span class="at">differences =</span> <span class="dv">1</span>), <span class="at">ylab=</span><span class="fu">expression</span>(x[t]<span class="sc">-</span>x[t<span class="dv">-1</span>]), <span class="at">xlab=</span><span class="st">&quot;t (time)&quot;</span>, <span class="at">type=</span><span class="st">&quot;l&quot;</span>, <span class="at">col=</span><span class="st">&quot;red&quot;</span>, <span class="at">main=</span><span class="fu">expression</span>(<span class="fu">paste</span>(<span class="st">&quot;1st diff. for data simulated from &quot;</span>, (<span class="dv">1</span><span class="fl">-0.7</span><span class="sc">*</span>B)<span class="sc">*</span>(<span class="dv">1</span><span class="sc">-</span>B)<span class="sc">*</span>x[t] <span class="sc">==</span> w[t], <span class="st">&quot; where </span></span>
+<span id="cb151-4"><a href="resolving-non-stationarity-problems.html#cb151-4" aria-hidden="true" tabindex="-1"></a><span class="st">   &quot;</span>, w[t], <span class="st">&quot;~N(0,1)&quot;</span>)), <span class="at">panel.first=</span><span class="fu">grid</span>(<span class="at">col=</span><span class="st">&quot;gray&quot;</span>,<span class="at">lty=</span><span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb151-5"><a href="resolving-non-stationarity-problems.html#cb151-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb151-6"><a href="resolving-non-stationarity-problems.html#cb151-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x=</span><span class="fu">diff</span>(<span class="at">x=</span>X, <span class="at">lag=</span><span class="dv">1</span>, <span class="at">differences =</span> <span class="dv">1</span>), <span class="at">pch=</span><span class="dv">20</span>, <span class="at">col=</span><span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="resolving-non-stationarity-problems.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(<span class="at">x=</span><span class="fu">diff</span>(<span class="at">x=</span>X, <span class="at">lag=</span><span class="dv">1</span>, <span class="at">differences =</span> <span class="dv">1</span>), <span class="at">type=</span><span class="st">&quot;correlation&quot;</span>, <span class="at">main=</span><span class="st">&quot;Plot of the ACF&quot;</span>)</span></code></pre></div>
+<p><img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p>An easier way is to use <code>arima.sim()</code> to dimulate the data.</p>
+</div>
+</div>
+<div id="fractional-differencing" class="section level2 hasAnchor" number="8.3">
+<h2><span class="header-section-number">8.3</span> Fractional Differencing<a href="resolving-non-stationarity-problems.html#fractional-differencing" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Use fractional powers of B between –0.5 to 0.5 to do the differencing. This is used with long-memory time series.</p>
+<p>Notes:</p>
+<ul>
+<li>Differencing is often used to help make a nonstationary in the mean time series stationary. Unfortunately in real applications, we do not know what exact level of differencing is needed (we can approximate it). If a too high of level of differencing is done, this can hurt a time series model. As a compromise between differencing and not differencing at all, fractional differencing can be used.<br />
+</li>
+<li>The reason why these are called a “long memory” time series can be seen from a “short memory” time series. A short memory stationary process will have <span class="math inline">\(\rho(h)\to 0\)</span> “quickly” as <span class="math inline">\(h\to \infty\)</span>. A long memory time series does not and has <span class="math inline">\(\rho(h)\to 0\)</span> “slowly”. More on this later in the course.</li>
+<li>The fractional difference series can be represented as <span class="math display">\[\nabla^dx_t=\sum_{j=0}^{\infty}\pi_jx_{t-j}\]</span></li>
+</ul>
+<p>where the <span class="math inline">\(\pi_j\)</span> are found through a Taylor series expansion of <span class="math inline">\((1-B)^d\)</span>.</p>
+</div>
+<div id="transformations" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Transformations<a href="resolving-non-stationarity-problems.html#transformations" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In regression analysis, transformations of the response variable are taken to induce approximate constant variance. In a similar manner, we can take transformations of xt to help make a nonstationary in the variance time series be approximately stationary in the variance.</p>
+<div class="example">
+<p><span id="exm:unlabeled-div-25" class="example"><strong>Example 8.5  </strong></span><strong>Johnson &amp; Johnson earnings per share data</strong></p>
+<p>This data comes from Shumway and Stoffer’s book.</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="resolving-non-stationarity-problems.html#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(astsa)</span>
+<span id="cb153-2"><a href="resolving-non-stationarity-problems.html#cb153-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> jj</span>
+<span id="cb153-3"><a href="resolving-non-stationarity-problems.html#cb153-3" aria-hidden="true" tabindex="-1"></a>x</span>
+<span id="cb153-4"><a href="resolving-non-stationarity-problems.html#cb153-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;           Qtr1      Qtr2      Qtr3      Qtr4</span></span>
+<span id="cb153-5"><a href="resolving-non-stationarity-problems.html#cb153-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1960  0.710000  0.630000  0.850000  0.440000</span></span>
+<span id="cb153-6"><a href="resolving-non-stationarity-problems.html#cb153-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1961  0.610000  0.690000  0.920000  0.550000</span></span>
+<span id="cb153-7"><a href="resolving-non-stationarity-problems.html#cb153-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1962  0.720000  0.770000  0.920000  0.600000</span></span>
+<span id="cb153-8"><a href="resolving-non-stationarity-problems.html#cb153-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1963  0.830000  0.800000  1.000000  0.770000</span></span>
+<span id="cb153-9"><a href="resolving-non-stationarity-problems.html#cb153-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1964  0.920000  1.000000  1.240000  1.000000</span></span>
+<span id="cb153-10"><a href="resolving-non-stationarity-problems.html#cb153-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1965  1.160000  1.300000  1.450000  1.250000</span></span>
+<span id="cb153-11"><a href="resolving-non-stationarity-problems.html#cb153-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1966  1.260000  1.380000  1.860000  1.560000</span></span>
+<span id="cb153-12"><a href="resolving-non-stationarity-problems.html#cb153-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1967  1.530000  1.590000  1.830000  1.860000</span></span>
+<span id="cb153-13"><a href="resolving-non-stationarity-problems.html#cb153-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1968  1.530000  2.070000  2.340000  2.250000</span></span>
+<span id="cb153-14"><a href="resolving-non-stationarity-problems.html#cb153-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1969  2.160000  2.430000  2.700000  2.250000</span></span>
+<span id="cb153-15"><a href="resolving-non-stationarity-problems.html#cb153-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1970  2.790000  3.420000  3.690000  3.600000</span></span>
+<span id="cb153-16"><a href="resolving-non-stationarity-problems.html#cb153-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1971  3.600000  4.320000  4.320000  4.050000</span></span>
+<span id="cb153-17"><a href="resolving-non-stationarity-problems.html#cb153-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1972  4.860000  5.040000  5.040000  4.410000</span></span>
+<span id="cb153-18"><a href="resolving-non-stationarity-problems.html#cb153-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1973  5.580000  5.850000  6.570000  5.310000</span></span>
+<span id="cb153-19"><a href="resolving-non-stationarity-problems.html#cb153-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1974  6.030000  6.390000  6.930000  5.850000</span></span>
+<span id="cb153-20"><a href="resolving-non-stationarity-problems.html#cb153-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1975  6.930000  7.740000  7.830000  6.120000</span></span>
+<span id="cb153-21"><a href="resolving-non-stationarity-problems.html#cb153-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1976  7.740000  8.910000  8.280000  6.840000</span></span>
+<span id="cb153-22"><a href="resolving-non-stationarity-problems.html#cb153-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1977  9.540000 10.260000  9.540000  8.729999</span></span>
+<span id="cb153-23"><a href="resolving-non-stationarity-problems.html#cb153-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1978 11.880000 12.060000 12.150000  8.910000</span></span>
+<span id="cb153-24"><a href="resolving-non-stationarity-problems.html#cb153-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1979 14.040000 12.960000 14.850000  9.990000</span></span>
+<span id="cb153-25"><a href="resolving-non-stationarity-problems.html#cb153-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1980 16.200000 14.670000 16.020000 11.610000</span></span></code></pre></div>
+<div class="sourceCode" id="cb154"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb154-1"><a href="resolving-non-stationarity-problems.html#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dev.new</span>(<span class="at">width =</span> <span class="dv">8</span>, <span class="at">height =</span> <span class="dv">6</span>, <span class="at">pointsize =</span> <span class="dv">10</span>)  <span class="co">#Opens up wider plot window than the default (good for time series plots)</span></span>
+<span id="cb154-2"><a href="resolving-non-stationarity-problems.html#cb154-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb154-3"><a href="resolving-non-stationarity-problems.html#cb154-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">ylab =</span> <span class="fu">expression</span>(x[t]), <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> </span>
+<span id="cb154-4"><a href="resolving-non-stationarity-problems.html#cb154-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span>, <span class="at">main =</span> <span class="st">&quot;Johnson and Johnson </span></span>
+<span id="cb154-5"><a href="resolving-non-stationarity-problems.html#cb154-5" aria-hidden="true" tabindex="-1"></a><span class="st">    quarterly earnings per share&quot;</span>, <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> </span>
+<span id="cb154-6"><a href="resolving-non-stationarity-problems.html#cb154-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb154-7"><a href="resolving-non-stationarity-problems.html#cb154-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb154-8"><a href="resolving-non-stationarity-problems.html#cb154-8" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> x, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="resolving-non-stationarity-problems.html#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> <span class="fu">log</span>(x), <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">log</span>(x[t])), <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span> , </span>
+<span id="cb155-2"><a href="resolving-non-stationarity-problems.html#cb155-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Johnson and Johnson quarterly earnings per share - log transformed&quot;</span>, </span>
+<span id="cb155-3"><a href="resolving-non-stationarity-problems.html#cb155-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb155-4"><a href="resolving-non-stationarity-problems.html#cb155-4" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> <span class="fu">log</span>(x), <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="resolving-non-stationarity-problems.html#cb156-1" aria-hidden="true" tabindex="-1"></a><span class="co">#Still some variance issues???</span></span>
+<span id="cb156-2"><a href="resolving-non-stationarity-problems.html#cb156-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> <span class="fu">diff</span>(<span class="at">x =</span> <span class="fu">log</span>(x), <span class="at">lag =</span> <span class="dv">1</span>, <span class="at">differences =</span> <span class="dv">1</span>), <span class="at">ylab =</span> <span class="fu">expression</span>(<span class="fu">log</span>(x[t]) <span class="sc">-</span> <span class="fu">log</span>(x[t<span class="dv">-1</span>])), <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span> , </span>
+<span id="cb156-3"><a href="resolving-non-stationarity-problems.html#cb156-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">main =</span> <span class="st">&quot;Johnson and Johnson quarterly earnings per share - log transformed and 1st diff.&quot;</span>, </span>
+<span id="cb156-4"><a href="resolving-non-stationarity-problems.html#cb156-4" aria-hidden="true" tabindex="-1"></a>     <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb156-5"><a href="resolving-non-stationarity-problems.html#cb156-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> <span class="fu">diff</span>(<span class="at">x =</span> <span class="fu">log</span>(x), <span class="at">lag =</span> <span class="dv">1</span>, <span class="at">differences =</span> <span class="dv">1</span>), <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-22-1.png" width="672" /></p>
+</div>
+<p>Notes:</p>
+<ul>
+<li>Typical transformations include <span class="math inline">\(log(x_t),\sqrt{x_t}\)</span> and <span class="math inline">\(x_t^{-1}\)</span> There are a few different ways to deciding between the appropriate transformations. Usually, I will try all of these transformations and examine a plot of the transformed data over time to determine if the transformation worked. Constants may need to be added to <span class="math inline">\(x_t\)</span> if <span class="math inline">\(x_t\)</span> can be less than 0.<br />
+</li>
+<li>Regression courses sometimes teach the Box-Cox family of transformations to determine an appropriate transformation. The process involves finding the “best” <span class="math inline">\(\lambda\)</span> to transform <span class="math inline">\(x_t\)</span> in the following manner:</li>
+</ul>
+<p><span class="math display">\[
+y_t=
+\begin{cases}
+(x^{\lambda}_t-1)/\lambda &amp; \text{if } \lambda \ne 0 \\
+log(x_t) &amp;  \text{if } \lambda=0  \\
+\end{cases}
+\]</span>
+I have not found it used often in time series analysis. For example, Shumway and Stoffer suggest it could be used here, but do not explore it further. The <code>BoxCox()</code> and <code>BoxCox.lambda()</code> functions from the forecast package provide ways to obtain it. Please see my program.</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="resolving-non-stationarity-problems.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co">#How could one do a Box-Cox transformation here?</span></span>
+<span id="cb157-2"><a href="resolving-non-stationarity-problems.html#cb157-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-3"><a href="resolving-non-stationarity-problems.html#cb157-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="at">package =</span> forecast)</span>
+<span id="cb157-4"><a href="resolving-non-stationarity-problems.html#cb157-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Registered S3 method overwritten by &#39;quantmod&#39;:</span></span>
+<span id="cb157-5"><a href="resolving-non-stationarity-problems.html#cb157-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   method            from</span></span>
+<span id="cb157-6"><a href="resolving-non-stationarity-problems.html#cb157-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   as.zoo.data.frame zoo</span></span>
+<span id="cb157-7"><a href="resolving-non-stationarity-problems.html#cb157-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb157-8"><a href="resolving-non-stationarity-problems.html#cb157-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Attaching package: &#39;forecast&#39;</span></span>
+<span id="cb157-9"><a href="resolving-non-stationarity-problems.html#cb157-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; The following object is masked from &#39;package:astsa&#39;:</span></span>
+<span id="cb157-10"><a href="resolving-non-stationarity-problems.html#cb157-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb157-11"><a href="resolving-non-stationarity-problems.html#cb157-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;     gas</span></span>
+<span id="cb157-12"><a href="resolving-non-stationarity-problems.html#cb157-12" aria-hidden="true" tabindex="-1"></a>save.it <span class="ot">&lt;-</span> <span class="fu">BoxCox</span>(<span class="at">x =</span> x, <span class="at">lambda =</span> <span class="st">&quot;auto&quot;</span>)</span>
+<span id="cb157-13"><a href="resolving-non-stationarity-problems.html#cb157-13" aria-hidden="true" tabindex="-1"></a><span class="co"># save.it - this has the transformed data</span></span>
+<span id="cb157-14"><a href="resolving-non-stationarity-problems.html#cb157-14" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(save.it) <span class="co"># Not useful</span></span>
+<span id="cb157-15"><a href="resolving-non-stationarity-problems.html#cb157-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; NULL</span></span>
+<span id="cb157-16"><a href="resolving-non-stationarity-problems.html#cb157-16" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(save.it)  <span class="co"># Older form of R coding shows it</span></span>
+<span id="cb157-17"><a href="resolving-non-stationarity-problems.html#cb157-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $tsp</span></span>
+<span id="cb157-18"><a href="resolving-non-stationarity-problems.html#cb157-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 1960.00 1980.75    4.00</span></span>
+<span id="cb157-19"><a href="resolving-non-stationarity-problems.html#cb157-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb157-20"><a href="resolving-non-stationarity-problems.html#cb157-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $class</span></span>
+<span id="cb157-21"><a href="resolving-non-stationarity-problems.html#cb157-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] &quot;ts&quot;</span></span>
+<span id="cb157-22"><a href="resolving-non-stationarity-problems.html#cb157-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb157-23"><a href="resolving-non-stationarity-problems.html#cb157-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; $lambda</span></span>
+<span id="cb157-24"><a href="resolving-non-stationarity-problems.html#cb157-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.1540791</span></span>
+<span id="cb157-25"><a href="resolving-non-stationarity-problems.html#cb157-25" aria-hidden="true" tabindex="-1"></a><span class="fu">attributes</span>(save.it)<span class="sc">$</span>lambda</span>
+<span id="cb157-26"><a href="resolving-non-stationarity-problems.html#cb157-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.1540791</span></span>
+<span id="cb157-27"><a href="resolving-non-stationarity-problems.html#cb157-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-28"><a href="resolving-non-stationarity-problems.html#cb157-28" aria-hidden="true" tabindex="-1"></a><span class="co"># Looking at the code in BoxCox() leads one to use the function below to</span></span>
+<span id="cb157-29"><a href="resolving-non-stationarity-problems.html#cb157-29" aria-hidden="true" tabindex="-1"></a><span class="co">#   obtain lambda</span></span>
+<span id="cb157-30"><a href="resolving-non-stationarity-problems.html#cb157-30" aria-hidden="true" tabindex="-1"></a><span class="fu">BoxCox.lambda</span>(<span class="at">x =</span> x)</span>
+<span id="cb157-31"><a href="resolving-non-stationarity-problems.html#cb157-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; [1] 0.1540752</span></span>
+<span id="cb157-32"><a href="resolving-non-stationarity-problems.html#cb157-32" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">&lt;-</span> <span class="fu">BoxCox.lambda</span>(<span class="at">x =</span> x)</span>
+<span id="cb157-33"><a href="resolving-non-stationarity-problems.html#cb157-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb157-34"><a href="resolving-non-stationarity-problems.html#cb157-34" aria-hidden="true" tabindex="-1"></a><span class="co"># Don&#39;t see a benefit from using this transformation over log()</span></span>
+<span id="cb157-35"><a href="resolving-non-stationarity-problems.html#cb157-35" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> (x<span class="sc">^</span>lambda <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span>lambda, <span class="at">ylab =</span> <span class="st">&quot;Transformed x&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span> ,<span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb157-36"><a href="resolving-non-stationarity-problems.html#cb157-36" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> (x<span class="sc">^</span>lambda <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span>lambda, <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-23-1.png" width="672" /></p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="resolving-non-stationarity-problems.html#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> <span class="fu">diff</span>(<span class="at">x =</span> (x<span class="sc">^</span>lambda <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span>lambda, <span class="at">lag =</span> <span class="dv">1</span>, <span class="at">differences =</span> <span class="dv">1</span>),</span>
+<span id="cb158-2"><a href="resolving-non-stationarity-problems.html#cb158-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;Transformed x with first differences&quot;</span>, <span class="at">xlab =</span> <span class="st">&quot;t&quot;</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>,</span>
+<span id="cb158-3"><a href="resolving-non-stationarity-problems.html#cb158-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;red&quot;</span>, <span class="at">lwd =</span> <span class="dv">1</span> ,</span>
+<span id="cb158-4"><a href="resolving-non-stationarity-problems.html#cb158-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">panel.first =</span> <span class="fu">grid</span>(<span class="at">col =</span> <span class="st">&quot;gray&quot;</span>, <span class="at">lty =</span> <span class="st">&quot;dotted&quot;</span>))</span>
+<span id="cb158-5"><a href="resolving-non-stationarity-problems.html#cb158-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(<span class="at">x =</span> <span class="fu">diff</span>(<span class="at">x =</span> (x<span class="sc">^</span>lambda <span class="sc">-</span> <span class="dv">1</span>)<span class="sc">/</span>lambda, <span class="at">lag =</span> <span class="dv">1</span>, <span class="at">differences =</span> <span class="dv">1</span>), <span class="at">pch =</span> <span class="dv">20</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-24-1.png" width="672" /></p>
+<ul>
+<li>If the variance stabilizing transformation is needed, do this before differencing (see Wei’s time series book for a discussion). For example, suppose differencing and a natural log variance stabilizing transformation is needed. Then examine <span class="math inline">\(log(x_t) – log(x_{t-1})\)</span> instead of <span class="math inline">\(log(x_t – x_{t-1}).\)</span></li>
+<li>Variance stabilizing transformations often help with normality assumption of <span class="math inline">\(w_t\)</span>.</li>
+</ul>
 
+</div>
 </div>
             </section>
 
