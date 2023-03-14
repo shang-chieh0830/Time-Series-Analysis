@@ -425,7 +425,7 @@ acf(x=diff(x=X, lag=1, differences = 1), type="correlation", main="Plot of the A
 
 <img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-18-1.png" width="672" />
 
-An easier way is to use `arima.sim()` to dimulate the data.
+An easier way is to use `arima.sim()` to simulate the data.
 
 :::
 

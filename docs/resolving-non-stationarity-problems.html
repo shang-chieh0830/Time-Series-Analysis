@@ -520,7 +520,7 @@ Notice that <span class="math inline">\(x_t\)</span> moved back one-time period 
 <p><img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="resolving-non-stationarity-problems.html#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(<span class="at">x=</span><span class="fu">diff</span>(<span class="at">x=</span>X, <span class="at">lag=</span><span class="dv">1</span>, <span class="at">differences =</span> <span class="dv">1</span>), <span class="at">type=</span><span class="st">&quot;correlation&quot;</span>, <span class="at">main=</span><span class="st">&quot;Plot of the ACF&quot;</span>)</span></code></pre></div>
 <p><img src="07-Resolvin-non-stationarity_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
-<p>An easier way is to use <code>arima.sim()</code> to dimulate the data.</p>
+<p>An easier way is to use <code>arima.sim()</code> to simulate the data.</p>
 </div>
 </div>
 <div id="fractional-differencing" class="section level2 hasAnchor" number="8.3">
